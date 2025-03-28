@@ -1,39 +1,28 @@
-import { NavLink } from "react-router-dom";
-import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
+import { useSelector, useDispatch } from "react-redux"; // Import useSelector and useDispatch
+import { useEffect } from "react";
+import { thunkAuthenticate } from "../../redux/session";  // Make sure to import your action
+import NavNUser from "./NavNUser/NavNUser";
+import NavUser from "./NavUser/NavUser"
 
-function Navigation() {
+
+export default function Navigation() {
+  const dispatch = useDispatch();  // To dispatch actions
+    const user = useSelector(state => state.session.user);  // Access the user from Redux state
+  
+    useEffect(() => {
+      // Dispatch the authenticate action only once when the component mounts
+      dispatch(thunkAuthenticate());
+    }, [dispatch]);  // Empty dependency array to ensure it's run only once
+
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Shutr</NavLink>
-      </li>
-
-      <li>
-        <NavLink to="/features">Features</NavLink>
-      </li>
-
-      <li>
-        <NavLink to="/shutrpro">ShutrPro</NavLink>
-      </li>
-
-      <li>
-        <NavLink to="/theapps">The Apps</NavLink>
-      </li>
-
-      <li>
-        <NavLink to="/community">Community</NavLink>
-      </li>
-
-      <li>
-        <NavLink to="/company">Company</NavLink>
-      </li>
-
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
+    <div>
+      {user ? (
+        <NavUser />
+      ) : (
+        <NavNUser />
+      )}
+    </div>
   );
 }
 
-export default Navigation;

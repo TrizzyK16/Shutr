@@ -8,6 +8,11 @@ import ShutrProPage from '../components/ShutrProPage/ShutrProPage';
 import TheAppsPage from '../components/TheAppsPage/TheAppsPage';
 import CommunityPage from '../components/CommunityPage/CommunityPage';
 import CompanyPage from '../components/CompanyPage/CompanyPage';
+import YouPage from '../components/YouPage/YouPage';
+import ExplorePage from "../components/ExplorePage/ExplorePage"
+import PrintsPage from '../components/PrintsPage/PrintsPage';
+import GetProPage from '../components/GetProPage/GetProPage';
+import UploadPage from '../components/UploadPage/UploadPage';
 
 export const router = createBrowserRouter([
   {
@@ -30,11 +35,11 @@ export const router = createBrowserRouter([
         element: <FeaturesPage />,
       },
       {
-        path: "/shutrpro",
+        path: "/shutr-pro",
         element: <ShutrProPage />,
       },
       {
-        path: "/theapps",
+        path: "/the-apps",
         element: <TheAppsPage />,
       },
       {
@@ -44,6 +49,34 @@ export const router = createBrowserRouter([
       {
         path: "/company",
         element: <CompanyPage />,
+      },
+      {
+        path: "/login",
+        element: <LoginFormPage />,
+      },
+      {
+        path: "/signup",
+        element: <SignupFormPage />,
+      },
+      {
+        path: "/you",
+        element: <YouPage />,
+      },
+      {
+        path: "/explore",
+        element: <ExplorePage />,
+      },
+      {
+        path: "/prints",
+        element: <PrintsPage />,
+      },
+      {
+        path: "/get-pro",
+        element: <GetProPage />,
+      },
+      {
+        path: "/upload",
+        element: <UploadPage />,
       },
 
     ],
