@@ -9,6 +9,15 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .seeds import seed_commands
 from .config import Config
+from .api.photo_routes import photo_routes
+
+def create_app():
+    app = Flask(__name__)
+    # ...
+    app.register_blueprint(photo_routes)
+    # ...
+    return app
+
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 

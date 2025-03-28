@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from .photo import Photo  # import Photo if needed
 
 
 class User(db.Model, UserMixin):
@@ -13,6 +14,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    photos = db.relationship("Photo", back_populates="user", cascade="all, delete-orphan")
 
     @property
     def password(self):
