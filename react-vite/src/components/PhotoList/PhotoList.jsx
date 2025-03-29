@@ -1,8 +1,7 @@
 // src/components/PhotoList/PhotoList.jsx
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPhotos } from '../../redux/photos';
-import { deletePhoto } from '../../redux/photos';
 
 function PhotoList() {
   const dispatch = useDispatch();

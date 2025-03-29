@@ -1,5 +1,5 @@
 // src/components/PhotoForm/PhotoForm.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createPhoto, updatePhoto } from '../../redux/photos';
 

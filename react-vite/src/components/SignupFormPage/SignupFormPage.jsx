@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
+import "./SignupForm.css";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -41,53 +42,79 @@ function SignupFormPage() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+    <div className="signup-form-container">
+      <div className="signup-header">
+        <h1>Join the Shutr community</h1>
+        <p>Share your photos with millions of photographers worldwide</p>
+      </div>
+      
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
+        {errors.server && <div className="error-message server-error">{errors.server}</div>}
+        
+        <div className="signup-form-group">
+          <label htmlFor="email">Email</label>
           <input
-            type="text"
+            id="email"
+            className={errors.email ? 'input-error' : ''}
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="Enter your email address"
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
+          {errors.email && <div className="error-message">{errors.email}</div>}
+        </div>
+        <div className="signup-form-group">
+          <label htmlFor="username">Username</label>
           <input
+            id="username"
+            className={errors.username ? 'input-error' : ''}
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            placeholder="Choose a username"
           />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          Password
+          {errors.username && <div className="error-message">{errors.username}</div>}
+        </div>
+        
+        <div className="signup-form-group">
+          <label htmlFor="password">Password</label>
           <input
+            id="password"
+            className={errors.password ? 'input-error' : ''}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Create a password"
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
+          {errors.password && <div className="error-message">{errors.password}</div>}
+        </div>
+        
+        <div className="signup-form-group">
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
+            id="confirmPassword"
+            className={errors.confirmPassword ? 'input-error' : ''}
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            placeholder="Confirm your password"
           />
-        </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+          {errors.confirmPassword && <div className="error-message">{errors.confirmPassword}</div>}
+        </div>
+        
+        <div className="signup-form-actions">
+          <button className="signup-submit-button" type="submit">Create Account</button>
+        </div>
+        
+        <div className="signup-form-footer">
+          <p>Already have an account? <a href="/login" className="text-button">Sign in</a></p>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

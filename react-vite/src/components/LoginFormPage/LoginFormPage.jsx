@@ -32,34 +32,52 @@ function LoginFormPage() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
+    <div className="login-form-container">
+      <div className="login-header">
+        <h1>Welcome back to Shutr</h1>
+        <p>Sign in to access your photos, groups, and more</p>
+      </div>
+      
       <form onSubmit={handleSubmit}>
-        <label>
-          Email
+        {errors.server && <div className="error-message server-error">{errors.server}</div>}
+        
+        <div className="login-form-group">
+          <label htmlFor="email">Email</label>
           <input
-            type="text"
+            id="email"
+            className={errors.email ? 'input-error' : ''}
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            placeholder="Enter your email address"
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
+          {errors.email && <div className="error-message">{errors.email}</div>}
+        </div>
+        
+        <div className="login-form-group">
+          <label htmlFor="password">Password</label>
           <input
+            id="password"
+            className={errors.password ? 'input-error' : ''}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Enter your password"
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+          {errors.password && <div className="error-message">{errors.password}</div>}
+        </div>
+        
+        <div className="login-form-actions">
+          <button className="login-submit-button" type="submit">Sign In</button>
+        </div>
+        
+        <div className="login-form-footer">
+          <p>Don't have an account? <a href="/signup" className="text-button">Sign up</a></p>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

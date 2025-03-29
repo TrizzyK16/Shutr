@@ -1,5 +1,4 @@
 // src/components/PhotoList/DeletePhotoButton.jsx
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deletePhoto } from '../../redux/photos';
 

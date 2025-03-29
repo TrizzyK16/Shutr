@@ -1,0 +1,130 @@
+/* Flickr-inspired modal styling */
+
+/* Modal overlay */
+#modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal background */
+#modal-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Modal content container */
+#modal-content {
+  position: relative;
+  background-color: var(--background);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 1001;
+  animation: modal-appear 0.3s ease;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Modal close button */
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: var(--font-size-xl);
+  line-height: 1;
+  padding: var(--spacing-xs);
+  transition: color var(--transition-fast);
+}
+
+.modal-close:hover {
+  color: var(--text-primary);
+}
+
+/* Modal body */
+.modal-body {
+  padding: var(--spacing-lg);
+}
+
+/* Modal footer */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Modal sizes */
+.modal-sm #modal-content {
+  width: 400px;
+}
+
+.modal-md #modal-content {
+  width: 600px;
+}
+
+.modal-lg #modal-content {
+  width: 800px;
+}
+
+/* Modal types */
+.modal-alert .modal-body {
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.modal-alert .modal-icon {
+  font-size: 48px;
+  margin-bottom: var(--spacing-md);
+}
+
+.modal-alert.success .modal-icon {
+  color: var(--success);
+}
+
+.modal-alert.warning .modal-icon {
+  color: var(--warning);
+}
+
+.modal-alert.error .modal-icon {
+  color: var(--error);
+}

@@ -1,0 +1,372 @@
+/* CompanyPage.css */
+
+/* Main container */
+.company-page {
+  font-family: var(--font-family);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* Hero section */
+.company-hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://picsum.photos/id/1039/1200/400');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 6rem 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.company-hero__content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.company-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.company-hero p {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+/* Section styling */
+.company-section {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.company-section__header {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.company-section__header h2 {
+  font-size: 1.75rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.company-section__header h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+.company-section__link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.company-section__link:hover {
+  color: var(--primary-color-dark);
+  text-decoration: underline;
+}
+
+/* Mission section */
+.company-mission__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.company-mission__text p {
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.company-mission__image img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+}
+
+/* Values section */
+.company-values__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.company-value-card {
+  background-color: var(--background-light);
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.company-value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.company-value-card__icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.company-value-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+/* Team section */
+.company-team__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.company-team-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.company-team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.company-team-card__image {
+  height: 280px;
+  overflow: hidden;
+}
+
+.company-team-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.company-team-card:hover .company-team-card__image img {
+  transform: scale(1.05);
+}
+
+.company-team-card__content {
+  padding: 1.5rem;
+}
+
+.company-team-card__content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+.company-team-card__content h4 {
+  color: var(--primary-color);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.company-team-card__content p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Press section */
+.company-press__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.company-press-card {
+  background-color: var(--background-light);
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.company-press-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.company-press-card__date {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.company-press-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.company-press-card p {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.company-press-card__link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  display: inline-block;
+  transition: color 0.2s;
+}
+
+.company-press-card__link:hover {
+  color: var(--primary-color-dark);
+  text-decoration: underline;
+}
+
+/* Careers section */
+.company-careers {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/id/1071/1200/400');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.company-careers__content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.company-careers h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.company-careers p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+/* Company careers button specific styles */
+.company-careers .form-button {
+  margin-top: 0.5rem;
+}
+
+/* Contact section */
+.company-contact__content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.company-contact__info {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.company-contact__item h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.company-contact__item p {
+  font-size: 1rem;
+}
+
+.company-contact__social h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.company-contact__social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.company-contact__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.company-contact__social-link:hover {
+  background-color: var(--primary-color-dark);
+  transform: translateY(-3px);
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .company-mission__content {
+    grid-template-columns: 1fr;
+  }
+  
+  .company-contact__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .company-hero {
+    padding: 4rem 1.5rem;
+  }
+  
+  .company-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .company-section {
+    padding: 2rem 1.5rem;
+  }
+  
+  .company-team__grid,
+  .company-press__list,
+  .company-values__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .company-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .company-hero p {
+    font-size: 1rem;
+  }
+  
+  .company-section__header h2 {
+    font-size: 1.5rem;
+  }
+}

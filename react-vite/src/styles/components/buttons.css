@@ -1,0 +1,155 @@
+/* Global Button Styles - Flickr-inspired */
+
+/* Base button styles */
+.form-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-main);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  line-height: 1.2;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Primary button */
+.form-button {
+  background-color: var(--primary);
+  color: var(--text-light);
+}
+
+.form-button:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.form-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+  background-color: var(--primary-dark);
+}
+
+/* Secondary button */
+.form-button.secondary {
+  background-color: var(--secondary);
+  color: var(--text-light);
+}
+
+.form-button.secondary:hover {
+  background-color: var(--secondary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.form-button.secondary:active {
+  background-color: var(--secondary-dark);
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Text button */
+.form-button.text {
+  background-color: transparent;
+  color: var(--primary);
+  padding: 0.5rem 0.75rem;
+  box-shadow: none;
+  border-bottom: 2px solid transparent;
+}
+
+.form-button.text:hover {
+  background-color: var(--hover-overlay);
+  color: var(--primary-dark);
+  border-bottom: 2px solid var(--primary);
+  transform: none;
+  box-shadow: none;
+}
+
+.form-button.text:active {
+  background-color: var(--hover-overlay);
+  color: var(--primary-dark);
+}
+
+/* Outline button */
+.form-button.outline {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  box-shadow: none;
+}
+
+.form-button.outline:hover {
+  background-color: rgba(0, 99, 220, 0.05);
+  color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.form-button.outline:active {
+  transform: translateY(0);
+}
+
+/* Button sizes */
+.form-button.small {
+  padding: 0.4rem 0.8rem;
+  font-size: var(--font-size-sm);
+}
+
+.form-button.large {
+  padding: 1rem 2rem;
+  font-size: var(--font-size-lg);
+}
+
+/* Button with icon */
+.form-button i, 
+.form-button svg {
+  margin-right: 0.5rem;
+}
+
+.form-button.icon-only {
+  padding: 0.75rem;
+  border-radius: var(--radius-circle);
+}
+
+.form-button.icon-only i,
+.form-button.icon-only svg {
+  margin-right: 0;
+}
+
+/* Disabled state */
+.form-button:disabled,
+.form-button.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Full width button */
+.form-button.full-width {
+  width: 100%;
+  display: block;
+}
+
+/* Special buttons for specific sections */
+.community-cta .form-button,
+.hero-section .form-button.inverse {
+  background-color: var(--text-light);
+  color: var(--primary);
+}
+
+.community-cta .form-button:hover,
+.hero-section .form-button.inverse:hover {
+  background-color: var(--background-alt);
+  color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}

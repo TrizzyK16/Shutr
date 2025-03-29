@@ -1,1 +1,51 @@
-/* TODO: Add sitewide styles */
+/* Global Styles for Shutr Application */
+
+/* Base styles */
+@import './styles/base/reset.css';
+@import './styles/base/variables.css';
+@import './styles/base/typography.css';
+@import './styles/base/utlities.css';
+
+/* Layout styles */
+@import './styles/layouts/containers.css';
+@import './styles/layouts/grid.css';
+
+/* Component styles */
+@import './styles/components/buttons.css';
+@import './styles/components/forms.css';
+@import './styles/components/modals.css';
+
+/* Global styles */
+body {
+  font-family: var(--font-main);
+  color: var(--text-primary);
+  background-color: var(--background-alt);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Fix for button and form elements in Firefox */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+/* Container for page content */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}

@@ -16,12 +16,12 @@ class Photo(db.Model):
     # Relationship to the User model
     user = db.relationship("User", back_populates="photos")
 
-def to_dict(self):
-    return {
-        "id": self.id,
-        "user_id": self.user_id,
-        "image_url": self.image_url,
-        "caption": self.caption,
-        "created_at": self.created_at.isoformat(),
-        "updated_at": self.updated_at.isoformat(),
-    }    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "image_url": self.image_url,
+            "caption": self.caption,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
+        }    
