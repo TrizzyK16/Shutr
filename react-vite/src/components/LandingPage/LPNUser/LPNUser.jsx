@@ -1,9 +1,14 @@
 import "./LPNUser.css"
 import FooterNUser from "../../FooterNUser/FooterNUser"
+<<<<<<< HEAD
 import { Link } from "react-router-dom"
+=======
+import { NavLink } from "react-router-dom"
+>>>>>>> main
 
 export default function LPNUser() {
     return (
+<<<<<<< HEAD
         <div className="landing-page">
             {/* Hero section */}
             <section className="hero-section">
@@ -14,6 +19,19 @@ export default function LPNUser() {
                         <Link to="/signup" className="form-button large">Start for free</Link>
                         <Link to="/login" className="form-button outline large">Sign in</Link>
                     </div>
+=======
+        <div className="lpnuser">
+            <div className="lpnu-div1">
+                <h1 className="lpnu-div1-header">The ultimate online destination for photographers</h1>
+                <div className="lpnu-div1-image1">
+                    <img src="https://picsum.photos/800/600?random=1" />
+                </div>
+                <div className="lpnu-div1-signup-button">
+                    <NavLink  to="/signup">Join For Free</NavLink>
+                </div>
+                <div className="lpnu-div1-image2">
+                    <img src="https://picsum.photos/800/600?random=2" />
+>>>>>>> main
                 </div>
                 <div className="hero-gallery">
                     <div className="gallery-row">
@@ -29,6 +47,7 @@ export default function LPNUser() {
                 </div>
             </section>
 
+<<<<<<< HEAD
             {/* Features section */}
             <section className="features-section">
                 <div className="section-header">
@@ -63,6 +82,21 @@ export default function LPNUser() {
                         </div>
                         <h3>Grow your audience</h3>
                         <p>Get discovered by millions of people looking for compelling photography content every day.</p>
+=======
+            <div className="lpnu-div2">
+                <div className="lpnu-div2-top">
+                    <h1>Welcome to the premier online space for photographers</h1>
+                </div>
+                <div className="lpnu-bottom">
+                    <div className="lpnu-div2-image1">
+                        <img src="https://picsum.photos/800/600?random=3" />
+                    </div>
+                    <h2 className="lpnu-div2-text">Become a part of a vibrant community of photographers, 
+                        where you can share your work, connect with fellow creators, 
+                        and learn new skills to grow your craft</h2>
+                    <div className="lpnu-community-link">
+                        <NavLink to="/community">Check Out Your New Community</NavLink>
+>>>>>>> main
                     </div>
                 </div>
             </section>
@@ -137,6 +171,10 @@ export default function LPNUser() {
             <div className="footer">
                 <FooterNUser />
             </div>
+<<<<<<< HEAD
+=======
+            
+>>>>>>> main
         </div>
     )
 }

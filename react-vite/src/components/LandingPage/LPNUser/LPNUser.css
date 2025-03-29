@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Landing Page Styles */
 .landing-page {
   font-family: var(--font-main);
@@ -345,3 +346,124 @@
     font-size: 2.5rem;
   }
 }
+=======
+/* overall styling */
+.lpnuser{
+    background-color: rgba(217,215,206,255);
+    z-index: 1;
+    position: relative;
+}
+
+/* DIV 1 styling */
+.lpnu-div1 {
+    /* border: 1px solid black; */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-areas: 
+        "lpnu-div1-header lpnu-div1-header lpnu-div1-header lpnu-div1-image1 lpnu-div1-image1"
+        "lpnu-div1-header lpnu-div1-header lpnu-div1-header lpnu-div1-image1 lpnu-div1-image1"
+        ". . lpnu-div1-image2 lpnu-div1-image2 lpnu-div1-image2"
+        ". . lpnu-div1-image2 lpnu-div1-image2 lpnu-div1-image2"
+        "lpnu-div1-signup-button lpnu-div1-signup-button . . .";
+    height: 70vh;
+}
+
+
+.lpnu-div1-header{
+    grid-area: lpnu-div1-header;
+    font-size: 13vh;
+    padding-left: 2vh;
+}
+
+.lpnu-div1-image1{
+    grid-area: lpnu-div1-image1;
+}
+
+.lpnu-div1-image1 img{
+    border: 1px solid black;
+    box-shadow: 0vh 0vh 0.5vh;
+}
+
+.lpnu-div1-image2 img{
+    border: 1px solid black;
+    box-shadow: 0vh 0vh 0.5vh;
+}
+
+.lpnu-div1-image2{
+    grid-area: lpnu-div1-image2;
+}
+
+
+
+.lpnu-div1-signup-button{
+    grid-area: lpnu-div1-signup-button;
+    display: flex;
+    justify-content: center;
+    align-items:start
+}
+
+.lpnu-div1-signup-button a{
+    padding: 1.5vh;
+    border-radius: 1vh;
+    background-color: rgb(255, 4, 132);
+    font-size: 3vh;
+    color: white;
+    text-decoration: none;
+    margin-top: 3vh;
+}
+
+
+/*DIV 2 Styling*/
+.lpnu-div2-top{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.lpnu-div2-top h1{
+    font-size: 5vh;
+    text-align: center;
+    padding-right: 25vh;
+    
+}
+
+.lpnu-bottom{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    "lpnu-div2-image1 lpnu-div2-text"
+    "lpnu-div2-image1 lpnu-div2-text"
+    "lpnu-div2-image1 lpnu-community-link";
+    align-items: center;
+}
+
+.lpnu-div2-image1{
+    grid-area: lpnu-div2-image1;
+}
+
+.lpnu-div2-text{
+    text-align: center;
+    font-size: 5vh;
+    text-decoration: none;
+    grid-area: lpnu-div2-text;
+    padding-right: 5vh;
+    margin-top: 30vh;
+}
+
+.lpnu-community-link{
+    grid-area: lpnu-community-link;
+    margin-bottom: 10vh;
+    display: flex;
+    justify-content: center;
+}
+
+.lpnu-community-link a {
+    padding: 1.5vh;
+    border-radius: 1vh;
+    background-color: rgb(255, 4, 132);
+    font-size: 3vh;
+    color: white;
+    text-decoration: none;
+}
+>>>>>>> main

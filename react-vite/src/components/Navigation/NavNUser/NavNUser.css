@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Navigation styles for non-logged-in users */
 .nav-container {
   display: flex;
@@ -77,4 +78,104 @@ li:nth-last-child(2) a {
 
 .profile-button-container button:hover {
   color: #0052b3;
+=======
+
+/*main navbar styling */
+.nuser-navbar{
+    /* border: 1px solid black; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 2fr;
+    height: 10vh;
+    align-items: center;
+    background-color: rgba(217,215,206,255);
+    box-shadow: 0vh 0.5vh 1vh rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    position: relative;
+}
+
+.logo-link-navbar, .link-navbar{
+    /* border: 1px solid black; */
+    display: grid;
+    justify-content: start;
+}
+
+/*logo navbar styling */
+.logo-link-navbar{
+    display: flex;
+    align-items: center;
+    font-size: 7vh;
+    padding-right: 5vh;
+    text-decoration: none;
+    max-height: 10vh;
+}
+
+.icon-logo-navbar{
+    width: 10vh;
+    height: 10vh;
+    padding-top: 2vh;
+}
+
+.logo-link-navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/*link styling */
+.link-navbar{
+    max-height: 10vh;
+    font-size: 3vh;
+    padding-left: 2vh;
+    padding-top: 1vh;
+}
+
+.link-navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+/*login-signup styling */
+.login-signup-navbar{
+    /* border: 1px solid black; */
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.login-navbar, .signup-navbar{
+    display: flex;
+    justify-content: end;
+}
+
+.login-signup-navbar{
+    font-size: 3vh;
+}
+
+.login-navbar{
+    /* border: 1px solid black; */
+    display: grid;
+    align-content: center;
+    font-weight: 800;
+}
+
+/* .login-navbar a {
+    border: 1px solid black;
+} */
+
+.signup-navbar{
+    /* border: 1px solid black; */
+    padding-right: 5vh;
+    color: white;
+}
+.signup-navbar a{
+    /* border: 1px solid black; */
+    padding: 1vh 1vh;
+    border-radius: 1vh;
+    background-color: rgb(255, 4, 132);
+
+}
+
+.login-signup-navbar a {
+    text-decoration: none;
+    color: inherit;
+>>>>>>> main
 }
