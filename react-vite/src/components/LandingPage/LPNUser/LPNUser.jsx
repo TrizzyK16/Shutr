@@ -1,40 +1,37 @@
 import "./LPNUser.css"
 import "../../FooterNUser/FooterNUser"
 import FooterNUser from "../../FooterNUser/FooterNUser"
+import { NavLink } from "react-router-dom"
 
 export default function LPNUser(){
     return (
-        <>
-            <div className="div1">
-                <div className="div1-header">
-                    <h1>The ultimate online destination for photographers.</h1>
-                </div>
-                <div className="div1-text">
-                    <h2>div1-text</h2>
-                </div>
-                <div className="div1-images">
-                    <div>
+        <div className="lpnuser">
+            <div className="lpnu-div1">
+                <h1 className="lpnu-div1-header">The ultimate online destination for photographers</h1>
+                <div className="lpnu-div1-image1">
                     <img src="https://picsum.photos/800/600?random=1" />
-                    </div>
-                    <div>
+                </div>
+                <div className="lpnu-div1-signup-button">
+                    <NavLink  to="/signup">Join For Free</NavLink>
+                </div>
+                <div className="lpnu-div1-image2">
                     <img src="https://picsum.photos/800/600?random=2" />
-                    </div>
                 </div>
             </div>
 
-            <div className="div2">
-                <div className="div1-header">
-                    <h1>div2-header</h1>
+            <div className="lpnu-div2">
+                <div className="lpnu-div2-top">
+                    <h1>Welcome to the premier online space for photographers</h1>
                 </div>
-                <div className="div1-text">
-                    <h2>div2-text</h2>
-                </div>
-                <div className="div2-images">
-                    <div>
-                    <img src="https://picsum.photos/800/600?random=3" />
+                <div className="lpnu-bottom">
+                    <div className="lpnu-div2-image1">
+                        <img src="https://picsum.photos/800/600?random=3" />
                     </div>
-                    <div>
-                    <img src="https://picsum.photos/800/600?random=4" />
+                    <h2 className="lpnu-div2-text">Become a part of a vibrant community of photographers, 
+                        where you can share your work, connect with fellow creators, 
+                        and learn new skills to grow your craft</h2>
+                    <div className="lpnu-community-link">
+                        <NavLink to="/community">Check Out Your New Community</NavLink>
                     </div>
                 </div>
             </div>
@@ -94,6 +91,6 @@ export default function LPNUser(){
                 <FooterNUser />
             </div>
             
-        </>
+        </div>
     )
 }

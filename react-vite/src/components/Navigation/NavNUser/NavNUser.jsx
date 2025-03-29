@@ -3,39 +3,44 @@ import { NavLink} from "react-router-dom"
 
 export default function NavNUser(){
     return (
-        <ul>
-            <li>
-                <NavLink to="/">Shutr</NavLink>
-            </li>
+        <div className="nuser-navbar">
+            <div className="logo-link-navbar">
+                <NavLink to="/">
+                    <img src="/shutr-logo-nbg.png" alt="logo" className="icon-logo-navbar" />
+                </NavLink>
+                <NavLink to="/">shutr</NavLink>
+            </div>
 
-            <li>
+            <div className="link-navbar">
                 <NavLink to="/features">Features</NavLink>
-            </li>
+            </div>
 
-            <li>
+            <div className="link-navbar">
                 <NavLink to="/shutr-pro">ShutrPro</NavLink>
-            </li>
+            </div>
 
-            <li>
+            <div className="link-navbar">
                 <NavLink to="/the-apps">The Apps</NavLink>
-            </li>
+            </div>
 
-            <li>
+            <div className="link-navbar">
                 <NavLink to="/community">Community</NavLink>
-            </li>
+            </div>
 
-            <li>
+            <div className="link-navbar">
                 <NavLink to="/company">Company</NavLink>
-            </li>
+            </div>
 
-            <li>
-                <NavLink to="/login">Login</NavLink>
-            </li>
+            <div className="login-signup-navbar">
+                <div className="login-navbar">
+                    <NavLink to="/login">Login</NavLink>
+                </div>
 
-            <li>
-                <NavLink to="/signup">Signup</NavLink>
-            </li>
+                <div className="signup-navbar">
+                    <NavLink to="/signup">Signup</NavLink>
+                </div>
+            </div>
             
-        </ul>
+        </div>
     )
 }
