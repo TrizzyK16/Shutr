@@ -6,7 +6,6 @@ import "./NavUser.css";
 
 export default function NavUser() {
     const [showModal, setShowModal] = useState(false);
-
     return (
         <nav className="user-nav-container">
             <div className="user-nav-left">

@@ -1,4 +1,5 @@
 import { useState, useContext, createContext } from 'react';
+import { FaTimes } from 'react-icons/fa';
 import './Modal.css';
 
 const ModalContext = createContext();
@@ -30,6 +31,9 @@ export function ModalProvider({ children }) {
           <div id="modal">
             <div id="modal-background" onClick={closeModal} />
             <div id="modal-content">
+              <button className="modal-close-button" onClick={closeModal}>
+                <FaTimes />
+              </button>
               {modalContent}
             </div>
           </div>

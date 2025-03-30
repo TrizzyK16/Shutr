@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./CommunityPage.css";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import SignupFormModal from "../SignupFormModal/SignupFormModal";
 
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState("groups");
@@ -235,7 +237,11 @@ export default function CommunityPage() {
         <div className="community-cta__content">
           <h2>Share Your Photography Journey</h2>
           <p>Join millions of photographers on Shutr to share your work, learn new techniques, and connect with like-minded creatives.</p>
-          <button className="form-button">Join Shutr Today</button>
+          <OpenModalButton
+            modalComponent={<SignupFormModal />}
+            buttonText="Join Shutr Today"
+            className="form-button"
+          />
         </div>
       </div>
     </div>

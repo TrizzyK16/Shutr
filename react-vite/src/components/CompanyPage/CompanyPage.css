@@ -164,6 +164,13 @@
   transition: transform 0.5s;
 }
 
+/* Special styling for Ed Sheeran's image */
+.ed-sheeran-image img {
+  object-fit: contain;
+  background-color: #f8f8f8;
+  padding: 10px;
+}
+
 .company-team-card:hover .company-team-card__image img {
   transform: scale(1.05);
 }

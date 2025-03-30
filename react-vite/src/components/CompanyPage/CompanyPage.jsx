@@ -30,6 +30,13 @@ export default function CompanyPage() {
       role: "Head of Community",
       bio: "Dmitri is dedicated to fostering a vibrant and supportive community of photographers on Shutr.",
       image: "https://picsum.photos/id/1074/300/300"
+    },
+    {
+      id: 5,
+      name: "Ed Sheeran",
+      role: "Chief Hearthrob Officer",
+      bio: "Ed joined Shutr to capture perfect shots, but mostly captures hearts. Our instructor can't stop talking about him, and we can't blame him either.",
+      image: "/dreamstimewatermarked_87836996.jpg"
     }
   ];
 
@@ -134,7 +141,7 @@ export default function CompanyPage() {
         <div className="company-team__grid">
           {teamMembers.map(member => (
             <div key={member.id} className="company-team-card">
-              <div className="company-team-card__image">
+              <div className={`company-team-card__image ${member.name === "Ed Sheeran" ? "ed-sheeran-image" : ""}`}>
                 <img src={member.image} alt={member.name} />
               </div>
               <div className="company-team-card__content">

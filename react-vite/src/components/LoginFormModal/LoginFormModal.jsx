@@ -69,7 +69,7 @@ function LoginFormModal() {
         </div>
         
         <div className="login-form-footer">
-          <p>Don't have an account? <button type="button" className="text-button" onClick={() => {
+          <p>Don&apos;t have an account? <button type="button" className="text-button" onClick={() => {
             closeModal();
             // Open signup modal - this would need to be implemented
           }}>Sign up</button></p>
