@@ -13,6 +13,7 @@ import ExplorePage from "../components/ExplorePage/ExplorePage";
 import PrintsPage from '../components/PrintsPage/PrintsPage';
 import GetProPage from '../components/GetProPage/GetProPage';
 import UploadPage from '../components/UploadPage/UploadPage';
+import PhotosPage from '../components/PhotosPage/PhotosPage';
 
 export const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
       {
         path: "/upload",
         element: <UploadPage />,
+      },
+      {
+        path: "/photos",
+        element: <PhotosPage />,
       },
     ],
   },

@@ -27,6 +27,10 @@ export default function NavNUser(){
                 </li>
 
                 <li>
+                    <NavLink to="/photos">Photos</NavLink>
+                </li>
+
+                <li>
                     <NavLink to="/company">Company</NavLink>
                 </li>
 

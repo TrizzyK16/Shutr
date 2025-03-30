@@ -1,0 +1,132 @@
+/* UploadPage.css */
+
+.upload-page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: var(--font-main);
+}
+
+.upload-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.upload-header h1 {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.upload-header p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.upload-form-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.upload-tips {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.upload-tips h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.upload-tips ul {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.upload-tips li {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.view-photos-link {
+  display: inline-block;
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.view-photos-link:hover {
+  text-decoration: underline;
+}
+
+/* Login required styles */
+.login-required {
+  text-align: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 3rem 2rem;
+}
+
+.login-required h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.login-required p {
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.login-button,
+.signup-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.login-button {
+  background-color: var(--primary);
+  color: white;
+}
+
+.login-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.signup-button {
+  background-color: white;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.signup-button:hover {
+  background-color: #f0f7ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .upload-form-container,
+  .login-required {
+    padding: 1.5rem;
+  }
+  
+  .upload-header h1 {
+    font-size: 2rem;
+  }
+}
