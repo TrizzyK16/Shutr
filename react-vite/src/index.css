@@ -1,14 +1,11 @@
 /* Global Styles for Shutr Application */
 
 /* Base styles */
-@import './styles/base/reset.css';
+
 @import './styles/base/variables.css';
-@import './styles/base/typography.css';
-@import './styles/base/utlities.css';
 
 /* Layout styles */
-@import './styles/layouts/containers.css';
-@import './styles/layouts/grid.css';
+
 
 /* Component styles */
 @import './styles/components/buttons.css';
