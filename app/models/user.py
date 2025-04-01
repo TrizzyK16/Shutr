@@ -31,5 +31,6 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'photos': [photo.to_dict() for photo in self.photos] if self.photos else []
         }
