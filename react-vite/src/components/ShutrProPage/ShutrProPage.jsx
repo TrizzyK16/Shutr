@@ -194,7 +194,7 @@ export default function ShutrProPage() {
           <div className="pro-testimonials">
             <div className="pro-testimonial">
               <div className="pro-testimonial__content">
-                <p>"Upgrading to Shutr Pro was the best decision for my photography business. The advanced analytics help me understand what my audience loves, and the business tools have streamlined my client workflow."</p>
+                <p>&quot;Upgrading to Shutr Pro was the best decision for my photography business. The advanced analytics help me understand what my audience loves, and the business tools have streamlined my client workflow.&quot;</p>
               </div>
               <div className="pro-testimonial__author">
                 <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" />
@@ -207,7 +207,7 @@ export default function ShutrProPage() {
 
             <div className="pro-testimonial">
               <div className="pro-testimonial__content">
-                <p>"The unlimited storage alone is worth the price. I no longer have to worry about compressing my images or running out of space. Plus, the editing tools are fantastic for quick adjustments on the go."</p>
+                <p>&quot;The unlimited storage alone is worth the price. I no longer have to worry about compressing my images or running out of space. Plus, the editing tools are fantastic for quick adjustments on the go.&quot;</p>
               </div>
               <div className="pro-testimonial__author">
                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" />
@@ -220,7 +220,7 @@ export default function ShutrProPage() {
 
             <div className="pro-testimonial">
               <div className="pro-testimonial__content">
-                <p>"As someone who's been using Shutr for years, the Pro upgrade was a game-changer. The ad-free experience and priority support make everything so much smoother. Definitely worth every penny!"</p>
+                <p>&quot;As someone who&apos;s been using Shutr for years, the Pro upgrade was a game-changer. The ad-free experience and priority support make everything so much smoother. Definitely worth every penny!&quot;</p>
               </div>
               <div className="pro-testimonial__author">
                 <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma Rodriguez" />
@@ -239,12 +239,12 @@ export default function ShutrProPage() {
           <div className="pro-faq">
             <div className="pro-faq-item">
               <h3>Can I cancel my subscription anytime?</h3>
-              <p>Yes, you can cancel your Shutr Pro subscription at any time. If you cancel, you'll continue to have access to Pro features until the end of your billing period.</p>
+              <p>Yes, you can cancel your Shutr Pro subscription at any time. If you cancel, you&apos;ll continue to have access to Pro features until the end of your billing period.</p>
             </div>
 
             <div className="pro-faq-item">
               <h3>What happens to my photos if I downgrade from Pro?</h3>
-              <p>Your photos will remain on Shutr, but you'll be limited to the free tier's storage limit. If you exceed this limit, you won't be able to upload new photos until you're under the limit again, but no photos will be deleted.</p>
+              <p>Your photos will remain on Shutr, but you&apos;ll be limited to the free tier&apos;s storage limit. If you exceed this limit, you won&apos;t be able to upload new photos until you&apos;re under the limit again, but no photos will be deleted.</p>
             </div>
 
             <div className="pro-faq-item">
@@ -254,7 +254,7 @@ export default function ShutrProPage() {
 
             <div className="pro-faq-item">
               <h3>Can I switch between monthly and annual plans?</h3>
-              <p>Yes, you can switch between plans at any time. If you switch from monthly to annual, you'll immediately be billed for the annual plan and receive the discount. If you switch from annual to monthly, the change will take effect at your next renewal date.</p>
+              <p>Yes, you can switch between plans at any time. If you switch from monthly to annual, you&apos;ll immediately be billed for the annual plan and receive the discount. If you switch from annual to monthly, the change will take effect at your next renewal date.</p>
             </div>
           </div>
         </section>
