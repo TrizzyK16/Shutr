@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import "./CommunityPage.css";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import SignupFormModal from "../SignupFormModal/SignupFormModal";
+import JoinGroupModal from "../JoinGroupModal/JoinGroupModal";
+import RSVPEventModal from "../RSVPEventModal/RSVPEventModal";
 
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState("groups");
+  const sessionUser = useSelector(state => state.session.user);
 
   // Sample data for community groups
   const groups = [
@@ -156,7 +160,11 @@ export default function CommunityPage() {
                       <span>{group.photos} photos</span>
                     </div>
                     <p>{group.description}</p>
-                    <button className="form-button secondary">Join Group</button>
+                    <OpenModalButton
+                      buttonText="Join Group"
+                      modalComponent={<JoinGroupModal group={group} />}
+                      className="form-button secondary"
+                    />
                   </div>
                 </div>
               ))}
@@ -192,7 +200,11 @@ export default function CommunityPage() {
                       </div>
                     </div>
                     <p>{event.description}</p>
-                    <button className="form-button">RSVP</button>
+                    <OpenModalButton
+                      buttonText="RSVP"
+                      modalComponent={<RSVPEventModal event={event} />}
+                      className="form-button"
+                    />
                   </div>
                 </div>
               ))}
