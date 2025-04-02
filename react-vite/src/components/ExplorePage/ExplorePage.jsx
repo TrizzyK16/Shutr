@@ -13,8 +13,8 @@ export default function ExplorePage() {
         <div className="explore-container">
             <div className="explore-content">
                 <h1>Redirecting to Photos...</h1>
-                <p>You're being redirected to our new Photos feature.</p>
-                <p>If you're not redirected automatically, <Link to="/photos">click here</Link>.</p>
+                <p>You are being redirected to our new Photos feature.</p>
+                <p>If you are not redirected automatically, <Link to="/photos">click here</Link>.</p>
                 <div className="loading-spinner"></div>
             </div>
         </div>
