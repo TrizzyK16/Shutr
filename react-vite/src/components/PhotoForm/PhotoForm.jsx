@@ -1,7 +1,7 @@
 // src/components/PhotoForm/PhotoForm.jsx
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createPhoto, updatePhoto } from '../../redux/photos';
+import { createPhoto, updatePhotoThunk } from '../../redux/photos';
 import './PhotoForm.css';
 
 function PhotoForm({ photo = {}, formType, onSuccess }) {
@@ -47,7 +47,7 @@ function PhotoForm({ photo = {}, formType, onSuccess }) {
       if (formType === 'create') {
         result = await dispatch(createPhoto(payload));
       } else if (formType === 'edit') {
-        result = await dispatch(updatePhoto(photo.id, payload));
+        result = await dispatch(updatePhotoThunk(photo.id, payload));
       }
 
       if (result && result.errors) {

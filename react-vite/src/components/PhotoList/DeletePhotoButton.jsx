@@ -1,13 +1,13 @@
 // src/components/PhotoList/DeletePhotoButton.jsx
 import { useDispatch } from 'react-redux';
-import { deletePhoto } from '../../redux/photos';
+import { deletePhotoThunk } from '../../redux/photos';
 import { useModal } from '../../context/Modal';
 
 function ConfirmDeleteModal({ photoId, onClose }) {
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
-    await dispatch(deletePhoto(photoId));
+    await dispatch(deletePhotoThunk(photoId));
     onClose();
   };
 
