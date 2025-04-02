@@ -41,7 +41,7 @@ function PhotoList({ userOnly = false }) {
               <span className="photo-date">{new Date(photo.created_at).toLocaleDateString()}</span>
               {currentUser && currentUser.id === photo.user_id && (
                 <div className="photo-actions">
-                  <Link to={`/photos/${photo.id}/edit`} className="edit-link">Edit</Link>
+                  <Link to={`/photos/${photo.id}/edit`} className="edit-link">Update</Link>
                   <DeletePhotoButton photoId={photo.id} />
                 </div>
               )}

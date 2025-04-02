@@ -8,25 +8,42 @@
 
 /* Hero section */
 .community-hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://picsum.photos/id/1042/1200/400');
-  background-size: cover;
-  background-position: center;
+  background-color: #000000;
   color: white;
   padding: 6rem 2rem;
   text-align: center;
   margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.community-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80') center center;
+  background-size: cover;
+  opacity: 0.3;
+  z-index: 0;
 }
 
 .community-hero__content {
   max-width: 800px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .community-hero__title {
   font-size: 3rem;
   margin-bottom: 1rem;
-  font-weight: 700;
-  color: white;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .community-hero__description {
@@ -34,8 +51,9 @@
   max-width: 800px;
   margin: 0 auto 2rem;
   line-height: 1.6;
-  opacity: 0.9;
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  font-weight: 500;
 }
 
 /* Tabs */

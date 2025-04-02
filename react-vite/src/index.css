@@ -4,7 +4,7 @@
 @import './styles/base/reset.css';
 @import './styles/base/variables.css';
 @import './styles/base/typography.css';
-@import './styles/base/utlities.css';
+@import './styles/base/utilities.css';
 
 /* Layout styles */
 @import './styles/layouts/containers.css';
