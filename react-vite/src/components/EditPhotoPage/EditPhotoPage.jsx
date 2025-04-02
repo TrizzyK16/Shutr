@@ -58,7 +58,7 @@ function EditPhotoPage() {
       <div className="edit-photo-page">
         <div className="not-found-container">
           <h2>Photo Not Found</h2>
-          <p>The photo you're trying to edit doesn't exist or has been removed.</p>
+          <p>The photo you&apos;re trying to edit doesn&apos;t exist or has been removed.</p>
           <button onClick={() => navigate('/photos')} className="back-button">
             Back to Photos
           </button>
