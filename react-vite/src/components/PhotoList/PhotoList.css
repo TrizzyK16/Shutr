@@ -23,6 +23,7 @@
 .photo-image {
   height: 250px;
   overflow: hidden;
+  position: relative;
 }
 
 .photo-image img {

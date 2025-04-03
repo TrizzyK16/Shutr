@@ -7,9 +7,13 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.photo_routes import photo_routes
+from .api.group_routes import group_routes
+from .api.event_routes import event_routes
+from .api.pro_routes import pro_routes
+from .api.favorite_routes import favorite_routes
 from .seeds import seed_commands
 from .config import Config
-from .api.photo_routes import photo_routes
 
 def create_app():
     app = Flask(__name__)
@@ -38,6 +42,10 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(photo_routes, url_prefix='/api/photos')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(group_routes, url_prefix='/api/groups')
+app.register_blueprint(event_routes, url_prefix='/api/events')
+app.register_blueprint(pro_routes, url_prefix='/api/pro')
+app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
 db.init_app(app)
 Migrate(app, db)
 

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import "./CommunityPage.css";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import SignupFormModal from "../SignupFormModal/SignupFormModal";
@@ -8,7 +7,6 @@ import RSVPEventModal from "../RSVPEventModal/RSVPEventModal";
 
 export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState("groups");
-  const sessionUser = useSelector(state => state.session.user);
 
   // Sample data for community groups
   const groups = [

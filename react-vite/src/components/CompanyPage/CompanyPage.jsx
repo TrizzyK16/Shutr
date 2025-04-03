@@ -12,7 +12,7 @@ export default function CompanyPage() {
     },
     {
       id: 2,
-      name: "Tristan Keas",
+      name: "Triston Keas",
       role: "CTO & Co-Founder",
       bio: "Tristan brings extensive experience in building scalable platforms and is an avid landscape photographer.",
       image: "https://picsum.photos/id/1025/300/300"

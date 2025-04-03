@@ -148,6 +148,20 @@
   z-index: 1;
 }
 
+.pro-features-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('https://images.unsplash.com/photo-1511275539165-cc46b1ee89bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center center;
+  background-size: cover;
+  opacity: 0.15;
+  z-index: -1;
+  filter: blur(1px);
+}
+
 .pro-features-section .pro-section__title {
   margin-bottom: 4rem;
 }
@@ -512,6 +526,7 @@
   margin-bottom: 1rem;
   color: #020202;
 }
+
 
 .pro-cta-section p {
   color: #020202;

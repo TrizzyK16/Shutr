@@ -7,10 +7,18 @@ import {
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import photosReducer from './photos';
+import groupsReducer from './groups';
+import eventsReducer from './events';
+import proReducer from './pro';
+import favoritesReducer from './favorites';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   photos: photosReducer,
+  groups: groupsReducer,
+  events: eventsReducer,
+  pro: proReducer,
+  favorites: favoritesReducer,
 });
 
 let enhancer;

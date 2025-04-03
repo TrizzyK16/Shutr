@@ -55,7 +55,7 @@ function RSVPEventModal({ event }) {
           <div className="rsvp-event-modal__success-icon">
             <i className="fas fa-check-circle"></i>
           </div>
-          <p>You have successfully RSVP'd to {event.title}!</p>
+          <p>You have successfully RSVP&apos;d to {event.title}!</p>
           <p className="rsvp-event-modal__success-details">
             <strong>Date:</strong> {event.date}<br />
             <strong>Location:</strong> {event.location}

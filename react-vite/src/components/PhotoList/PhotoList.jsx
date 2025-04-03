@@ -2,8 +2,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPhotos } from '../../redux/photos';
+import { fetchFavorites } from '../../redux/favorites';
 import { Link } from 'react-router-dom';
 import DeletePhotoButton from './DeletePhotoButton';
+import FavoriteButton from '../FavoriteButton/FavoriteButton';
 import './PhotoList.css';
 
 function PhotoList({ userOnly = false }) {
@@ -18,7 +20,10 @@ function PhotoList({ userOnly = false }) {
 
   useEffect(() => {
     dispatch(fetchPhotos());
-  }, [dispatch]);
+    if (currentUser) {
+      dispatch(fetchFavorites());
+    }
+  }, [dispatch, currentUser]);
 
   if (!displayPhotos.length) {
     return (
@@ -34,6 +39,7 @@ function PhotoList({ userOnly = false }) {
         <div key={photo.id} className="photo-card">
           <div className="photo-image">
             <img src={photo.image_url} alt="user-upload" />
+            {currentUser && <FavoriteButton photoId={photo.id} />}
           </div>
           <div className="photo-info">
             <p className="photo-caption">{photo.caption}</p>
