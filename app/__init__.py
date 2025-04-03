@@ -10,11 +10,13 @@ from .api.auth_routes import auth_routes
 from .seeds import seed_commands
 from .config import Config
 from .api.photo_routes import photo_routes
+from .api.favorite_routes import favorite_routes
 
 def create_app():
     app = Flask(__name__)
     # ...
     app.register_blueprint(photo_routes)
+    app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
     # ...
     return app
 

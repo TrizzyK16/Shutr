@@ -33,3 +33,9 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email
         }
+
+favorites = db.relationship(
+    "Favorite",
+    back_populates="user",
+    cascade="all, delete-orphan"
+)

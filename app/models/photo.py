@@ -25,3 +25,9 @@ def to_dict(self):
         "created_at": self.created_at.isoformat(),
         "updated_at": self.updated_at.isoformat(),
     }    
+
+favorited_by = db.relationship(
+    "Favorite",
+    back_populates="photo",
+    cascade="all, delete-orphan"
+)
