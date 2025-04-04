@@ -1,7 +1,7 @@
 """Add group, event, and pro membership models
 
 Revision ID: 85a1c597caa6
-Revises: b1a99385e53f
+Revises: 20250330_000000
 Create Date: 2025-04-02 19:10:02.494174
 
 """
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '85a1c597caa6'
-down_revision = 'b1a99385e53f'
+down_revision = '20250330_000000'
 branch_labels = None
 depends_on = None
 
