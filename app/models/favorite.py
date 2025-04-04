@@ -15,8 +15,7 @@ class Favorite(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     photo_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('photos.id')), nullable=False)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
-    # Comment out updated_at until migration is applied
-    # updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
+    updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
 
 
 
@@ -30,7 +29,6 @@ class Favorite(db.Model):
             "user_id": self.user_id,
             "photo_id": self.photo_id,
             "created_at": self.created_at.isoformat() if self.created_at else None,
-            # Use created_at for updated_at since the column might not exist yet
-            "updated_at": getattr(self, 'updated_at', self.created_at).isoformat() if getattr(self, 'updated_at', self.created_at) else None,
+            "updated_at": self.updated_at.isoformat() if self.updated_at else None,
             "photo": self.photo.to_dict() if self.photo else None
         }
