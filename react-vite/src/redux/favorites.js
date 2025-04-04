@@ -4,96 +4,74 @@ const ADD_FAVORITE = 'favorites/ADD_FAVORITE';
 const REMOVE_FAVORITE = 'favorites/REMOVE_FAVORITE';
 
 // Action Creators
-export const loadFavorites = (favorites) => ({
-  type: LOAD_FAVORITES,
-  favorites
-});
-
-export const addFavorite = (favorite) => ({
-  type: ADD_FAVORITE,
-  favorite
-});
-
-export const removeFavorite = (photoId) => ({
-  type: REMOVE_FAVORITE,
-  photoId
-});
+const loadFavorites = (favorites) => ({ type: LOAD_FAVORITES, favorites });
+const addFavorite = (favorite) => ({ type: ADD_FAVORITE, favorite });
+const removeFavorite = (photoId) => ({ type: REMOVE_FAVORITE, photoId });
 
 // Thunks
 export const fetchFavorites = () => async (dispatch) => {
-  const response = await fetch('/api/favorites');
-  
-  if (response.ok) {
-    const favorites = await response.json();
-    dispatch(loadFavorites(favorites));
-    return favorites;
+  const res = await fetch('/api/favorites');
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(loadFavorites(data.favorites));
+    return data.favorites;
   }
 };
 
-export const addPhotoToFavorites = (photoId) => async (dispatch) => {
-  const response = await fetch(`/api/favorites/${photoId}`, {
+export const favoritePhoto = (photoId) => async (dispatch) => {
+  const res = await fetch(`/api/favorites/${photoId}`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    headers: { 'Content-Type': 'application/json' }
   });
-  
-  if (response.ok) {
-    const favorite = await response.json();
-    dispatch(addFavorite(favorite));
-    return favorite;
+  if (res.ok) {
+    const data = await res.json();
+    dispatch(addFavorite(data.favorite));
+    return data.favorite;
   }
 };
 
-export const removePhotoFromFavorites = (photoId) => async (dispatch) => {
-  const response = await fetch(`/api/favorites/${photoId}`, {
-    method: 'DELETE'
-  });
-  
-  if (response.ok) {
+export const unfavoritePhoto = (photoId) => async (dispatch) => {
+  const res = await fetch(`/api/favorites/${photoId}`, { method: 'DELETE' });
+  if (res.ok) {
     dispatch(removeFavorite(photoId));
     return { success: true };
   }
 };
 
 export const checkIfFavorite = (photoId) => async () => {
-  const response = await fetch(`/api/favorites/check/${photoId}`);
-  
-  if (response.ok) {
-    const data = await response.json();
+  const res = await fetch(`/api/favorites/check/${photoId}`);
+  if (res.ok) {
+    const data = await res.json();
     return data.is_favorite;
   }
   return false;
 };
 
 // Initial State
-const initialState = {
-  userFavorites: [],
-  isLoading: false
-};
+const initialState = { allFavorites: {}, isLoading: false };
 
 // Reducer
-const favoritesReducer = (state = initialState, action) => {
+export default function favoritesReducer(state = initialState, action) {
   switch (action.type) {
-    case LOAD_FAVORITES:
+    case LOAD_FAVORITES: {
+      const newState = { allFavorites: {}, isLoading: false };
+      action.favorites.forEach((fav) => {
+        newState.allFavorites[fav.photo_id] = fav;
+      });
+      return newState;
+    }
+    case ADD_FAVORITE: {
       return {
         ...state,
-        userFavorites: action.favorites,
-        isLoading: false
+        allFavorites: { ...state.allFavorites, [action.favorite.photo_id]: action.favorite }
       };
-    case ADD_FAVORITE:
-      return {
-        ...state,
-        userFavorites: [...state.userFavorites, action.favorite]
-      };
-    case REMOVE_FAVORITE:
-      return {
-        ...state,
-        userFavorites: state.userFavorites.filter(fav => fav.photo_id !== action.photoId)
-      };
+    }
+    case REMOVE_FAVORITE: {
+      const newState = { ...state, allFavorites: { ...state.allFavorites } };
+      delete newState.allFavorites[action.photoId];
+      return newState;
+    }
     default:
       return state;
   }
-};
-
-export default favoritesReducer;
+}

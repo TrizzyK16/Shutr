@@ -49,3 +49,9 @@ class User(db.Model, UserMixin):
             'events': [{'id': event.id, 'title': event.title} for event in self.events] if self.events else [],
             'favorites': [favorite.photo_id for favorite in self.favorites] if self.favorites else []
         }
+
+favorites = db.relationship(
+    "Favorite",
+    back_populates="user",
+    cascade="all, delete-orphan"
+)
