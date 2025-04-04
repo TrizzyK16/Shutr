@@ -81,7 +81,13 @@ def seed_groups():
         db.session.commit()
 
 def undo_groups():
-    # SQLite-compatible delete
-    db.session.execute('DELETE FROM group_memberships;')
-    db.session.execute('DELETE FROM groups;')
+    from app.models.db import SCHEMA, environment
+    
+    if environment == "production":
+        db.session.execute(f'TRUNCATE table {SCHEMA}.group_memberships RESTART IDENTITY CASCADE;')
+        db.session.execute(f'TRUNCATE table {SCHEMA}.groups RESTART IDENTITY CASCADE;')
+    else:
+        db.session.execute('DELETE FROM group_memberships;')
+        db.session.execute('DELETE FROM groups;')
+    
     db.session.commit()
