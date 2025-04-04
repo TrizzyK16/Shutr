@@ -1,7 +1,7 @@
 """create s and _photos tables
 
 Revision ID: 20250330_000000
-Revises: <put_previous_revision_id_here>
+Revises: b1a99385e53f
 Create Date: 2025-03-30
 """
 
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic
 revision = '20250330_000000'
-down_revision = '<put_previous_revision_id_here>'  # This should match the ID in the last migration
+down_revision = 'b1a99385e53f'  # This should match the ID in the last migration
 branch_labels = None
 depends_on = None
 
