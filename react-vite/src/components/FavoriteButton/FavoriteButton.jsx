@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPhotoToFavorites, removePhotoFromFavorites, checkIfFavorite } from '../../redux/favorites';
+import { favoritePhoto as addPhotoToFavorites, unfavoritePhoto as removePhotoFromFavorites, checkIfFavorite } from '../../redux/favorites';
 import './FavoriteButton.css';
 
 const FavoriteButton = ({ photoId }) => {
