@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic
 revision = '20250330_000000'
-down_revision = 'b1a99385e53f'  # This should match the ID in the last migration
+down_revision = 'b1a99385e53f'  # Photos table migration
 branch_labels = None
 depends_on = None
 
