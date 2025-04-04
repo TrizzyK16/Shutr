@@ -3,6 +3,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from .photo import Photo
 from datetime import datetime
+# Import these at the top level to avoid circular imports
+from .group import GroupMembership
+from .event import EventRSVP
 
 
 class User(db.Model, UserMixin):
@@ -49,9 +52,3 @@ class User(db.Model, UserMixin):
             'events': [{'id': event.id, 'title': event.title} for event in self.events] if self.events else [],
             'favorites': [favorite.photo_id for favorite in self.favorites] if self.favorites else []
         }
-
-favorites = db.relationship(
-    "Favorite",
-    back_populates="user",
-    cascade="all, delete-orphan"
-)
