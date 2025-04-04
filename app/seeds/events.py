@@ -89,7 +89,13 @@ def seed_events():
         db.session.commit()
 
 def undo_events():
-    # SQLite-compatible delete
-    db.session.execute('DELETE FROM event_rsvps;')
-    db.session.execute('DELETE FROM events;')
+    from app.models.db import SCHEMA, environment
+    
+    if environment == "production":
+        db.session.execute(f'TRUNCATE table {SCHEMA}.event_rsvps RESTART IDENTITY CASCADE;')
+        db.session.execute(f'TRUNCATE table {SCHEMA}.events RESTART IDENTITY CASCADE;')
+    else:
+        db.session.execute('DELETE FROM event_rsvps;')
+        db.session.execute('DELETE FROM events;')
+    
     db.session.commit()
