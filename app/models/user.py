@@ -48,7 +48,7 @@ class User(db.Model, UserMixin):
             'is_pro': self.is_pro,
             'pro_since': self.pro_since.isoformat() if self.pro_since else None,
             'photos': [photo.to_dict() for photo in self.photos] if self.photos else [],
-            'groups': [{'id': group.id, 'name': group.name} for group in self.groups] if self.groups else [],
-            'events': [{'id': event.id, 'title': event.title} for event in self.events] if self.events else [],
+            'groups': [group.to_dict() for group in self.groups] if self.groups else [],
+            'events': [event.to_dict() for event in self.events] if self.events else [],
             'favorites': [favorite.photo_id for favorite in self.favorites] if self.favorites else []
         }
