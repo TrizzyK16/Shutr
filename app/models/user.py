@@ -23,8 +23,8 @@ class User(db.Model, UserMixin):
     photos = db.relationship("Photo", back_populates="user", cascade="all, delete-orphan")
     
     # Relationships to groups and events
-    groups = db.relationship("Group", secondary="group_memberships", back_populates="members")
-    events = db.relationship("Event", secondary="event_rsvps", back_populates="attendees")
+    groups = db.relationship("Group", secondary=add_prefix_for_prod("group_memberships"), back_populates="members")
+    events = db.relationship("Event", secondary=add_prefix_for_prod("event_rsvps"), back_populates="attendees")
     
     # Relationship to favorites
     favorites = db.relationship("Favorite", back_populates="user", cascade="all, delete-orphan")

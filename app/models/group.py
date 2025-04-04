@@ -15,7 +15,7 @@ class Group(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     # Relationships
-    members = db.relationship("User", secondary="group_memberships", back_populates="groups")
+    members = db.relationship("User", secondary=add_prefix_for_prod("group_memberships"), back_populates="groups")
     
     def to_dict(self):
         return {

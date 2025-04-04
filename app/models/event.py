@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
 
 class Event(db.Model):
@@ -17,7 +17,7 @@ class Event(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     # Relationships
-    attendees = db.relationship("User", secondary="event_rsvps", back_populates="events")
+    attendees = db.relationship("User", secondary=add_prefix_for_prod("event_rsvps"), back_populates="events")
     
     def to_dict(self):
         return {
@@ -39,8 +39,8 @@ class EventRSVP(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(f"{SCHEMA}.users.id" if environment == "production" else "users.id"), nullable=False)
-    event_id = db.Column(db.Integer, db.ForeignKey(f"{SCHEMA}.events.id" if environment == "production" else "events.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("events.id")), nullable=False)
     rsvp_at = db.Column(db.DateTime, default=datetime.now)
 
     def to_dict(self):
