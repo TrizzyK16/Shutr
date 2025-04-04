@@ -19,7 +19,7 @@ class Favorite(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
 
-   
+
 
     # Relationships
     user = db.relationship("User", back_populates="favorites")
