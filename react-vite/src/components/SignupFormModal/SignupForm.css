@@ -1,0 +1,135 @@
+/* Signup Form Modal Styles */
+.signup-form-container {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.signup-header {
+  padding: 24px 24px 16px;
+  text-align: center;
+  background: linear-gradient(135deg, #0063dc 0%, #ff0084 100%);
+  color: white;
+}
+
+.signup-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  margin-top: 0;
+}
+
+.signup-header p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin-top: 0;
+}
+
+.signup-form-container form {
+  padding: 24px;
+  background-color: #ffffff;
+}
+
+/* Form elements */
+.signup-form-group {
+  margin-bottom: 16px;
+}
+
+.signup-form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #212124;
+}
+
+.signup-form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  color: #212124;
+  background-color: #f9f9f9;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.signup-form-group input:focus {
+  outline: none;
+  border-color: #0063dc;
+  box-shadow: 0 0 0 2px rgba(0, 99, 220, 0.2);
+}
+
+.signup-form-group .input-error {
+  border-color: #ff0084;
+}
+
+.error-message {
+  color: #ff0084;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.server-error {
+  background-color: rgba(255, 0, 132, 0.1);
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.signup-form-actions {
+  margin-top: 20px;
+}
+
+.signup-submit-button {
+  width: 100%;
+  padding: 12px;
+  font-weight: 600;
+  background-color: #0063dc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 16px;
+}
+
+.signup-submit-button:hover {
+  background-color: #0073ec;
+}
+
+.signup-form-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #898989;
+}
+
+.text-button {
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  background: none;
+  border: none;
+  color: #0063dc;
+  cursor: pointer;
+}
+
+.text-button:hover {
+  color: #0073ec;
+  text-decoration: underline;
+}
+
+/* Signup specific styles */
+.signup-form-container form {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+

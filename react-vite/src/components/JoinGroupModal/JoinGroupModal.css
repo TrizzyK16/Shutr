@@ -1,0 +1,86 @@
+.join-group-modal {
+  padding: 2rem;
+  max-width: 500px;
+  color: #333;
+}
+
+.join-group-modal h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color, #f748a2);
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.join-group-modal__auth {
+  text-align: center;
+}
+
+.join-group-modal__auth p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.join-group-modal__buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.join-group-modal__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.join-group-modal__info {
+  margin-bottom: 1.5rem;
+}
+
+.join-group-modal__info p {
+  margin: 0.5rem 0;
+}
+
+.join-group-modal__terms {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+}
+
+.join-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.join-group-modal__success {
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.join-group-modal__success-icon {
+  font-size: 3rem;
+  color: #4CAF50;
+  margin-bottom: 1rem;
+}
+
+.join-group-modal__success p {
+  font-size: 1.2rem;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

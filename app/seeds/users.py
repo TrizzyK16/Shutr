@@ -4,6 +4,12 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
+    # Check if users already exist
+    existing_users = User.query.all()
+    if existing_users:
+        print("Users already seeded!")
+        return
+        
     demo = User(
         username='Demo', email='demo@aa.io', password='password')
     marnie = User(

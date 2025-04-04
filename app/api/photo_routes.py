@@ -1,11 +1,12 @@
 # app/api/photo_routes.py
 
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_login import current_user, login_required
 from app.models import db, Photo
 from app.forms import PhotoForm  # We'll define this form below
 
-photo_routes = Blueprint('photos', __name__, url_prefix='/api/photos')
+
+photo_routes = Blueprint('photos', __name__)
 
 # GET all photos
 @photo_routes.route('', methods=['GET'])
@@ -24,24 +25,29 @@ def get_photo(id):
 
 # CREATE new photo
 @photo_routes.route('', methods=['POST'])
-@login_required
+# @login_required
 def create_photo():
+    print("check 1")
     form = PhotoForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        print("check 2")
         new_photo = Photo(
             user_id=current_user.id,
             image_url=form.data['image_url'],
             caption=form.data['caption']
         )
+        print("check 3")
         db.session.add(new_photo)
+        print("check 4")
         db.session.commit()
+        print("check 5")
         return new_photo.to_dict(), 201
     return {"errors": form.errors}, 400
 
 # UPDATE an existing photo
-@photo_routes.route('/<int:id>', methods=['PUT'])
+@photo_routes.route('<int:id>', methods=['PUT'])
 @login_required
 def update_photo(id):
     photo = Photo.query.get(id)

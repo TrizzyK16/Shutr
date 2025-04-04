@@ -1,0 +1,94 @@
+.rsvp-event-modal {
+  padding: 2rem;
+  max-width: 500px;
+  color: #333;
+}
+
+.rsvp-event-modal h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color, #f748a2);
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.rsvp-event-modal__auth {
+  text-align: center;
+}
+
+.rsvp-event-modal__auth p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.rsvp-event-modal__buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.rsvp-event-modal__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.rsvp-event-modal__info {
+  margin-bottom: 1.5rem;
+}
+
+.rsvp-event-modal__details {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+}
+
+.rsvp-event-modal__details p {
+  margin: 0.5rem 0;
+}
+
+.rsvp-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rsvp-event-modal__success {
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.rsvp-event-modal__success-icon {
+  font-size: 3rem;
+  color: #4CAF50;
+  margin-bottom: 1rem;
+}
+
+.rsvp-event-modal__success p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.rsvp-event-modal__success-details {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #f8f8f8;
+  border-radius: 4px;
+  text-align: left;
+  display: inline-block;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

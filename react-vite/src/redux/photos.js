@@ -9,8 +9,8 @@ const DELETE_PHOTO = 'photos/DELETE_PHOTO';
 // Action Creators
 const getPhotos = (photos) => ({ type: GET_PHOTOS, photos });
 const addPhoto = (photo) => ({ type: ADD_PHOTO, photo });
-const updatePhotoAction = (photo) => ({ type: UPDATE_PHOTO, photo });
-const deletePhotoAction = (photoId) => ({ type: DELETE_PHOTO, photoId });
+const updatePhoto = (photo) => ({ type: UPDATE_PHOTO, photo });
+const deletePhoto = (photoId) => ({ type: DELETE_PHOTO, photoId });
 
 // Thunk: fetch all photos
 export const fetchPhotos = () => async (dispatch) => {
@@ -38,7 +38,7 @@ export const createPhoto = (payload) => async (dispatch) => {
 };
 
 // Thunk: update a photo
-export const updatePhoto = (photoId, payload) => async (dispatch) => {
+export const updatePhotoThunk = (photoId, payload) => async (dispatch) => {
   const res = await fetch(`/api/photos/${photoId}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -46,7 +46,7 @@ export const updatePhoto = (photoId, payload) => async (dispatch) => {
   });
   if (res.ok) {
     const photo = await res.json();
-    dispatch(updatePhotoAction(photo));
+    dispatch(updatePhoto(photo));
     return photo;
   } else {
     // handle errors
@@ -54,10 +54,10 @@ export const updatePhoto = (photoId, payload) => async (dispatch) => {
 };
 
 // Thunk: delete a photo
-export const deletePhoto = (photoId) => async (dispatch) => {
+export const deletePhotoThunk = (photoId) => async (dispatch) => {
   const res = await fetch(`/api/photos/${photoId}`, { method: 'DELETE' });
   if (res.ok) {
-    dispatch(deletePhotoAction(photoId));
+    dispatch(deletePhoto(photoId));
   } else {
     // handle errors
   }

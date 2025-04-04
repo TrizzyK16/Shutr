@@ -1,3 +1,106 @@
+/* Main navigation styles */
+.profile-button-wrapper {
+  position: relative;
+}
+
+.profile-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #0063dc;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.profile-icon-button:hover {
+  color: #0052b3;
+}
+
+/* Profile Dropdown */
 .profile-dropdown {
   position: absolute;
+  top: 45px;
+  right: 0;
+  width: 300px;
+  background-color: #0063dc;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  border-radius: 0;
+  overflow: hidden;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Dropdown Grid */
+.dropdown-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+/* Dropdown Items */
+.dropdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 10px;
+  color: #ffffff;
+  text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.dropdown-item:hover .dropdown-icon,
+.dropdown-item:hover span {
+  color: #ffffff;
+}
+
+.dropdown-icon {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #ffffff;
+}
+
+.dropdown-item span {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin: 15px 0 5px;
+}
+
+/* Add margin to the main content to account for fixed navigation */
+body {
+  margin-top: 60px;
+}
+
+/* Make sure navigation is responsive */
+@media (max-width: 768px) {
+  .user-nav-container,
+  ul {
+    flex-wrap: wrap;
+  }
+  
+  .user-nav-right li input {
+    width: 150px;
+  }
 }

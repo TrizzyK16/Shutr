@@ -3,8 +3,8 @@ from alembic import op
 import sqlalchemy as sa
 
 # revision identifiers, used by Alembic
-revision = 'xxxx_create_photos_table'
-down_revision = 'some_previous_migration'
+revision = '20250329_064305_create_photos_table'
+down_revision = '20201120_150602_create_users_table'
 branch_labels = None
 depends_on = None
 

@@ -1,0 +1,67 @@
+:root {
+    /* Colors - Flickr-inspired palette */
+    --primary: #0063dc;  /* Flickr blue */
+    --primary-light: #0073ec;
+    --primary-dark: #0053bc;
+    --secondary: #ff0084;  /* Flickr pink */
+    --secondary-light: #ff3399;
+    --secondary-dark: #cc0066;
+    
+    /* Text colors */
+    --text-primary: #212124;
+    --text-secondary: #898989;
+    --text-tertiary: #717171;
+    --text-light: #ffffff;
+    
+    /* Background colors */
+    --background: #ffffff;
+    --background-alt: #f3f5f6;  /* Light gray background used by Flickr */
+    --background-dark: #212124;
+    
+    /* UI element colors */
+    --border-color: #e6e6e6;
+    --input-background: #f9f9f9;
+    --hover-overlay: rgba(0, 0, 0, 0.05);
+    
+    /* Status colors */
+    --success: #128fdc;  /* Flickr uses their blue for success too */
+    --warning: #ffbf00;
+    --error: #ff0084;  /* Flickr uses pink for errors */
+    
+    /* Typography */
+    --font-main: 'Helvetica Neue', Arial, sans-serif;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+    --font-size-xxl: 32px;
+    
+    /* Font weights */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 48px;
+    
+    /* Border radius */
+    --radius-sm: 3px;
+    --radius-md: 6px;
+    --radius-lg: 12px;
+    --radius-circle: 50%;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+  }

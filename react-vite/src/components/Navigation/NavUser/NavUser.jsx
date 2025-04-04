@@ -2,13 +2,12 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import NotificationModal from "../../NotificationModal/NotificationModal";
 import ProfileButton from "../ProfileButton"
-import "./NavUser";
+import "./NavUser.css";
 
 export default function NavUser() {
     const [showModal, setShowModal] = useState(false);
-
     return (
-        <>
+        <nav className="user-nav-container">
             <div className="user-nav-left">
                 <ul>
                     <li>
@@ -19,6 +18,9 @@ export default function NavUser() {
                     </li>
                     <li>
                         <NavLink to="/explore">Explore</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/photos">Photos</NavLink>
                     </li>
                     <li>
                         <NavLink to="/prints">Prints</NavLink>
@@ -50,6 +52,6 @@ export default function NavUser() {
             </div>
 
             {showModal && <NotificationModal />}
-        </>
+        </nav>
     );
 }

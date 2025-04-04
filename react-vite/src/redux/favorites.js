@@ -1,5 +1,3 @@
-// Example Redux Thunks & Reducer for Favorites
-
 // Action Types
 const LOAD_FAVORITES = 'favorites/LOAD_FAVORITES';
 const ADD_FAVORITE = 'favorites/ADD_FAVORITE';
@@ -16,45 +14,57 @@ export const fetchFavorites = () => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(loadFavorites(data.favorites));
+    return data.favorites;
   }
 };
 
 export const favoritePhoto = (photoId) => async (dispatch) => {
   const res = await fetch(`/api/favorites/${photoId}`, {
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
   });
   if (res.ok) {
     const data = await res.json();
     dispatch(addFavorite(data.favorite));
+    return data.favorite;
   }
 };
 
 export const unfavoritePhoto = (photoId) => async (dispatch) => {
-  const res = await fetch(`/api/favorites/${photoId}`, {
-    method: 'DELETE',
-  });
+  const res = await fetch(`/api/favorites/${photoId}`, { method: 'DELETE' });
   if (res.ok) {
     dispatch(removeFavorite(photoId));
+    return { success: true };
   }
 };
 
+export const checkIfFavorite = (photoId) => async () => {
+  const res = await fetch(`/api/favorites/check/${photoId}`);
+  if (res.ok) {
+    const data = await res.json();
+    return data.is_favorite;
+  }
+  return false;
+};
+
 // Initial State
-const initialState = { allFavorites: {} };
+const initialState = { allFavorites: {}, isLoading: false };
 
 // Reducer
 export default function favoritesReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_FAVORITES: {
-      const newState = { allFavorites: {} };
+      const newState = { allFavorites: {}, isLoading: false };
       action.favorites.forEach((fav) => {
         newState.allFavorites[fav.photo_id] = fav;
       });
       return newState;
     }
     case ADD_FAVORITE: {
-      const newState = { ...state, allFavorites: { ...state.allFavorites } };
-      newState.allFavorites[action.favorite.photo_id] = action.favorite;
-      return newState;
+      return {
+        ...state,
+        allFavorites: { ...state.allFavorites, [action.favorite.photo_id]: action.favorite }
+      };
     }
     case REMOVE_FAVORITE: {
       const newState = { ...state, allFavorites: { ...state.allFavorites } };
