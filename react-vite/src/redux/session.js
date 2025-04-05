@@ -41,6 +41,17 @@ export const thunkLogin = (credentials) => async dispatch => {
 };
 
 export const loginDemoUser = () => async dispatch => {
+  const csrfToken = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('csrf_token='))
+    ?.split('=')[1];
+
+  // If the CSRF token is missing, handle it or return an error
+  if (!csrfToken) {
+    console.error('CSRF token is missing');
+    return;
+  }
+
   const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

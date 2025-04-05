@@ -71,17 +71,17 @@ function LoginFormModal() {
         
         <div className="login-form-footer">
           <p>Don&apos;t have an account? <button type="button" className="text-button" onClick={() => {
-            closeModal();
             // Open signup modal - this would need to be implemented
+            closeModal();
           }}>Sign up</button></p>
           <p>Don&apos;t want an account? Sign in with our demo user!<button type="button" className="text-button" onClick={async () => {
-            const errors = await dispatch(loginDemoUser()); // <-- dispatch it
+            const errors = await dispatch(loginDemoUser());
               if (errors) {
                 setErrors(errors);
               } else {
                 closeModal();
               }
-            // Open signup modal - this would need to be implemented
+        
           }}>Demo Sign In</button></p>
         </div>
       </form>

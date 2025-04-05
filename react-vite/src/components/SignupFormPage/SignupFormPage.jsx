@@ -114,13 +114,12 @@ function SignupFormPage() {
         <div className="signup-form-footer">
           <p>Already have an account? <a href="/login" className="text-button">Sign in</a></p>
           <p>Don&apos;t want an account? Sign in with our demo user!<button type="button" className="text-button" onClick={async () => {
-                      const errors = await dispatch(loginDemoUser()); // <-- dispatch it
+                      const errors = await dispatch(loginDemoUser());
                         if (errors) {
                           setErrors(errors);
                         } else {
                           closeModal();
                         }
-                      // Open signup modal - this would need to be implemented
                     }}>Demo Sign In</button></p>
         </div>
       </form>
