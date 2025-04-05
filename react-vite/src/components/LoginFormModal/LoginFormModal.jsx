@@ -3,6 +3,7 @@ import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { loginDemoUser } from "../../redux/session";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -73,6 +74,15 @@ function LoginFormModal() {
             closeModal();
             // Open signup modal - this would need to be implemented
           }}>Sign up</button></p>
+          <p>Don&apos;t want an account? Sign in with our demo user!<button type="button" className="text-button" onClick={async () => {
+            const errors = await dispatch(loginDemoUser()); // <-- dispatch it
+              if (errors) {
+                setErrors(errors);
+              } else {
+                closeModal();
+              }
+            // Open signup modal - this would need to be implemented
+          }}>Demo Sign In</button></p>
         </div>
       </form>
     </div>

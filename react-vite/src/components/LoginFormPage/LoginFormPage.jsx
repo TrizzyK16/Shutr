@@ -2,6 +2,7 @@ import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import { loginDemoUser } from "../../redux/session";
 import "./LoginForm.css";
 
 function LoginFormPage() {
@@ -74,7 +75,19 @@ function LoginFormPage() {
         </div>
         
         <div className="login-form-footer">
-          <p>Don&apos;t have an account? <a href="/signup" className="text-button">Sign up</a></p>
+          <p>Don&apos;t have an account? <button type="button" className="text-button" onClick={() => {
+            closeModal();
+            // Open signup modal - this would need to be implemented
+          }}>Sign up</button></p>
+          <p>Don&apos;t want an account? Sign in with our demo user!<button type="button" className="text-button" onClick={async () => {
+                      const errors = await dispatch(loginDemoUser()); // <-- dispatch it
+                        if (errors) {
+                          setErrors(errors);
+                        } else {
+                          closeModal();
+                        }
+                      // Open signup modal - this would need to be implemented
+                    }}>Demo Sign In</button></p>
         </div>
       </form>
     </div>
