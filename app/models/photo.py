@@ -21,7 +21,9 @@ class Photo(db.Model):
     
     # Relationship to favorites
     favorited_by = db.relationship("Favorite", back_populates="photo", cascade="all, delete-orphan")
-
+    
+    # Relationship to Labels
+    labels = db.relationship("Label", back_populates="photo", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -33,10 +35,4 @@ class Photo(db.Model):
             "updated_at": self.updated_at.isoformat(),
             "favorite_count": len(self.favorited_by) if self.favorited_by else 0,
         }    
-
-favorited_by = db.relationship(
-    "Favorite",
-    back_populates="photo",
-    cascade="all, delete-orphan"
-)
 

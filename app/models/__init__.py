@@ -5,3 +5,4 @@ from .group import Group, GroupMembership
 from .event import Event, EventRSVP
 from .favorite import Favorite
 from .db import environment, SCHEMA
+from app.models.label import Label
