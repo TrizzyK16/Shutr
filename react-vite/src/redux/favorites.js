@@ -56,7 +56,7 @@ export default function favoritesReducer(state = initialState, action) {
     case LOAD_FAVORITES: {
       const newState = { allFavorites: {}, isLoading: false };
       if (Array.isArray(action.favorites)) {
-        action.favorties.forEach((fav) => {
+        action.favorites.forEach((fav) => {
           newState.allFavorites[fav.photo_id] = fav;
         });
       }
