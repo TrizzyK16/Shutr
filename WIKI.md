@@ -179,7 +179,7 @@ Shutr began as a concept to create a platform where photographers could share th
    - Filtering options for photo discovery
 
 3. **Mobile Application**
-   - Develop native mobile apps for iOS and Android
+   - Develop native mobile apps OS and Android
    - Implement push notifications
 
 4. **AI-Powered Features**
