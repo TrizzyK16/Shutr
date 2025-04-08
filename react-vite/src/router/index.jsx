@@ -15,6 +15,7 @@ import GetProPage from '../components/GetProPage/GetProPage';
 import UploadPage from '../components/UploadPage/UploadPage';
 import PhotosPage from '../components/PhotosPage/PhotosPage';
 import EditPhotoPage from '../components/EditPhotoPage/EditPhotoPage';
+import SearchResults from '../components/SearchResults/SearchResults';
 
 export const router = createBrowserRouter([
   {
@@ -80,6 +81,10 @@ export const router = createBrowserRouter([
         path: "/photos/:photoId/edit",
         element: <EditPhotoPage />,
       },
+      {
+        path: "/search",
+        element: <SearchResults />
+      }
     ],
   },
 ]);

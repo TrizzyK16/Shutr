@@ -1,11 +1,19 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import NotificationModal from "../../NotificationModal/NotificationModal";
 import ProfileButton from "../ProfileButton"
 import "./NavUser.css";
 
 export default function NavUser() {
     const [showModal, setShowModal] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
+    const handleSearch = () => {
+        if (searchQuery.trim() !== ""){
+            navigate(`/search?q=${encodeURIComponent(searchQuery)}`)
+        }
+    }
+
     return (
         <nav className="user-nav-container">
             <div className="user-nav-left">
@@ -37,6 +45,13 @@ export default function NavUser() {
                         <input
                             type="text"
                             placeholder="Photos, people, or groups..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    handleSearch();
+                                }
+                            }}
                         />
                     </li>
                     <li>

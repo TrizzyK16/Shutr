@@ -48,36 +48,19 @@ export const checkIfFavorite = (photoId) => async () => {
 };
 
 // Initial State
-const initialState = { allFavorites: {}, isLoading: false, error: null };
+const initialState = { allFavorites: {}, isLoading: false };
 
 // Reducer
 export default function favoritesReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_FAVORITES: {
-      const newState = { ...state, isLoading: false };
-      
-      if (!action.favorites) {
-        return { ...newState, error: 'No favorites data provided' };
-      }
-      
-      if (!Array.isArray(action.favorites)) {
-        return { ...newState, error: 'Favorites data is not an array' };
-      }
-      
-      newState.allFavorites = {};
-      
-      try {
-        action.favorites.forEach((fav) => {
-          if (!fav || !fav.photo_id) {
-            return;
-          }
+      const newState = { allFavorites: {}, isLoading: false };
+      if (Array.isArray(action.favorites)) {
+        action.favorties.forEach((fav) => {
           newState.allFavorites[fav.photo_id] = fav;
         });
-      } catch (error) {
-        return { ...newState, error: 'Error processing favorites data' };
       }
-      
-      return { ...newState, error: null };
+      return newState;
     }
     case ADD_FAVORITE: {
       return {
@@ -86,7 +69,7 @@ export default function favoritesReducer(state = initialState, action) {
       };
     }
     case REMOVE_FAVORITE: {
-      const newState = { ...state, allFavorites: { ...state.allFavorites }, isLoading: false, error: null };
+      const newState = { ...state, allFavorites: { ...state.allFavorites } };
       delete newState.allFavorites[action.photoId];
       return newState;
     }
