@@ -57,7 +57,7 @@ export default function favoritesReducer(state = initialState, action) {
       const newState = { allFavorites: {}, isLoading: false };
       if (Array.isArray(action.favorites)) {
         action.favorites.forEach((fav) => {
-          newState.allFavorites[fav.photo_id] = fav;
+          newState.allFavorites[fav.photoId] = fav;
         });
       }
       return newState;
@@ -65,7 +65,7 @@ export default function favoritesReducer(state = initialState, action) {
     case ADD_FAVORITE: {
       return {
         ...state,
-        allFavorites: { ...state.allFavorites, [action.favorite.photo_id]: action.favorite }
+        allFavorites: { ...state.allFavorites, [action.favorite.photoId]: action.favorite }
       };
     }
     case REMOVE_FAVORITE: {
