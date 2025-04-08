@@ -54,11 +54,30 @@ const initialState = { allFavorites: {}, isLoading: false, error: null };
 export default function favoritesReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_FAVORITES: {
-      const newState = { allFavorites: {}, isLoading: false, error: null };
-      action.favorites.forEach((fav) => {
-        newState.allFavorites[fav.photo_id] = fav;
-      });
-      return newState;
+      const newState = { ...state, isLoading: false };
+      
+      if (!action.favorites) {
+        return { ...newState, error: 'No favorites data provided' };
+      }
+      
+      if (!Array.isArray(action.favorites)) {
+        return { ...newState, error: 'Favorites data is not an array' };
+      }
+      
+      newState.allFavorites = {};
+      
+      try {
+        action.favorites.forEach((fav) => {
+          if (!fav || !fav.photo_id) {
+            return;
+          }
+          newState.allFavorites[fav.photo_id] = fav;
+        });
+      } catch (error) {
+        return { ...newState, error: 'Error processing favorites data' };
+      }
+      
+      return { ...newState, error: null };
     }
     case ADD_FAVORITE: {
       return {
