@@ -13,8 +13,8 @@ export const fetchFavorites = () => async (dispatch) => {
   const res = await fetch('/api/favorites');
   if (res.ok) {
     const data = await res.json();
-    dispatch(loadFavorites(data.favorites));
-    return data.favorites;
+    dispatch(loadFavorites(data));
+    return data;
   }
 };
 
