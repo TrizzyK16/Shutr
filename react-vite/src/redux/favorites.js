@@ -67,7 +67,7 @@ export default function favoritesReducer(state = initialState, action) {
       };
     }
     case REMOVE_FAVORITE: {
-      const newState = { ...state, allFavorites: { ...state.allFavorites } };
+      const newState = { ...state, allFavorites: { ...state.allFavorites }, isLoading: false, error: null };
       delete newState.allFavorites[action.photoId];
       return newState;
     }
