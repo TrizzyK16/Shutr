@@ -48,13 +48,13 @@ export const checkIfFavorite = (photoId) => async () => {
 };
 
 // Initial State
-const initialState = { allFavorites: {}, isLoading: false };
+const initialState = { allFavorites: {}, isLoading: false, error: null };
 
 // Reducer
 export default function favoritesReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_FAVORITES: {
-      const newState = { allFavorites: {}, isLoading: false };
+      const newState = { allFavorites: {}, isLoading: false, error: null };
       action.favorites.forEach((fav) => {
         newState.allFavorites[fav.photo_id] = fav;
       });
