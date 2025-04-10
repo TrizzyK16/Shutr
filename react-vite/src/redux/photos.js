@@ -18,6 +18,8 @@ export const fetchPhotos = () => async (dispatch) => {
   if (res.ok) {
     const data = await res.json();
     dispatch(getPhotos(data.photos));
+  } else {
+    throw new Error('Failed to fetch photos');
   }
 };
 
@@ -33,7 +35,7 @@ export const createPhoto = (payload) => async (dispatch) => {
     dispatch(addPhoto(photo));
     return photo;
   } else {
-    // handle errors
+    throw new Error('Failed to create photo');
   }
 };
 
@@ -49,7 +51,7 @@ export const updatePhotoThunk = (photoId, payload) => async (dispatch) => {
     dispatch(updatePhoto(photo));
     return photo;
   } else {
-    // handle errors
+    throw new Error('Failed to update photo');
   }
 };
 
@@ -59,7 +61,7 @@ export const deletePhotoThunk = (photoId) => async (dispatch) => {
   if (res.ok) {
     dispatch(deletePhoto(photoId));
   } else {
-    // handle errors
+    throw new Error('Failed to delete photo');
   }
 };
 

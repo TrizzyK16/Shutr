@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
-import LoginFormPage from '../components/LoginFormPage';
-import SignupFormPage from '../components/SignupFormPage';
+import LoginFormModal from '../components/LoginFormModal/LoginFormModal';
+import SignupFormModal from '../components/SignupFormModal/SignupFormModal';
 import Layout from './Layout';
 import LandingPage from '../components/LandingPage/LandingPage';
 import FeaturesPage from '../components/FeaturesPage/FeaturesPage';
@@ -26,11 +26,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <LoginFormPage />,
+        element: <LoginFormModal />,
       },
       {
         path: "signup",
-        element: <SignupFormPage />,
+        element: <SignupFormModal />,
       },
       {
         path: "/features",

@@ -1,45 +1,38 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { favoritePhoto as addPhotoToFavorites, unfavoritePhoto as removePhotoFromFavorites, checkIfFavorite } from '../../redux/favorites';
+import { favoritePhoto, unfavoritePhoto, checkIfFavorite } from '../../redux/favorites';
 import './FavoriteButton.css';
 
 const FavoriteButton = ({ photoId }) => {
   const dispatch = useDispatch();
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const sessionUser = useSelector(state => state.session.user);
-  
+  const isFavorite = useSelector(state => state.favorites.allFavorites[photoId]);
+
   useEffect(() => {
-    const checkFavoriteStatus = async () => {
-      if (sessionUser) {
-        setIsLoading(true);
-        const favoriteStatus = await dispatch(checkIfFavorite(photoId));
-        setIsFavorite(favoriteStatus);
-        setIsLoading(false);
-      }
-    };
-    
-    checkFavoriteStatus();
-  }, [dispatch, photoId, sessionUser]);
-  
+    // Only check if user is logged in and we don't know the favorite status yet
+    if (sessionUser && isFavorite === undefined) {
+      setIsLoading(true);
+      dispatch(checkIfFavorite(photoId))
+        .finally(() => setIsLoading(false));
+    }
+  }, [dispatch, photoId, sessionUser, isFavorite]);
+
   const handleToggleFavorite = async (e) => {
-    e.stopPropagation(); // Prevent triggering parent click events
-    
+    e.stopPropagation();
+
     if (!sessionUser) {
-      // If user is not logged in, redirect to login or show message
       alert('Please log in to add photos to favorites');
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
       if (isFavorite) {
-        await dispatch(removePhotoFromFavorites(photoId));
-        setIsFavorite(false);
+        await dispatch(unfavoritePhoto(photoId));
       } else {
-        await dispatch(addPhotoToFavorites(photoId));
-        setIsFavorite(true);
+        await dispatch(favoritePhoto(photoId));
       }
     } catch (error) {
       console.error('Error toggling favorite:', error);
@@ -47,17 +40,21 @@ const FavoriteButton = ({ photoId }) => {
       setIsLoading(false);
     }
   };
-  
-  if (!sessionUser) return null;
-  
+
+  // If we want to show the button but disable it for non-logged in users
+  // instead of returning null
   return (
     <button 
       className={`favorite-button ${isFavorite ? 'is-favorite' : ''} ${isLoading ? 'loading' : ''}`}
       onClick={handleToggleFavorite}
-      disabled={isLoading}
+      disabled={isLoading || !sessionUser}
       aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
     >
-      <i className={`fa-${isFavorite ? 'solid' : 'regular'} fa-heart`}></i>
+      <i className={`fa-${isFavorite ? 'solid' : 'regular'} fa-heart`}
+        aria-hidden="true"
+      >
+        {isLoading && <span className="loading-dot">•</span>}
+      </i>
     </button>
   );
 };

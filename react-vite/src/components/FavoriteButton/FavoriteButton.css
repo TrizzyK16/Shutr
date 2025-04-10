@@ -2,8 +2,12 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s ease;
   position: absolute;
   top: 10px;
@@ -11,11 +15,7 @@
   z-index: 10;
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
+  border-radius: 50%;
 }
 
 .favorite-button:hover {
@@ -23,24 +23,47 @@
   transform: scale(1.1);
 }
 
+.favorite-button:active {
+  transform: scale(0.9);
+}
+
 .favorite-button i {
-  font-size: 18px;
+  font-size: 1.2rem;
   color: #666;
   transition: all 0.3s ease;
 }
 
 .favorite-button.is-favorite i {
-  color: #ff3366;
+  color: #e25858;
   animation: heartbeat 0.5s ease-in-out;
 }
 
 .favorite-button.loading {
-  opacity: 0.7;
   cursor: not-allowed;
 }
 
 .favorite-button.loading i {
+  animation: none;
+}
+
+.favorite-button.loading .loading-dot {
+  display: inline-block;
   animation: pulse 1s infinite;
+}
+
+.favorite-error {
+  color: #e25858;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  padding: 4px 8px;
+  background-color: rgba(226, 88, 88, 0.1);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.favorite-error::before {
+  content: '⚠️';
+  margin-right: 4px;
 }
 
 @keyframes heartbeat {
