@@ -114,13 +114,13 @@ function SignupFormPage() {
         <div className="signup-form-footer">
           <p>Already have an account? <a href="/login" className="text-button">Sign in</a></p>
           <p>Don&apos;t want an account? Sign in with our demo user!<button type="button" className="text-button" onClick={async () => {
-                      const errors = await dispatch(loginDemoUser());
-                        if (errors) {
-                          setErrors(errors);
-                        } else {
-                          closeModal();
-                        }
-                    }}>Demo Sign In</button></p>
+            const errors = await dispatch(loginDemoUser());
+            if (errors) {
+              setErrors(errors);
+            } else {
+              navigate("/");
+            }
+          }}>Demo Sign In</button></p>
         </div>
       </form>
     </div>
