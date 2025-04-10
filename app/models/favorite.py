@@ -8,10 +8,16 @@ from datetime import datetime
 class Favorite(db.Model):
     __tablename__ = 'favorites'
 
+    # Define __table_args__ once with all needed constraints and settings
     if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+        __table_args__ = (
+            db.UniqueConstraint('user_id', 'photo_id', name='unique_user_photo_favorite'),
+            {'schema': SCHEMA}
+        )
     else:
-        __table_args__ = {}
+        __table_args__ = (
+            db.UniqueConstraint('user_id', 'photo_id', name='unique_user_photo_favorite'),
+        )
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
@@ -32,8 +38,3 @@ class Favorite(db.Model):
             "updated_at": self.updated_at.isoformat() if self.updated_at else None,
             "photo": self.photo.to_dict() if self.photo else None
         }
-
-    __table_args__ = (
-        db.UniqueConstraint('user_id', 'photo_id', name='unique_user_photo_favorite'),
-        *(__table_args__ if environment == "production" else ())
-    )
