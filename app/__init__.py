@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -15,31 +15,28 @@ from .api.favorite_routes import favorite_routes
 from .seeds import seed_commands
 from .config import Config
 
-def create_app():
-    app = Flask(__name__)
-    # ...
-    app.register_blueprint(photo_routes)
-    app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
-    # ...
-    return app
-
-
-app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
-
-# Setup login manager
-login = LoginManager(app)
+# Initialize extensions
+csrf = CSRFProtect()
+login = LoginManager()
 login.login_view = 'auth.unauthorized'
-
 
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-
-# Tell flask about our seed commands
-app.cli.add_command(seed_commands)
-
+app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 app.config.from_object(Config)
+app.config['WTF_CSRF_TIME_LIMIT'] = 3600  # Token expiration in seconds
+app.config['WTF_CSRF_CHECK_DEFAULT'] = True
+app.config['WTF_CSRF_ENABLED'] = True
+
+# Initialize extensions with app
+csrf.init_app(app)
+login.init_app(app)
+db.init_app(app)
+Migrate(app, db)
+
+# Register blueprints
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(photo_routes, url_prefix='/api/photos')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
@@ -47,18 +44,14 @@ app.register_blueprint(group_routes, url_prefix='/api/groups')
 app.register_blueprint(event_routes, url_prefix='/api/events')
 app.register_blueprint(pro_routes, url_prefix='/api/pro')
 app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
-db.init_app(app)
-Migrate(app, db)
 
-# Application Security
-CORS(app)
+# Tell flask about our seed commands
+app.cli.add_command(seed_commands)
 
+# Configure CORS
+CORS(app, resources={r"/api/*": {"origins": "*", "supports_credentials": True}})
 
-# Since we are deploying with Docker and Flask,
-# we won't be using a buildpack when we deploy to Heroku.
-# Therefore, we need to make sure that in production any
-# request made over http is redirected to https.
-# Well.........
+# HTTPS redirect for production
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
@@ -67,19 +60,23 @@ def https_redirect():
             code = 301
             return redirect(url, code=code)
 
-
+# CSRF token injection
 @app.after_request
 def inject_csrf_token(response):
     response.set_cookie(
         'csrf_token',
         generate_csrf(),
         secure=True if os.environ.get('FLASK_ENV') == 'production' else False,
-        samesite='Strict' if os.environ.get(
-            'FLASK_ENV') == 'production' else None,
-        httponly=True)
+        samesite='Strict' if os.environ.get('FLASK_ENV') == 'production' else None,
+        httponly=False)  # Changed to False so JavaScript can access it
     return response
 
+# CSRF token endpoint
+@app.route("/api/csrf/restore", methods=["GET"])
+def restore_csrf():
+    return {"csrf_token": generate_csrf()}
 
+# API documentation endpoint
 @app.route("/api/docs")
 def api_help():
     """
@@ -91,7 +88,7 @@ def api_help():
                     for rule in app.url_map.iter_rules() if rule.endpoint != 'static' }
     return route_list
 
-
+# React app routes
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def react_root(path):
@@ -104,7 +101,23 @@ def react_root(path):
         return app.send_from_directory('public', 'favicon.ico')
     return app.send_static_file('index.html')
 
-
+# Error handlers
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
+
+@app.errorhandler(400)
+def bad_request(e):
+    return jsonify({"error": "Bad request", "message": str(e)}), 400
+
+@app.errorhandler(401)
+def unauthorized(e):
+    return jsonify({"error": "Unauthorized", "message": str(e)}), 401
+
+@app.errorhandler(403)
+def forbidden(e):
+    return jsonify({"error": "Forbidden", "message": str(e)}), 403
+
+@app.errorhandler(500)
+def server_error(e):
+    return jsonify({"error": "Internal server error", "message": str(e)}), 500
