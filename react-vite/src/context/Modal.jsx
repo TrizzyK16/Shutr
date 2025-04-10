@@ -24,28 +24,24 @@ export function ModalProvider({ children }) {
   };
 
   return (
-    <>
-      <ModalContext.Provider value={contextValue}>
-        {children}
-        {modalContent && (
-          <div id="modal">
-            <div id="modal-background" onClick={closeModal} />
-            <div id="modal-content">
-              <button className="modal-close-button" onClick={closeModal}>
-                <FaTimes />
-              </button>
-              {modalContent}
-            </div>
+    <ModalContext.Provider value={contextValue}>
+      {children}
+      {modalContent && (
+        <div id="modal">
+          <div id="modal-background" onClick={closeModal} />
+          <div id="modal-content">
+            <button className="modal-close-button" onClick={closeModal}>
+              <FaTimes />
+            </button>
+            {modalContent}
           </div>
-        )}
-      </ModalContext.Provider>
-    </>
+        </div>
+      )}
+    </ModalContext.Provider>
   );
 }
 
 export function Modal() {
-  // This component doesn't need to do anything anymore
-  // as the modal rendering is handled directly in the provider
   return null;
 }
 

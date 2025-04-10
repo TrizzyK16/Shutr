@@ -1,4 +1,3 @@
-// src/components/PhotosPage/PhotosPage.jsx
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -15,9 +14,7 @@ function PhotoModal({ onClose }) {
       <h2>Upload a New Photo</h2>
       <PhotoForm 
         formType="create" 
-        onSuccess={() => {
-          onClose();
-        }} 
+        onSuccess={onClose} 
       />
     </div>
   );
@@ -27,9 +24,19 @@ function PhotosPage() {
   const dispatch = useDispatch();
   const location = useLocation();
   const user = useSelector(state => state.session.user);
-  const favorites = useSelector(state => state.favorites.userFavorites);
+  const userId = user?.id;
+  const allFavorites = useSelector(state => state.favorites.allFavorites);
   const photos = useSelector(state => Object.values(state.photos));
   const [activeTab, setActiveTab] = useState('explore');
+  const [error, setError] = useState(null);
+  
+  // Get all photo IDs that are favorited
+  const favoritePhotoIds = Object.keys(allFavorites || {});
+  
+  // Filter photos to only show favorited ones
+  const favoritePhotos = photos.filter(photo => 
+    favoritePhotoIds.includes(String(photo.id))
+  );
   
   // Handle tab parameter from URL
   useEffect(() => {
@@ -40,11 +47,29 @@ function PhotosPage() {
     }
   }, [location.search]);
   
+  // Fetch favorites when user logs in
   useEffect(() => {
-    if (user) {
-      dispatch(fetchFavorites());
+    if (userId) {
+      dispatch(fetchFavorites())
+        .catch(err => setError(err.message));
     }
-  }, [dispatch, user]);
+  }, [dispatch, userId]);
+
+  // Handle URL tab changes
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const tab = params.get('tab') || 'explore';
+    setActiveTab(tab);
+  }, [location.search]);
+
+  // Display error if there is one
+  if (error) {
+    return (
+      <div className="error-message">
+        <p>Error: {error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="photos-page">
@@ -117,27 +142,22 @@ function PhotosPage() {
           ) : (
             user ? (
               <div className="favorite-photos">
-                {favorites && favorites.length > 0 ? (
+                {favoritePhotos.length > 0 ? (
                   <div className="photo-grid">
-                    {favorites.map(favorite => {
-                      const photo = photos.find(p => p.id === favorite.photo_id);
-                      if (!photo) return null;
-                      
-                      return (
-                        <div key={photo.id} className="photo-card">
-                          <div className="photo-image">
-                            <img src={photo.image_url} alt="user-upload" />
-                            <FavoriteButton photoId={photo.id} />
-                          </div>
-                          <div className="photo-info">
-                            <p className="photo-caption">{photo.caption}</p>
-                            <div className="photo-meta">
-                              <span className="photo-date">{new Date(photo.created_at).toLocaleDateString()}</span>
-                            </div>
+                    {favoritePhotos.map(photo => (
+                      <div key={photo.id} className="photo-card">
+                        <div className="photo-image">
+                          <img src={photo.image_url} alt="user-upload" />
+                          <FavoriteButton photoId={photo.id} />
+                        </div>
+                        <div className="photo-info">
+                          <p className="photo-caption">{photo.caption}</p>
+                          <div className="photo-meta">
+                            <span className="photo-date">{new Date(photo.created_at).toLocaleDateString()}</span>
                           </div>
                         </div>
-                      );
-                    })}
+                      </div>
+                    ))}
                   </div>
                 ) : (
                   <div className="no-photos">
