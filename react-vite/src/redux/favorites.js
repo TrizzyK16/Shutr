@@ -32,9 +32,18 @@ export const fetchFavorites = () => async (dispatch) => {
     const data = await res.json();
     // Handle both possible API response formats
     const favorites = data.favorites || data;
+    
+    // Make sure favorites is an array before dispatching
+    if (!Array.isArray(favorites)) {
+      console.error('Expected favorites to be an array, got:', favorites);
+      dispatch(loadFavorites([]));
+      return [];
+    }
+    
     dispatch(loadFavorites(favorites));
     return favorites;
   } catch (error) {
+    console.error('Error fetching favorites:', error);
     dispatch(setError(error.message));
     throw error;
   } finally {
@@ -66,9 +75,16 @@ export const favoritePhoto = (photoId) => async (dispatch, getState) => {
     const data = await res.json();
     // Handle both possible API response formats
     const favorite = data.favorite || data;
+    
+    if (!favorite || !favorite.photo_id) {
+      console.error('Invalid favorite data received:', favorite);
+      throw new Error('Invalid favorite data received from server');
+    }
+    
     dispatch(addFavorite(favorite));
     return favorite;
   } catch (error) {
+    console.error('Error favoriting photo:', error);
     dispatch(setError(error.message));
     throw error;
   } finally {
@@ -97,6 +113,7 @@ export const unfavoritePhoto = (photoId) => async (dispatch, getState) => {
     dispatch(removeFavorite(photoId));
     return await res.json();
   } catch (error) {
+    console.error('Error unfavoriting photo:', error);
     dispatch(setError(error.message));
     throw error;
   } finally {
@@ -121,10 +138,27 @@ export const checkIfFavorite = (photoId) => async (dispatch, getState) => {
     }
     
     const data = await res.json();
+    
     // Update the Redux store with the result
-    dispatch(setFavoriteStatus(photoId, data.is_favorite, data.favorite_id ? { id: data.favorite_id, photo_id: photoId } : null));
+    if (data.is_favorite && data.details && data.details.favorite_id) {
+      // Format for the original API response
+      dispatch(setFavoriteStatus(photoId, true, { 
+        id: data.details.favorite_id, 
+        photo_id: photoId 
+      }));
+    } else if (data.is_favorite && data.favorite_id) {
+      // Format for the updated API response
+      dispatch(setFavoriteStatus(photoId, true, { 
+        id: data.favorite_id, 
+        photo_id: photoId 
+      }));
+    } else {
+      dispatch(setFavoriteStatus(photoId, false));
+    }
+    
     return data.is_favorite;
   } catch (error) {
+    console.error('Error checking favorite status:', error);
     dispatch(setError(error.message));
     throw error;
   } finally {
@@ -133,46 +167,101 @@ export const checkIfFavorite = (photoId) => async (dispatch, getState) => {
 };
 
 // Initial State
-const initialState = { allFavorites: {}, isLoading: false, error: null };
+const initialState = { 
+  allFavorites: {},
+  isLoading: false,
+  error: null
+};
 
 // Reducer
 export default function favoritesReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_FAVORITES: {
-      const newState = { ...state, isLoading: false };
-      
-      if (!action.favorites) {
-        return { ...newState, error: 'No favorites data provided' };
-      }
-      
-      if (!Array.isArray(action.favorites)) {
-        return { ...newState, error: 'Favorites data is not an array' };
-      }
-      
+      const newState = { ...state, error: null };
       newState.allFavorites = {};
       
       try {
+        if (!Array.isArray(action.favorites)) {
+          return { 
+            ...state, 
+            error: 'Invalid favorites data: expected an array' 
+          };
+        }
+        
         action.favorites.forEach((fav) => {
-          if (!fav || !fav.photo_id) {
-            return;
-          }
+          if (!fav || !fav.photo_id) return;
           newState.allFavorites[fav.photo_id] = fav;
         });
+      } catch (error) {
+        console.error('Error in LOAD_FAVORITES reducer:', error);
+        return { 
+          ...state, 
+          error: 'Error processing favorites data' 
+        };
       }
       
-      return { ...newState, error: null };
+      return newState;
     }
     case ADD_FAVORITE: {
+      if (!action.favorite || !action.favorite.photo_id) {
+        console.error('Invalid favorite in ADD_FAVORITE:', action.favorite);
+        return {
+          ...state,
+          error: 'Invalid favorite data received'
+        };
+      }
+      
       return {
         ...state,
-        allFavorites: { ...state.allFavorites, [action.favorite.photo_id]: action.favorite }
+        error: null,
+        allFavorites: {
+          ...state.allFavorites,
+          [action.favorite.photo_id]: action.favorite
+        }
       };
     }
     case REMOVE_FAVORITE: {
-      const newState = { ...state, allFavorites: { ...state.allFavorites }, isLoading: false, error: null };
-      delete newState.allFavorites[action.photoId];
-      return newState;
+      const newFavorites = { ...state.allFavorites };
+      delete newFavorites[action.photoId]; // Remove completely instead of setting to false
+      return { 
+        ...state, 
+        error: null,
+        allFavorites: newFavorites 
+      };
     }
+    case SET_FAVORITE_STATUS: {
+      const photoId = action.photoId;
+      
+      if (action.isFavorite && action.favoriteData) {
+        return {
+          ...state,
+          error: null,
+          allFavorites: {
+            ...state.allFavorites,
+            [photoId]: action.favoriteData
+          }
+        };
+      } else {
+        // If not a favorite, remove it from allFavorites instead of setting to false
+        const newFavorites = { ...state.allFavorites };
+        delete newFavorites[photoId];
+        return {
+          ...state,
+          error: null,
+          allFavorites: newFavorites
+        };
+      }
+    }
+    case SET_LOADING:
+      return {
+        ...state,
+        isLoading: action.isLoading
+      };
+    case SET_ERROR:
+      return {
+        ...state,
+        error: action.error
+      };
     default:
       return state;
   }
