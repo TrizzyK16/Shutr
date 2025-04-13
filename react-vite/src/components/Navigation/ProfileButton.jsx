@@ -35,11 +35,20 @@ function ProfileButton() {
 
   const closeMenu = () => setShowMenu(false);
 
-  const logout = (e) => {
+  const logout = async (e) => {
     e.preventDefault();
-    dispatch(thunkLogout());
-    closeMenu();
-    navigate("/");
+    try {
+      const response = dispatch(thunkLogout());
+
+      if (!response?.errro) {
+        closeMenu();
+        navigate("/");
+      } else {
+        console.error("Logout error:", response.error);
+      }
+    } catch (err) {
+      console.error("Unexpected logout error:", err);
+    }
   };
 
   const openLoginModal = () => {

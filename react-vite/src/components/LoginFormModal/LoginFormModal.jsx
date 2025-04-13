@@ -1,16 +1,19 @@
 import { useState } from "react";
+import { useNavigate} from "react-router-dom";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
 import { loginDemoUser } from "../../redux/session";
+import SignupFormModal from "../SignupFormModal/SignupFormModal.jsx"
 
 function LoginFormModal() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const { closeModal } = useModal();
+  const { closeModal, setModalContent } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +29,7 @@ function LoginFormModal() {
       setErrors(serverResponse);
     } else {
       closeModal();
+      navigate('/');
     }
   };
 
@@ -71,8 +75,9 @@ function LoginFormModal() {
         
         <div className="login-form-footer">
           <p>Don&apos;t have an account? <button type="button" className="text-button" onClick={() => {
-            // Open signup modal - this would need to be implemented
+            // Open signup modal
             closeModal();
+            setModalContent(<SignupFormModal />);
           }}>Sign up</button></p>
           <p>Don&apos;t want an account? Sign in with our demo user!<button type="button" className="text-button" onClick={async () => {
             const errors = await dispatch(loginDemoUser());
@@ -80,6 +85,7 @@ function LoginFormModal() {
                 setErrors(errors);
               } else {
                 closeModal();
+                navigate('/');
               }
         
           }}>Demo Sign In</button></p>

@@ -26,7 +26,45 @@ def get_user_favorites():
         logging.error(traceback.format_exc())
         return jsonify({"error": "Database error", "details": str(e)}), 500
 
-# POST /api/favorites/<photo_id> - favorite a photo
+# # POST /api/favorites/<photo_id> - favorite a photo
+# @favorite_routes.route('/<int:photo_id>', methods=['POST'])
+# @login_required
+# def add_favorite(photo_id):
+#     """Add a photo to favorites"""
+#     try:
+#         user_id = current_user.id
+#         logging.info(f"Adding favorite for user {user_id}, photo {photo_id}")
+        
+#         # Check if already favorited
+#         existing = Favorite.query.filter_by(
+#             user_id=user_id, 
+#             photo_id=photo_id
+#         ).first()
+        
+#         if existing:
+#             logging.info(f"Photo {photo_id} already favorited by user {user_id}")
+#             return jsonify({"error": "Photo already favorited"}), 400
+
+#         # Check if photo exists
+#         photo = Photo.query.get(photo_id)
+#         if not photo:
+#             logging.warning(f"Attempted to favorite non-existent photo {photo_id}")
+#             return jsonify({"error": "Photo not found"}), 404
+
+#         # Create new favorite
+#         favorite = Favorite(user_id=user_id, photo_id=photo_id)
+#         db.session.add(favorite)
+#         logging.info(f"About to commit favorite for user {user_id}, photo {photo_id}")
+#         db.session.commit()  
+#         logging.info(f"Successfully added favorite: {favorite.id}")
+        
+#         return jsonify(favorite.to_dict()), 201
+#     except Exception as e:
+#         db.session.rollback()
+#         logging.error(f"Error adding favorite: {str(e)}")
+#         logging.error(traceback.format_exc())
+#         return jsonify({"error": "Failed to add favorite", "details": str(e)}), 500
+
 @favorite_routes.route('/<int:photo_id>', methods=['POST'])
 @login_required
 def add_favorite(photo_id):
@@ -35,12 +73,11 @@ def add_favorite(photo_id):
         user_id = current_user.id
         logging.info(f"Adding favorite for user {user_id}, photo {photo_id}")
         
-        # Check if already favorited
-        existing = Favorite.query.filter_by(
-            user_id=user_id, 
-            photo_id=photo_id
-        ).first()
+        # Log the incoming request data (to make sure it's correctly passed)
+        logging.debug(f"Request data: user_id={user_id}, photo_id={photo_id}")
         
+        # Check if already favorited
+        existing = Favorite.query.filter_by(user_id=user_id, photo_id=photo_id).first()
         if existing:
             logging.info(f"Photo {photo_id} already favorited by user {user_id}")
             return jsonify({"error": "Photo already favorited"}), 400
@@ -55,7 +92,7 @@ def add_favorite(photo_id):
         favorite = Favorite(user_id=user_id, photo_id=photo_id)
         db.session.add(favorite)
         logging.info(f"About to commit favorite for user {user_id}, photo {photo_id}")
-        db.session.commit()  
+        db.session.commit()
         logging.info(f"Successfully added favorite: {favorite.id}")
         
         return jsonify(favorite.to_dict()), 201
@@ -64,6 +101,7 @@ def add_favorite(photo_id):
         logging.error(f"Error adding favorite: {str(e)}")
         logging.error(traceback.format_exc())
         return jsonify({"error": "Failed to add favorite", "details": str(e)}), 500
+
 
 # DELETE /api/favorites/<photo_id> - unfavorite a photo
 @favorite_routes.route('/<int:photo_id>', methods=['DELETE'])
