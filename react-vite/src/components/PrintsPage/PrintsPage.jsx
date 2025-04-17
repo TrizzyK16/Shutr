@@ -19,7 +19,7 @@ export default function PrintsPage() {
                 <div className="prints-section">
                     <h2 className="section-title">Turn Your Memories Into Art</h2>
                     <p className="section-description">
-                        We're working hard to bring you a premium printing service that will allow you to transform your digital photos into beautiful physical prints, canvas art, and more.
+                        We`&apos;`re working hard to bring you a premium printing service that will allow you to transform your digital photos into beautiful physical prints, canvas art, and more.
                     </p>
                 </div>
 

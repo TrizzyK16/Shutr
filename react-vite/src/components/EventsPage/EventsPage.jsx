@@ -247,7 +247,7 @@ export default function EventsPage() {
                                     ))
                                 ) : (
                                     <div className="empty-state">
-                                        <p>You haven't RSVP'd to any events yet.</p>
+                                        <p>You haven`&apos;`t RSVP`&apos;`d to any events yet.</p>
                                         <button 
                                             className="tab-button"
                                             onClick={() => setActiveTab('upcoming')}

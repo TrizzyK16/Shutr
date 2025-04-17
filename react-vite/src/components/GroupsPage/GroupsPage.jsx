@@ -221,7 +221,7 @@ export default function GroupsPage() {
                                     ))
                                 ) : (
                                     <div className="empty-state">
-                                        <p>You haven't joined any groups yet.</p>
+                                        <p>You haven`&apos;`t joined any groups yet.</p>
                                         <button 
                                             className="tab-button"
                                             onClick={() => setActiveTab('discover')}
