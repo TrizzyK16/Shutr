@@ -3,6 +3,13 @@ const UPGRADE_TO_PRO = 'pro/UPGRADE_TO_PRO';
 const DOWNGRADE_FROM_PRO = 'pro/DOWNGRADE_FROM_PRO';
 const CHECK_PRO_STATUS = 'pro/CHECK_PRO_STATUS';
 
+// Helper function to get CSRF token from cookies
+const getCSRFToken = () => {
+  const cookies = document.cookie.split('; ');
+  const tokenCookie = cookies.find(cookie => cookie.startsWith('csrf_token='));
+  return tokenCookie ? tokenCookie.split('=')[1] : null;
+};
+
 // Action Creators
 const upgradeToPro = (user) => ({
   type: UPGRADE_TO_PRO,
@@ -23,8 +30,10 @@ const checkProStatus = (status) => ({
 export const upgradeToProThunk = () => async (dispatch) => {
   const response = await fetch('/api/pro', {
     method: 'POST',
+    credentials: 'include',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
     }
   });
   
@@ -39,7 +48,12 @@ export const upgradeToProThunk = () => async (dispatch) => {
 
 export const downgradeFromProThunk = () => async (dispatch) => {
   const response = await fetch('/api/pro', {
-    method: 'DELETE'
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
+    }
   });
   
   if (response.ok) {
@@ -52,7 +66,13 @@ export const downgradeFromProThunk = () => async (dispatch) => {
 };
 
 export const checkProStatusThunk = () => async (dispatch) => {
-  const response = await fetch('/api/pro');
+  const response = await fetch('/api/pro', {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
+    }
+  });
   
   if (response.ok) {
     const status = await response.json();

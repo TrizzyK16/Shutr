@@ -4,6 +4,13 @@ const LOAD_GROUP_DETAILS = 'groups/LOAD_GROUP_DETAILS';
 const JOIN_GROUP = 'groups/JOIN_GROUP';
 const LEAVE_GROUP = 'groups/LEAVE_GROUP';
 
+// Helper function to get CSRF token from cookies
+const getCSRFToken = () => {
+  const cookies = document.cookie.split('; ');
+  const tokenCookie = cookies.find(cookie => cookie.startsWith('csrf_token='));
+  return tokenCookie ? tokenCookie.split('=')[1] : null;
+};
+
 // Action Creators
 const loadGroups = (groups) => ({
   type: LOAD_GROUPS,
@@ -27,7 +34,13 @@ const leaveGroup = (groupId) => ({
 
 // Thunks
 export const fetchGroupsThunk = () => async (dispatch) => {
-  const response = await fetch('/api/groups');
+  const response = await fetch('/api/groups', {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
+    }
+  });
   
   if (response.ok) {
     const groups = await response.json();
@@ -39,7 +52,13 @@ export const fetchGroupsThunk = () => async (dispatch) => {
 };
 
 export const fetchGroupDetailsThunk = (groupId) => async (dispatch) => {
-  const response = await fetch(`/api/groups/${groupId}`);
+  const response = await fetch(`/api/groups/${groupId}`, {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
+    }
+  });
   
   if (response.ok) {
     const group = await response.json();
@@ -53,8 +72,10 @@ export const fetchGroupDetailsThunk = (groupId) => async (dispatch) => {
 export const joinGroupThunk = (groupId) => async (dispatch) => {
   const response = await fetch(`/api/groups/${groupId}/join`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
     }
   });
   
@@ -69,7 +90,12 @@ export const joinGroupThunk = (groupId) => async (dispatch) => {
 
 export const leaveGroupThunk = (groupId) => async (dispatch) => {
   const response = await fetch(`/api/groups/${groupId}/leave`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
+    }
   });
   
   if (response.ok) {

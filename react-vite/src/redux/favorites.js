@@ -6,6 +6,13 @@ const SET_LOADING = 'favorites/SET_LOADING';
 const SET_ERROR = 'favorites/SET_ERROR';
 const SET_FAVORITE_STATUS = 'favorites/SET_FAVORITE_STATUS';
 
+// Helper function to get CSRF token from cookies
+const getCSRFToken = () => {
+  const cookies = document.cookie.split('; ');
+  const tokenCookie = cookies.find(cookie => cookie.startsWith('csrf_token='));
+  return tokenCookie ? tokenCookie.split('=')[1] : null;
+};
+
 // Action Creators
 const loadFavorites = (favorites) => ({ type: LOAD_FAVORITES, favorites });
 const addFavorite = (favorite) => ({ type: ADD_FAVORITE, favorite });
@@ -23,7 +30,14 @@ const setFavoriteStatus = (photoId, isFavorite, favoriteData = null) => ({
 export const fetchFavorites = () => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    const res = await fetch('/api/favorites');
+    const csrfToken = getCSRFToken();
+    const res = await fetch('/api/favorites', {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
+      },
+      credentials: 'include'
+    });
     if (!res.ok) {
       const errorData = await res.json();
       throw new Error(errorData.error || 'Failed to fetch favorites');
@@ -62,9 +76,15 @@ export const favoritePhoto = (photoId) => async (dispatch, getState) => {
   }
 
   try {
+    console.log(`Attempting to favorite photo ${photoId}`);
+    const csrfToken = getCSRFToken();
     const res = await fetch(`/api/favorites/${photoId}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken 
+      },
+      credentials: 'include'
     });
 
     if (!res.ok) {
@@ -103,7 +123,16 @@ export const unfavoritePhoto = (photoId) => async (dispatch, getState) => {
   }
 
   try {
-    const res = await fetch(`/api/favorites/${photoId}`, { method: 'DELETE' });
+    console.log(`Attempting to unfavorite photo ${photoId}`);
+    const csrfToken = getCSRFToken();
+    const res = await fetch(`/api/favorites/${photoId}`, { 
+      method: 'DELETE',
+      credentials: 'include',
+      headers: { 
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken 
+      }
+    });
 
     if (!res.ok) {
       const errorData = await res.json();
@@ -131,32 +160,46 @@ export const checkIfFavorite = (photoId) => async (dispatch, getState) => {
 
   dispatch(setLoading(true));
   try {
-    const res = await fetch(`/api/favorites/check/${photoId}`);
+    console.log(`Checking favorite status for photo ${photoId}`);
+    const csrfToken = getCSRFToken();
+    const res = await fetch(`/api/favorites/check/${photoId}`, {
+      credentials: 'include',
+      headers: { 
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken 
+      }
+    });
+    
     if (!res.ok) {
       const errorData = await res.json();
+      console.error('API error response:', errorData);
       throw new Error(errorData.error || 'Failed to check favorite status');
     }
     
     const data = await res.json();
+    console.log('Favorite check response:', data);
     
     // Update the Redux store with the result
-    if (data.is_favorite && data.details && data.details.favorite_id) {
-      // Format for the original API response
-      dispatch(setFavoriteStatus(photoId, true, { 
-        id: data.details.favorite_id, 
-        photo_id: photoId 
-      }));
-    } else if (data.is_favorite && data.favorite_id) {
-      // Format for the updated API response
-      dispatch(setFavoriteStatus(photoId, true, { 
-        id: data.favorite_id, 
-        photo_id: photoId 
-      }));
+    if (data.is_favorite) {
+      let favoriteData = {
+        photo_id: photoId
+      };
+      
+      // Handle different API response formats
+      if (data.details && data.details.favorite_id) {
+        favoriteData.id = data.details.favorite_id;
+      } else if (data.favorite_id) {
+        favoriteData.id = data.favorite_id;
+      }
+      
+      console.log('Setting favorite status to true with data:', favoriteData);
+      dispatch(setFavoriteStatus(photoId, true, favoriteData));
+      return true;
     } else {
+      console.log('Setting favorite status to false');
       dispatch(setFavoriteStatus(photoId, false));
+      return false;
     }
-    
-    return data.is_favorite;
   } catch (error) {
     console.error('Error checking favorite status:', error);
     dispatch(setError(error.message));

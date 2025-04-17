@@ -7,18 +7,19 @@ const FavoriteButton = ({ photoId }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const sessionUser = useSelector(state => state.session.user);
-  const isFavorite = useSelector(state => state.favorites.allFavorites[photoId]);
+  const isFavorite = useSelector(state => !!state.favorites.allFavorites[photoId]);
 
   useEffect(() => {
-    // Only check if user is logged in and we don't know the favorite status yet
-    if (sessionUser && isFavorite === undefined) {
+    // Only check if user is logged in
+    if (sessionUser) {
       setIsLoading(true);
       dispatch(checkIfFavorite(photoId))
+        .catch(error => console.error('Error checking favorite status:', error))
         .finally(() => setIsLoading(false));
     }
-  }, [dispatch, photoId, sessionUser, isFavorite]);
+  }, [dispatch, photoId, sessionUser]);
 
-  const handleToggleFavorite = async (e) => {
+  const handleToggleFavorite = (e) => {
     e.stopPropagation();
 
     if (!sessionUser) {
@@ -27,17 +28,29 @@ const FavoriteButton = ({ photoId }) => {
     }
 
     setIsLoading(true);
-
-    try {
-      if (isFavorite) {
-        await dispatch(unfavoritePhoto(photoId));
-      } else {
-        await dispatch(favoritePhoto(photoId));
-      }
-    } catch (error) {
-      console.error('Error toggling favorite:', error);
-    } finally {
-      setIsLoading(false);
+    console.log(`Toggling favorite for photo ${photoId}, current status: ${isFavorite ? 'favorited' : 'not favorited'}`);
+    
+    // Use a simpler approach without nested awaits
+    if (isFavorite) {
+      console.log(`Attempting to unfavorite photo ${photoId}`);
+      dispatch(unfavoritePhoto(photoId))
+        .then(() => console.log(`Successfully unfavorited photo ${photoId}`))
+        .catch(error => {
+          console.error('Error unfavoriting:', error);
+          // Refresh status on error
+          dispatch(checkIfFavorite(photoId));
+        })
+        .finally(() => setIsLoading(false));
+    } else {
+      console.log(`Attempting to favorite photo ${photoId}`);
+      dispatch(favoritePhoto(photoId))
+        .then(() => console.log(`Successfully favorited photo ${photoId}`))
+        .catch(error => {
+          console.error('Error favoriting:', error);
+          // Refresh status on error
+          dispatch(checkIfFavorite(photoId));
+        })
+        .finally(() => setIsLoading(false));
     }
   };
 

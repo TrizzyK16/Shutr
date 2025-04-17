@@ -4,6 +4,13 @@ const LOAD_EVENT_DETAILS = 'events/LOAD_EVENT_DETAILS';
 const RSVP_EVENT = 'events/RSVP_EVENT';
 const CANCEL_RSVP = 'events/CANCEL_RSVP';
 
+// Helper function to get CSRF token from cookies
+const getCSRFToken = () => {
+  const cookies = document.cookie.split('; ');
+  const tokenCookie = cookies.find(cookie => cookie.startsWith('csrf_token='));
+  return tokenCookie ? tokenCookie.split('=')[1] : null;
+};
+
 // Action Creators
 const loadEvents = (events) => ({
   type: LOAD_EVENTS,
@@ -27,7 +34,13 @@ const cancelRsvp = (eventId) => ({
 
 // Thunks
 export const fetchEventsThunk = () => async (dispatch) => {
-  const response = await fetch('/api/events');
+  const response = await fetch('/api/events', {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
+    }
+  });
   
   if (response.ok) {
     const events = await response.json();
@@ -39,7 +52,13 @@ export const fetchEventsThunk = () => async (dispatch) => {
 };
 
 export const fetchEventDetailsThunk = (eventId) => async (dispatch) => {
-  const response = await fetch(`/api/events/${eventId}`);
+  const response = await fetch(`/api/events/${eventId}`, {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
+    }
+  });
   
   if (response.ok) {
     const event = await response.json();
@@ -53,8 +72,10 @@ export const fetchEventDetailsThunk = (eventId) => async (dispatch) => {
 export const rsvpEventThunk = (eventId) => async (dispatch) => {
   const response = await fetch(`/api/events/${eventId}/rsvp`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
     }
   });
   
@@ -69,7 +90,12 @@ export const rsvpEventThunk = (eventId) => async (dispatch) => {
 
 export const cancelRsvpThunk = (eventId) => async (dispatch) => {
   const response = await fetch(`/api/events/${eventId}/rsvp`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCSRFToken()
+    }
   });
   
   if (response.ok) {

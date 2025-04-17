@@ -11,6 +11,8 @@
   top: 0;
   left: 0;
   z-index: 1000;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 .nav-container ul {
@@ -90,6 +92,9 @@ li:nth-last-child(2) a {
     box-shadow: 0vh 0.5vh 1vh rgba(0, 0, 0, 0.6);
     z-index: 2;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
 
 .logo-link-navbar, .link-navbar{
@@ -176,4 +181,85 @@ li:nth-last-child(2) a {
 .login-signup-navbar a {
     text-decoration: none;
     color: inherit;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 1024px) {
+  .nav-container ul li:not(:first-child):not(:nth-last-child(2)):not(:last-child) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-container {
+    padding: 0 5px;
+  }
+  
+  li:first-child a {
+    padding: 0 10px;
+  }
+  
+  li a {
+    padding: 0 8px;
+  }
+  
+  .nuser-navbar {
+    grid-template-columns: 2fr 1fr 1fr 1fr 2fr;
+  }
+  
+  .link-navbar:not(:first-child):not(:nth-last-child(2)):not(:last-child) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .nav-container {
+    height: auto;
+    flex-direction: column;
+    padding: 10px 5px;
+  }
+  
+  .nav-container ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  li:first-child {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  li a {
+    line-height: normal;
+    padding: 8px;
+  }
+  
+  body {
+    margin-top: 120px;
+  }
+  
+  .nuser-navbar {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 10px 5px;
+    gap: 10px;
+  }
+  
+  .logo-link-navbar, .link-navbar, .login-signup-navbar {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .login-signup-navbar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .login-navbar, .signup-navbar {
+    justify-content: center;
+  }
+  
+  .signup-navbar {
+    padding-right: 0;
+  }
 }
