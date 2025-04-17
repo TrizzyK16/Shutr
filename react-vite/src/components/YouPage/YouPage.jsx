@@ -55,7 +55,20 @@ export default function YouPage() {
     const userPhotos = allPhotos.filter(photo => user && photo.user_id === user.id);
     
     // Filter for user's favorites
-    const userFavorites = Object.values(allFavorites).filter(fav => user && fav.user_id === user.id);
+    // Get favorites and join with photo data to display correctly
+    const userFavorites = Object.values(allFavorites)
+        .filter(fav => user && fav.user_id === user.id)
+        .map(fav => {
+            // Find the corresponding photo for this favorite
+            const photo = allPhotos.find(photo => photo.id === fav.photo_id);
+            return {
+                ...fav,
+                image_url: photo ? photo.image_url : null,
+                caption: photo ? photo.caption : '',
+                created_at: photo ? photo.created_at : fav.created_at
+            };
+        })
+        .filter(fav => fav.image_url); // Only include favorites with valid images
     
     // Filter for user's joined groups (groups where is_member is true)
     const userJoinedGroups = allGroups.filter(group => group.is_member === true);
@@ -172,10 +185,10 @@ export default function YouPage() {
                         {userFavorites.length > 0 ? (
                             <div className="favorites-grid">
                                 {userFavorites.map(favorite => (
-                                    <div key={favorite.id} className="favorite-card">
+                                    <div key={favorite.id || favorite.photo_id} className="favorite-card">
                                         <div className="favorite-image">
                                             <img src={favorite.image_url} alt="favorite" />
-                                            <FavoriteButton photoId={favorite.id} />
+                                            <FavoriteButton photoId={favorite.photo_id} />
                                         </div>
                                         <div className="favorite-info">
                                             <p className="favorite-caption">{favorite.caption}</p>

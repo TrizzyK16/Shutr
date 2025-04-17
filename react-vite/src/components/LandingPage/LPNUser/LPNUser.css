@@ -41,7 +41,7 @@
   justify-content: center;
 }
 
-.hero-gallery {
+.landing-page .hero-gallery {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -49,13 +49,13 @@
   margin: 0 auto;
 }
 
-.gallery-row {
+.landing-page .gallery-row {
   display: flex;
   gap: 1rem;
   width: 100%;
 }
 
-.gallery-img {
+.landing-page .gallery-img {
   flex: 1;
   height: 200px;
   object-fit: cover;
@@ -100,20 +100,23 @@
   margin: 0 auto;
 }
 
-.feature-card {
+.landing-page .feature-card {
   background-color: white;
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: auto;
+  margin-bottom: 0;
+  display: block;
 }
 
-.feature-card:hover {
+.landing-page .feature-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-.feature-icon {
+.landing-page .feature-icon {
   width: 60px;
   height: 60px;
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
@@ -124,22 +127,23 @@
   margin-bottom: 1.5rem;
   color: white;
   font-size: 1.5rem;
+  flex: none;
 }
 
-.feature-card h3 {
+.landing-page .feature-card h3 {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 1rem;
   color: var(--text-primary);
 }
 
-.feature-card p {
+.landing-page .feature-card p {
   color: var(--text-secondary);
   line-height: 1.6;
 }
 
 /* Showcase Section */
-.showcase-section {
+.landing-page .showcase-section {
   padding: 5rem 2rem;
   background-color: white;
   display: flex;
@@ -148,48 +152,53 @@
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  position: static;
 }
 
-.showcase-content {
+.landing-page .showcase-content {
   flex: 1;
   min-width: 300px;
 }
 
-.showcase-content h2 {
+.landing-page .showcase-content h2 {
   font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
   color: var(--text-primary);
 }
 
-.showcase-content p {
+.landing-page .showcase-content p {
   font-size: 1.2rem;
   color: var(--text-secondary);
   margin-bottom: 2rem;
 }
 
-.showcase-gallery {
+.landing-page .showcase-gallery {
   flex: 2;
   min-width: 300px;
   display: flex;
   gap: 1.5rem;
+  width: auto;
+  padding: 0;
+  justify-content: space-between;
 }
 
-.showcase-column {
+.landing-page .showcase-column {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  width: auto;
 }
 
-.showcase-column img {
+.landing-page .showcase-column img {
   width: 100%;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
 }
 
-.showcase-column img:hover {
+.landing-page .showcase-column img:hover {
   transform: scale(1.02);
 }
 

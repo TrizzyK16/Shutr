@@ -108,6 +108,7 @@
 
 .photos-container {
   width: 100%;
+  display: block;
 }
 
 .photo-modal {

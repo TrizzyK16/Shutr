@@ -252,20 +252,20 @@
 }
 
 /* Grid layouts for different content types */
-.photos-grid,
-.favorites-grid,
-.groups-grid,
-.events-grid {
+.you-page .photos-grid,
+.you-page .favorites-grid,
+.you-page .groups-grid,
+.you-page .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
-.photo-card,
-.favorite-card,
-.group-card,
-.event-card {
+.you-page .photo-card,
+.you-page .favorite-card,
+.you-page .group-card,
+.you-page .event-card {
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
@@ -276,52 +276,52 @@
   flex-direction: column;
 }
 
-.photo-card:hover,
-.favorite-card:hover,
-.group-card:hover,
-.event-card:hover {
+.you-page .photo-card:hover,
+.you-page .favorite-card:hover,
+.you-page .group-card:hover,
+.you-page .event-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
-.photo-image,
-.favorite-image,
-.group-image,
-.event-image {
+.you-page .photo-image,
+.you-page .favorite-image,
+.you-page .group-image,
+.you-page .event-image {
   height: 180px;
   position: relative;
   overflow: hidden;
 }
 
-.photo-image img,
-.favorite-image img,
-.group-image img,
-.event-image img {
+.you-page .photo-image img,
+.you-page .favorite-image img,
+.you-page .group-image img,
+.you-page .event-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
 }
 
-.photo-card:hover .photo-image img,
-.favorite-card:hover .favorite-image img,
-.group-card:hover .group-image img,
-.event-card:hover .event-image img {
+.you-page .photo-card:hover .photo-image img,
+.you-page .favorite-card:hover .favorite-image img,
+.you-page .group-card:hover .group-image img,
+.you-page .event-card:hover .event-image img {
   transform: scale(1.05);
 }
 
-.photo-info,
-.favorite-info,
-.group-info,
-.event-info {
+.you-page .photo-info,
+.you-page .favorite-info,
+.you-page .group-info,
+.you-page .event-info {
   padding: 1rem;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.photo-caption,
-.favorite-caption {
+.you-page .photo-caption,
+.you-page .favorite-caption {
   font-size: 0.9rem;
   color: #333;
   margin: 0;
