@@ -2,6 +2,7 @@
 import { useDispatch } from 'react-redux';
 import { deletePhotoThunk } from '../../redux/photos';
 import { useModal } from '../../context/Modal';
+import './PhotoList.css';
 
 function ConfirmDeleteModal({ photoId, onClose }) {
   const dispatch = useDispatch();

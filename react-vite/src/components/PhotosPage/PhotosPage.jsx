@@ -6,6 +6,7 @@ import PhotoList from '../PhotoList/PhotoList';
 import PhotoForm from '../PhotoForm/PhotoForm';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
+// import DeletePhotoButton from '../PhotoList/DeletePhotoButton';
 import './PhotosPage.css';
 
 function PhotoModal({ onClose }) {

@@ -11,7 +11,7 @@
 
 .photos-container .photo-card {
   border-radius: 6px;
-  overflow: hidden;
+  /* overflow: hidden; */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s, box-shadow 0.3s;
   background-color: white;
@@ -26,7 +26,7 @@
 
 .photos-container .photo-image {
   height: 200px;
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 }
 
@@ -69,27 +69,55 @@
 
 .photo-actions {
   display: flex;
-  gap: 10px;
+  flex-direction: row; /* Stack vertically */
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+/* .edit-link {
+  background-color: rgb(0, 94, 255);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+} */
+
+.edit-link,
+.delete-button {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .edit-link {
-  color: #0063dc;
+  background-color: #007bff;
+  color: white;
   text-decoration: none;
-  font-weight: 500;
 }
+
+.delete-button {
+  background-color: #e25858;
+  color: white;
+}
+
 
 .edit-link:hover {
   text-decoration: underline;
 }
 
-.delete-button {
-  background: none;
+/* .delete-button {
+  background-color: #dc3545;
+  color: white;
   border: none;
-  color: #ff0084;
+  padding: 6px 10px;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: 500;
-  padding: 0;
-}
+} */
 
 .delete-button:hover {
   text-decoration: underline;

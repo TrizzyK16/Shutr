@@ -43,10 +43,14 @@ function PhotoList({ userOnly = false }) {
       {displayPhotos.map((photo) => (
         <div key={photo.id} className="photo-card">
           <div className="photo-image">
+            <FavoriteButton photoId={photo.id} />
             <img src={photo.image_url} alt="user-upload" />
+            
+          </div>
+          <div className="photo-info">
+            <p className="photo-caption">{photo.caption}</p>
             {User && (
               <div className="photo-actions">
-                <FavoriteButton photoId={photo.id} />
                 {userId === photo.user_id && (
                   <>
                     <Link to={`/photos/${photo.id}/edit`} className="edit-link">Update</Link>
@@ -55,9 +59,6 @@ function PhotoList({ userOnly = false }) {
                 )}
               </div>
             )}
-          </div>
-          <div className="photo-info">
-            <p className="photo-caption">{photo.caption}</p>
             <div className="photo-meta">
               <span className="photo-date">{new Date(photo.created_at).toLocaleDateString()}</span>
             </div>
