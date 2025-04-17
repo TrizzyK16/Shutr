@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaBars, FaCamera, FaUser, FaCog, FaSignOutAlt, FaUserPlus, FaSignInAlt } from 'react-icons/fa';
+import { FaBars, FaCamera, FaUser, FaCog, FaSignOutAlt, FaUserPlus, FaSignInAlt, FaUsers, FaCalendarAlt, FaPrint } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
@@ -78,6 +78,18 @@ function ProfileButton() {
               <a href="/you" className="dropdown-item">
                 <FaUser className="dropdown-icon" />
                 <span>Your Page</span>
+              </a>
+              <a href="/groups" className="dropdown-item">
+                <FaUsers className="dropdown-icon" />
+                <span>Groups</span>
+              </a>
+              <a href="/events" className="dropdown-item">
+                <FaCalendarAlt className="dropdown-icon" />
+                <span>Events</span>
+              </a>
+              <a href="/prints" className="dropdown-item">
+                <FaPrint className="dropdown-icon" />
+                <span>Prints</span>
               </a>
               <a href="/settings" className="dropdown-item">
                 <FaCog className="dropdown-icon" />

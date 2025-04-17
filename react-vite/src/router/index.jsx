@@ -16,6 +16,8 @@ import UploadPage from '../components/UploadPage/UploadPage';
 import PhotosPage from '../components/PhotosPage/PhotosPage';
 import EditPhotoPage from '../components/EditPhotoPage/EditPhotoPage';
 import SearchResults from '../components/SearchResults/SearchResults';
+import GroupsPage from '../components/GroupsPage/GroupsPage';
+import EventsPage from '../components/EventsPage/EventsPage';
 
 export const router = createBrowserRouter([
   {
@@ -84,6 +86,14 @@ export const router = createBrowserRouter([
       {
         path: "/search",
         element: <SearchResults />
+      },
+      {
+        path: "/groups",
+        element: <GroupsPage />
+      },
+      {
+        path: "/events",
+        element: <EventsPage />
       }
     ],
   },

@@ -57,9 +57,9 @@
 
 /* Content section */
 .photos-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem 2rem;
+  max-width: 1000px;
+  margin: 15px auto;
+  padding: 1rem 1rem 2rem;
 }
 
 .photos-tabs {
@@ -107,9 +107,7 @@
 }
 
 .photos-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  width: 100%;
 }
 
 .photo-modal {
@@ -138,7 +136,7 @@
   }
   
   .photos-container {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    flex-wrap: wrap;
   }
 }
 
@@ -152,7 +150,7 @@
   }
   
   .photos-container {
-    grid-template-columns: 1fr;
+    flex-wrap: wrap;
   }
   
   .tab-button {

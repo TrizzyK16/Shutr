@@ -31,6 +31,12 @@ export default function NavUser() {
                         <NavLink to="/photos">Photos</NavLink>
                     </li>
                     <li>
+                        <NavLink to="/groups">Groups</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/events">Events</NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/prints">Prints</NavLink>
                     </li>
                     <li>
