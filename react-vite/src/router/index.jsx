@@ -100,10 +100,6 @@ export const router = createBrowserRouter([
         path: "/events",
         element: <EventsPage />
       },
-     {
-        path: "/albums",
-        element: <AlbumPage />
-      }
     ],
   },
 ]);
