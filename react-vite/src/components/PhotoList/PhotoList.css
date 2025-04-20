@@ -27,7 +27,7 @@
 .photos-container .photo-image {
   height: 200px;
   /* overflow: hidden; */
-  position: relative;
+  position: absolute;
 }
 
 .photos-container .photo-image img {
@@ -105,22 +105,57 @@
   color: white;
 }
 
-
 .edit-link:hover {
-  text-decoration: underline;
+  background-color: #0069d9;
 }
 
-/* .delete-button {
-  background-color: #dc3545;
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+.add-to-album-btn {
+  background-color: #28a745;
   color: white;
   border: none;
-  padding: 6px 10px;
   border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
   cursor: pointer;
-} */
+  transition: background-color 0.2s;
+}
 
-.delete-button:hover {
-  text-decoration: underline;
+.add-to-album-btn:hover {
+  background-color: #218838;
+}
+
+.delete-photo-modal,
+.add-to-album-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90vw;
+}
+
+
+.delete-confirm-button:hover {
+  background-color: #c82333;
+}
+
+.cancel-button:disabled,
+.delete-confirm-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px; 
+  padding: 0.75rem;
+  margin: 1rem 0;
+  font-size: 0.9rem;
 }
 
 .no-photos {

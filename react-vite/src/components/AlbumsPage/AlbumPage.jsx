@@ -73,8 +73,8 @@ function CreateAlbumModal({ onClose, onSuccess }) {
         </div>
         
         <div className="form-actions">
-          <button type="button" onClick={onClose} className="cancel-button">Cancel</button>
-          <button type="submit" className="submit-button">Create Album</button>
+          <button type="button" onClick={closeModal} className="form-button outline">Cancel</button>
+          <button type="submit" className="form-button">Create Album</button>
         </div>
       </form>
     </div>
@@ -148,8 +148,8 @@ function EditAlbumModal({ album, onClose, onSuccess }) {
         </div>
         
         <div className="form-actions">
-          <button type="button" onClick={onClose} className="cancel-button">Cancel</button>
-          <button type="submit" className="submit-button">Save Changes</button>
+          <button type="button" onClick={closeModal} className="form-button outline">Cancel</button>
+          <button type="submit" className="form-button">Save Changes</button>
         </div>
       </form>
     </div>
@@ -167,7 +167,7 @@ function AddPhotosModal({ album, onClose, onSuccess }) {
   
   // Filter out photos that are already in the album
   const availablePhotos = Object.values(allPhotos).filter(photo => 
-    photo.userId === user.id && !album.photos.includes(photo.id)
+    photo.user_id === user.id && !album.photos.includes(photo.id)
   );
 
   const handleSubmit = async (e) => {
@@ -206,7 +206,7 @@ function AddPhotosModal({ album, onClose, onSuccess }) {
       {errors && <p className="error">{errors}</p>}
       
       {availablePhotos.length === 0 ? (
-        <p className="no-photos-message">You don&apost have any additional photos to add to this album.</p>
+        <p className="no-photos-message">You don&apos;t have any additional photos to add to this album.</p>
       ) : (
         <form onSubmit={handleSubmit}>
           <div className="photo-selection-grid">
@@ -227,10 +227,10 @@ function AddPhotosModal({ album, onClose, onSuccess }) {
           </div>
           
           <div className="form-actions">
-            <button type="button" onClick={onClose} className="cancel-button">Cancel</button>
+            <button type="button" onClick={closeModal} className="form-button outline">Cancel</button>
             <button 
               type="submit" 
-              className="submit-button" 
+              className="form-button" 
               disabled={selectedPhotos.length === 0}
             >
               Add Selected Photos
@@ -346,7 +346,7 @@ function AlbumPage() {
             <OpenModalButton
               buttonText="Create New Album"
               modalComponent={<CreateAlbumModal onClose={() => {}} onSuccess={refreshActiveAlbum} />}
-              className="hero-create-button"
+              className=""
               onModalClose={refreshActiveAlbum}
             />
           </div>
@@ -397,11 +397,11 @@ function AlbumPage() {
                       <OpenModalButton
                         buttonText="Edit Album"
                         modalComponent={<EditAlbumModal album={activeAlbum} onClose={() => {}} onSuccess={refreshActiveAlbum} />}
-                        className="edit-album-button"
+                        className=""
                         onModalClose={refreshActiveAlbum}
                       />
                       <button 
-                        className="delete-album-button" 
+                        className="form-button outline" 
                         onClick={() => handleDeleteAlbum(activeAlbum.id)}
                       >
                         Delete Album
@@ -414,7 +414,7 @@ function AlbumPage() {
                     <OpenModalButton
                       buttonText="Add Photos"
                       modalComponent={<AddPhotosModal album={activeAlbum} onClose={() => {}} onSuccess={refreshActiveAlbum} />}
-                      className="add-photos-button"
+                      className=""
                       onModalClose={refreshActiveAlbum}
                     />
                   </div>

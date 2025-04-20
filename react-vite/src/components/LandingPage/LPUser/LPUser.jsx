@@ -43,8 +43,8 @@ export default function LPUser() {
                     <h1>Welcome back, {user?.username || "Photographer"}!</h1>
                     <p>Continue exploring amazing photography or share your latest work</p>
                     <div className="welcome-actions">
-                        <Link to="/upload" className="form-button">Upload Photos</Link>
-                        <Link to="/explore" className="form-button outline">Explore</Link>
+                        <Link to="/upload" className="form-button gradient-button">Upload Photos</Link>
+                        <Link to="/explore" className="form-button gradient-button">Explore</Link>
                     </div>
                 </div>
             </section>

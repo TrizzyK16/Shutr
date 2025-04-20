@@ -109,7 +109,7 @@ export default function EventsPage() {
                         <p className="events-hero__subtitle">Join photography events and meetups in your area</p>
                         <div className="login-prompt">
                             <p>Please log in to view and RSVP for events</p>
-                            <Link to="/login" className="login-button">Log In</Link>
+                            <Link to="/login" className="form-button">Log In</Link>
                         </div>
                     </div>
                 </div>
@@ -137,19 +137,19 @@ export default function EventsPage() {
                 {/* Tabs */}
                 <div className="events-tabs">
                     <button 
-                        className={`tab-button ${activeTab === 'upcoming' ? 'active' : ''}`}
+                        className={`form-button ${activeTab === 'upcoming' ? 'active' : 'outline'}`}
                         onClick={() => setActiveTab('upcoming')}
                     >
                         Upcoming Events
                     </button>
                     <button 
-                        className={`tab-button ${activeTab === 'my-events' ? 'active' : ''}`}
+                        className={`form-button ${activeTab === 'my-events' ? 'active' : 'outline'}`}
                         onClick={() => setActiveTab('my-events')}
                     >
                         My Events
                     </button>
                     <button 
-                        className={`tab-button ${activeTab === 'past' ? 'active' : ''}`}
+                        className={`form-button ${activeTab === 'past' ? 'active' : 'outline'}`}
                         onClick={() => setActiveTab('past')}
                     >
                         Past Events
@@ -187,7 +187,7 @@ export default function EventsPage() {
                                                 </div>
                                                 {userEventIds.includes(event.id) ? (
                                                     <button 
-                                                        className="cancel-rsvp-button"
+                                                        className="form-button outline"
                                                         onClick={() => handleCancelRsvp(event.id, event.name)}
                                                     >
                                                         <FaCalendarTimes className="button-icon" />
@@ -195,7 +195,7 @@ export default function EventsPage() {
                                                     </button>
                                                 ) : (
                                                     <button 
-                                                        className="rsvp-button"
+                                                        className="form-button"
                                                         onClick={() => handleRsvp(event.id, event.name)}
                                                     >
                                                         <FaCalendarCheck className="button-icon" />
@@ -235,7 +235,7 @@ export default function EventsPage() {
                                                 </div>
                                                 {new Date(event.date) >= currentDate && (
                                                     <button 
-                                                        className="cancel-rsvp-button"
+                                                        className="form-button outline"
                                                         onClick={() => handleCancelRsvp(event.id, event.name)}
                                                     >
                                                         <FaCalendarTimes className="button-icon" />

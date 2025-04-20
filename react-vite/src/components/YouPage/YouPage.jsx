@@ -29,30 +29,48 @@ const EVENT_IMAGES = [
     'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80'
 ];
 
-// Array of different album images
+// Array of different album cover images
 const ALBUM_IMAGES = [
-    'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
-    'https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
-    'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
-    'https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
-    'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
-    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80'
+    'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1520962922320-2038eebab146?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1518098268026-4e89f1a2cd8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80'
 ];
 
 export default function YouPage() {
+    // Function to get a consistent image for a group based on its ID
+    const getGroupImage = (id) => {
+        // Convert id to number and use modulo to get an index
+        const index = (typeof id === 'number' ? id : parseInt(id, 10)) % GROUP_IMAGES.length;
+        // Use a default index if parsing fails
+        return GROUP_IMAGES[index >= 0 ? index : 0];
+    };
+    
+    // Function to get a consistent image for an event based on its ID
+    const getEventImage = (id) => {
+        // Convert id to number and use modulo to get an index
+        const index = (typeof id === 'number' ? id : parseInt(id, 10)) % EVENT_IMAGES.length;
+        // Use a default index if parsing fails
+        return EVENT_IMAGES[index >= 0 ? index : 0];
+    };
+    
+    // Function to get a consistent image for an album based on its ID
+    const getAlbumImage = (id) => {
+        // Convert id to number and use modulo to get an index
+        const index = (typeof id === 'number' ? id : parseInt(id, 10)) % ALBUM_IMAGES.length;
+        // Use a default index if parsing fails
+        return ALBUM_IMAGES[index >= 0 ? index : 0];
+    };
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState('photos');
-
-    // Get the current user from Redux store
-    const user = useSelector((state) => state.session.user);
-
-    // Get photos, groups, and events from Redux store
-    const allPhotos = useSelector((state) => Object.values(state.photos));
-    const allGroups = useSelector((state) => state.groups.allGroups || []);
-    const allEvents = useSelector((state) => state.events.allEvents || []);
-    const userAlbums = useSelector((state) => state.albums.userAlbums || []);
-
+    const user = useSelector(state => state.session.user);
+    const allFavorites = useSelector(state => state.favorites.allFavorites || {});
+    const allPhotos = useSelector(state => Object.values(state.photos));
+    const allGroups = useSelector(state => state.groups.allGroups || []);
+    const allEvents = useSelector(state => state.events.allEvents || []);
+    const userAlbums = useSelector(state => state.albums.userAlbums || []);
+    
     // Filter for user's photos
     const userPhotos = allPhotos.filter((photo) => user && photo.user_id === user.id);
 
@@ -89,25 +107,24 @@ export default function YouPage() {
             <div className="you-content">
                 <div className="you-section">
                     <h2 className="section-title">Quick Actions</h2>
-                    <div className="action-buttons">
-                        <div className="top-row">
-                            <Link to="/photos" className="action-button photos">
-                                <span>View Your Photos</span>
-                                <span className="action-button-icon"><span className="material-symbols-outlined">photo_library</span></span>
+                    <div className="action-buttons-container">
+                        <div className="action-buttons-row">
+                            <Link to="/upload" className="action-button upload">
+                                <span>Upload Photos</span>
+                            </Link>
+                            <Link to="/photos" className="action-button explore">
+                                <span>Explore Photos</span>
                             </Link>
                             <Link to="/albums" className="action-button albums">
-                                <span>View Your Albums</span>
-                                <span className="action-button-icon"><span className="material-symbols-outlined">photo_album</span></span>
+                                <span>View Albums</span>
                             </Link>
                         </div>
-                        <div className="bottom-row">
+                        <div className="action-buttons-row">
                             <Link to="/groups" className="action-button groups">
                                 <span>Join Groups</span>
-                                <span className="action-button-icon"><span className="material-symbols-outlined">group</span></span>
                             </Link>
                             <Link to="/events" className="action-button events">
                                 <span>Attend Events</span>
-                                <span className="action-button-icon"><span className="material-symbols-outlined">event</span></span>
                             </Link>
                         </div>
                     </div>
@@ -126,6 +143,12 @@ export default function YouPage() {
                         onClick={() => setActiveTab('favorites')}
                     >
                         Your Favorites
+                    </button>
+                    <button 
+                        className={`tab-button ${activeTab === 'albums' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('albums')}
+                    >
+                        Your Albums
                     </button>
                     <button 
                         className={`tab-button ${activeTab === 'groups' ? 'active' : ''}`}
@@ -267,6 +290,44 @@ export default function YouPage() {
                         )}
                         {userJoinedGroups.length > 0 && (
                             <Link to="/groups?tab=my-groups" className="view-all-link">View all your groups</Link>
+                        )}
+                    </div>
+                )}
+
+                {/* Albums Tab Content */}
+                {activeTab === 'albums' && (
+                    <div className="you-section albums-section">
+                        {userAlbums && userAlbums.length > 0 ? (
+                            <div className="albums-grid">
+                                {userAlbums.slice(0, 4).map(album => (
+                                    <div key={album.id} className="album-card">
+                                        <div className="album-image">
+                                            <img 
+                                                src={album.photos && album.photos.length > 0 ? 
+                                                    allPhotos.find(p => p.id === album.photos[0])?.image_url : 
+                                                    getAlbumImage(album.id)} 
+                                                alt={album.title} 
+                                            />
+                                        </div>
+                                        <div className="album-info">
+                                            <h3 className="album-name">{album.title}</h3>
+                                            <p className="album-description">{album.description || 'No description'}</p>
+                                            <p className="album-photo-count">{album.photos ? album.photos.length : 0} photos</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="empty-albums-container">
+                                <div className="empty-albums-icon">📷</div>
+                                <h3>No Albums Yet</h3>
+                                <p>You haven&apos;t created any photo albums yet.</p>
+                                <p className="empty-state-description">Create albums to organize your photos by theme, event, or any way you like.</p>
+                                <Link to="/albums" className="empty-state-button">Create an Album</Link>
+                            </div>
+                        )}
+                        {userAlbums && userAlbums.length > 0 && (
+                            <Link to="/albums" className="view-all-link">View all your albums</Link>
                         )}
                     </div>
                 )}

@@ -63,7 +63,7 @@ function ProfileButton() {
             <div className="dropdown-grid">
               <a href="/you" className="dropdown-item">
                 <FaUser className="dropdown-icon" />
-                <span>Dashboard</span>
+                <span>Your Page</span>
               </a>
               <button onClick={logout} className="dropdown-item">
                 <FaSignOutAlt className="dropdown-icon" />

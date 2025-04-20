@@ -59,6 +59,16 @@ export const getUserAlbums = (userId) => async (dispatch) => {
   }
 };
 
+// Get CSRF token from cookies
+function getCSRFToken() {
+  const cookies = document.cookie.split(';');
+  for (let cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'csrf_token') return value;
+  }
+  return null;
+}
+
 export const createAlbum = (albumData) => async (dispatch) => {
   try {
     const csrfToken = await getCSRFToken();
@@ -66,13 +76,10 @@ export const createAlbum = (albumData) => async (dispatch) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
+        'X-CSRFToken': getCSRFToken()
       },
       credentials: 'include',
-      body: JSON.stringify({
-        title: albumData.name,
-        description: albumData.description
-      })
+      body: JSON.stringify(albumData)
     });
 
     if (response.ok) {
@@ -96,7 +103,7 @@ export const editAlbum = (albumId, albumData) => async (dispatch) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
+        'X-CSRFToken': getCSRFToken()
       },
       credentials: 'include',
       body: JSON.stringify(albumData)
@@ -122,7 +129,7 @@ export const deleteAlbum = (albumId) => async (dispatch) => {
     const response = await fetch(`/api/albums/${albumId}`, {
       method: 'DELETE',
       headers: {
-        'X-CSRFToken': csrfToken
+        'X-CSRFToken': getCSRFToken()
       },
       credentials: 'include'
     });
@@ -147,7 +154,7 @@ export const addPhotosToAlbum = (albumId, photoIds) => async (dispatch) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': csrfToken
+        'X-CSRFToken': getCSRFToken()
       },
       credentials: 'include',
       body: JSON.stringify({ photo_ids: photoIds })
@@ -173,7 +180,7 @@ export const removePhotoFromAlbumThunk = (albumId, photoId) => async (dispatch) 
     const response = await fetch(`/api/albums/${albumId}/photos/${photoId}`, {
       method: 'DELETE',
       headers: {
-        'X-CSRFToken': csrfToken
+        'X-CSRFToken': getCSRFToken()
       },
       credentials: 'include'
     });

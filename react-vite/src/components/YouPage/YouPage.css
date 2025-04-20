@@ -56,24 +56,38 @@
 
 .action-buttons {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.action-buttons .top-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.action-buttons .bottom-row {
+  display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .action-button {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
+  justify-content: center;
   height: 50px;
   width: 180px;
   border-radius: 4px;
   text-decoration: none;
   color: white;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  background: linear-gradient(135deg, #0063dc, #ff0084);
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  font-size: 1rem;
+  background-image: linear-gradient(135deg, #0063dc, #8a2be2, #ff1493);
   background-size: 200% 200%;
   animation: gradientShift 6s ease infinite;
   border: none;
@@ -113,7 +127,8 @@
 .empty-photos-container,
 .empty-favorites-container,
 .empty-groups-container,
-.empty-events-container {
+.empty-events-container,
+.empty-albums-container {
   background-color: #f9f9f9;
   border-radius: 12px;
   padding: 3rem 2rem;
@@ -130,7 +145,8 @@
 .empty-photos-container:hover,
 .empty-favorites-container:hover,
 .empty-groups-container:hover,
-.empty-events-container:hover {
+.empty-events-container:hover,
+.empty-albums-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -138,7 +154,8 @@
 .empty-photos-icon,
 .empty-favorites-icon,
 .empty-groups-icon,
-.empty-events-icon {
+.empty-events-icon,
+.empty-albums-icon {
   font-size: 3.5rem;
   margin-bottom: 1.5rem;
   animation: pulse 2s infinite;
@@ -159,7 +176,8 @@
 .empty-photos-container h3,
 .empty-favorites-container h3,
 .empty-groups-container h3,
-.empty-events-container h3 {
+.empty-events-container h3,
+.empty-albums-container h3 {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
@@ -169,7 +187,8 @@
 .empty-photos-container p,
 .empty-favorites-container p,
 .empty-groups-container p,
-.empty-events-container p {
+.empty-events-container p,
+.empty-albums-container p {
   font-size: 1rem;
   color: var(--text-secondary);
   margin-bottom: 0.75rem;
@@ -287,7 +306,7 @@
 .you-page .favorites-grid,
 .you-page .groups-grid,
 .you-page .events-grid,
-.albums-grid {
+.you-page .albums-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
@@ -312,15 +331,16 @@
 .you-page .favorite-card:hover,
 .you-page .group-card:hover,
 .you-page .event-card:hover,
-.album-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+.you-page .album-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 .you-page .photo-image,
 .you-page .favorite-image,
 .you-page .group-image,
 .you-page .event-image,
+.you-page .album-image,
 .album-image {
   height: 150px;
   overflow: hidden;
@@ -328,8 +348,9 @@
 
 .you-page .photo-image img,
 .you-page .favorite-image img,
+.you-page .group-image img,
 .you-page .event-image img,
-.album-image img {
+.you-page .album-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -339,7 +360,7 @@
 .you-page .favorite-card:hover .favorite-image img,
 .you-page .group-card:hover .group-image img,
 .you-page .event-card:hover .event-image img,
-.album-card:hover .album-image img {
+.you-page .album-card:hover .album-image img {
   transform: scale(1.05);
 }
 
@@ -375,8 +396,8 @@
 }
 
 .group-description,
-.event-info p,
-.album-info p {
+.event-description,
+.album-description {
   font-size: 0.9rem;
   color: #666;
   margin: 0 0 0.5rem;
@@ -390,7 +411,8 @@
 
 .group-members,
 .event-date,
-.event-location {
+.event-location,
+.album-photo-count {
   font-size: 0.8rem;
   color: #777;
   margin: 0.5rem 0 0;
@@ -411,7 +433,8 @@
 
 /* Section styling */
 .groups-section,
-.events-section {
+.events-section,
+.albums-section {
   background-color: #f8f9fa;
   padding: 2rem;
   border-radius: 8px;

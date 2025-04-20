@@ -13,6 +13,7 @@
 @import './styles/components/buttons.css';
 @import './styles/components/forms.css';
 @import './styles/components/modals.css';
+@import './styles/components/button-override.css'; /* Global button override for consistent styling */
 
 /* Global styles */
 body {

@@ -1,8 +1,17 @@
-import { NavLink } from "react-router-dom";
-import ProfileButton from "../ProfileButton";
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import ProfileButton from "../ProfileButton"
 import "./NavUser.css";
 
 export default function NavUser() {
+
+    const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
+    const handleSearch = () => {
+        if (searchQuery.trim() !== ""){
+            navigate(`/search?q=${encodeURIComponent(searchQuery)}`)
+        }
+    }
 
     return (
         <nav className="user-nav-container">
@@ -19,6 +28,9 @@ export default function NavUser() {
                     </li>
                     <li>
                         <NavLink to="/photos">Photos</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/albums">Albums</NavLink>
                     </li>
                     <li>
                         <NavLink to="/groups">Groups</NavLink>
@@ -42,11 +54,14 @@ export default function NavUser() {
                     <li>
                         <NavLink to="/upload">Upload</NavLink>
                     </li>
+
                     <li>
                         <ProfileButton />
                     </li>
                 </ul>
             </div>
+
+
         </nav>
     );
 }

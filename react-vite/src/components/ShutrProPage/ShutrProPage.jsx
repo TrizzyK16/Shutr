@@ -15,12 +15,12 @@ export default function ShutrProPage() {
           <h1 className="pro-hero__title">Shutr Pro</h1>
           <p className="pro-hero__subtitle">Elevate your photography with our premium features</p>
           {sessionUser ? (
-            <Link to="/get-pro" className="btn btn-primary">Upgrade Now</Link>
+            <Link to="/get-pro" className="form-button">Upgrade Now</Link>
           ) : (
             <OpenModalButton
               buttonText="Sign Up to Get Pro"
               modalComponent={<SignupFormModal />}
-              className="btn btn-primary"
+              className="form-button"
             />
           )}
         </div>

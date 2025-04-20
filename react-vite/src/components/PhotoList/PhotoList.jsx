@@ -2,9 +2,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPhotos } from '../../redux/photos';
 import { fetchFavorites } from '../../redux/favorites';
+import { getUserAlbums } from '../../redux/albums';
 import { Link } from 'react-router-dom';
 import DeletePhotoButton from './DeletePhotoButton';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import AddToAlbumButton from './AddToAlbumButton';
 import './PhotoList.css';
 
 function PhotoList({ userOnly = false }) {
@@ -23,10 +26,11 @@ function PhotoList({ userOnly = false }) {
     dispatch(fetchPhotos());
   }, [dispatch]);
 
-  // Only fetch favorites when User exists
+  // Only fetch favorites and albums when User exists
   useEffect(() => {
     if (userId) {
       dispatch(fetchFavorites());
+      dispatch(getUserAlbums(userId));
     }
   }, [dispatch, userId]);
 
@@ -55,6 +59,11 @@ function PhotoList({ userOnly = false }) {
                   <>
                     <Link to={`/photos/${photo.id}/edit`} className="edit-link">Update</Link>
                     <DeletePhotoButton photoId={photo.id} />
+                    <OpenModalButton
+                      buttonText="Add to Album"
+                      modalComponent={<AddToAlbumButton photoId={photo.id} />}
+                      className="add-to-album-btn"
+                    />
                   </>
                 )}
               </div>

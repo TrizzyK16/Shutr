@@ -2,20 +2,31 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchFavorites } from '../../redux/favorites';
+import { fetchPhotos } from '../../redux/photos';
 import PhotoList from '../PhotoList/PhotoList';
 import PhotoForm from '../PhotoForm/PhotoForm';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
+import { useModal } from '../../context/Modal';
 // import DeletePhotoButton from '../PhotoList/DeletePhotoButton';
 import './PhotosPage.css';
 
-function PhotoModal({ onClose }) {
+function PhotoModal() {
+  const { closeModal } = useModal();
+  const dispatch = useDispatch();
+  
+  const handleSuccess = () => {
+    // Refresh photos after successful upload
+    dispatch(fetchPhotos());
+    closeModal();
+  };
+  
   return (
     <div className="photo-modal">
       <h2>Upload a New Photo</h2>
       <PhotoForm 
         formType="create" 
-        onSuccess={onClose} 
+        onSuccess={handleSuccess} 
       />
     </div>
   );
@@ -83,8 +94,9 @@ function PhotosPage() {
             <div className="photos-hero__cta">
               <OpenModalButton
                 buttonText="Upload New Photo"
-                modalComponent={<PhotoModal onClose={() => {}} />}
+                modalComponent={<PhotoModal />}
                 className="hero-upload-button"
+                onModalClose={() => dispatch(fetchPhotos())}
               />
             </div>
           )}

@@ -23,32 +23,49 @@ function getCSRFToken() {
 
 // Thunk: fetch all photos
 export const fetchPhotos = () => async (dispatch) => {
-  const res = await fetch('/api/photos');
-  if (res.ok) {
-    const data = await res.json();
-    dispatch(getPhotos(data.photos));
-  } else {
-    throw new Error('Failed to fetch photos');
+  try {
+    const res = await fetch('/api/photos');
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(getPhotos(data.photos));
+      return data.photos;
+    } else {
+      console.error('Error fetching photos:', res.status, res.statusText);
+      return [];
+    }
+  } catch (error) {
+    console.error('Exception in fetchPhotos thunk:', error);
+    return [];
   }
 };
 
 // Thunk: create a photo
 export const createPhoto = (payload) => async (dispatch) => {
-  const res = await fetch('/api/photos', {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json',
-      'X-CSRFToken': getCSRFToken()
-     },
-    credentials: 'include',
-    body: JSON.stringify(payload),
-  });
-  if (res.ok) {
-    const photo = await res.json();
-    dispatch(addPhoto(photo));
-    return photo;
-  } else {
-    throw new Error('Failed to create photo');
+  try {
+    const res = await fetch('/api/photos', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCSRFToken()
+      },
+      credentials: 'include',
+      body: JSON.stringify(payload),
+    });
+    
+    if (res.ok) {
+      const photo = await res.json();
+      dispatch(addPhoto(photo));
+      return photo;
+    } else {
+      const errorData = await res.json().catch(() => ({
+        errors: ['An error occurred while creating the photo']
+      }));
+      console.error('Error creating photo:', errorData);
+      return errorData;
+    }
+  } catch (error) {
+    console.error('Exception in createPhoto thunk:', error);
+    return { errors: ['An unexpected error occurred. Please try again.'] };
   }
 };
 
@@ -74,17 +91,28 @@ export const updatePhotoThunk = (photoId, payload) => async (dispatch) => {
 
 // Thunk: delete a photo
 export const deletePhotoThunk = (photoId) => async (dispatch) => {
-  const res = await fetch(`/api/photos/${photoId}`, { 
-    method: 'DELETE', 
-    headers: {
-      'X-CSRFToken': getCSRFToken(),
-    },
-    credentials: 'include',
-  });
-  if (res.ok) {
-    dispatch(deletePhoto(photoId));
-  } else {
-    throw new Error('Failed to delete photo');
+  try {
+    const res = await fetch(`/api/photos/${photoId}`, { 
+      method: 'DELETE', 
+      headers: {
+        'X-CSRFToken': getCSRFToken(),
+      },
+      credentials: 'include',
+    });
+    
+    if (res.ok) {
+      dispatch(deletePhoto(photoId));
+      return { success: true };
+    } else {
+      const errorData = await res.json().catch(() => ({
+        errors: ['An error occurred while deleting the photo']
+      }));
+      console.error('Error deleting photo:', errorData);
+      return errorData;
+    }
+  } catch (error) {
+    console.error('Exception in deletePhotoThunk:', error);
+    return { errors: ['An unexpected error occurred. Please try again.'], success: false };
   }
 };
 

@@ -28,6 +28,8 @@ class User(db.Model, UserMixin):
     
     # Relationship to favorites
     favorites = db.relationship("Favorite", back_populates="user", cascade="all, delete-orphan")
+    
+    # Relationship to albums
     albums = db.relationship("Album", back_populates="user", cascade="all, delete-orphan")
 
     @property

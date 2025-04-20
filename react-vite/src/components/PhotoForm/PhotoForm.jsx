@@ -36,6 +36,7 @@ function PhotoForm({ photo = {}, formType, onSuccess }) {
     if (!validateForm()) return;
     
     setIsSubmitting(true);
+    setErrors({});
     
     const payload = {
       image_url: imageUrl,
@@ -53,13 +54,20 @@ function PhotoForm({ photo = {}, formType, onSuccess }) {
       if (result && result.errors) {
         // handle backend validation errors
         const backendErrors = {};
-        Object.entries(result.errors).forEach(([key, value]) => {
-          backendErrors[key] = value;
-        });
+        if (Array.isArray(result.errors)) {
+          // Handle array of error messages
+          backendErrors.general = result.errors.join(', ');
+        } else {
+          // Handle object of field-specific errors
+          Object.entries(result.errors).forEach(([key, value]) => {
+            backendErrors[key] = Array.isArray(value) ? value.join(', ') : value;
+          });
+        }
         setErrors(backendErrors);
       } else {
         // success callback, e.g., close modal or redirect
-        if (onSuccess) onSuccess();
+        console.log('Photo submitted successfully:', result);
+        if (onSuccess) onSuccess(result);
       }
     } catch (error) {
       console.error('Error submitting photo:', error);

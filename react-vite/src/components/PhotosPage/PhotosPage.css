@@ -4,6 +4,7 @@
   font-family: var(--font-main);
   color: var(--text-color);
   line-height: 1.5;
+  text-align: center;
 }
 
 /* Hero section */
@@ -91,7 +92,7 @@
 
 .tab-button.active::after {
   content: '';
-  position: absolute;
+  position: relative;
   bottom: -1px;
   left: 0;
   width: 100%;

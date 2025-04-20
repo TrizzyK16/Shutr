@@ -18,7 +18,7 @@ import EditPhotoPage from '../components/EditPhotoPage/EditPhotoPage';
 import SearchResults from '../components/SearchResults/SearchResults';
 import GroupsPage from '../components/GroupsPage/GroupsPage';
 import EventsPage from '../components/EventsPage/EventsPage';
-import AlbumsPage from '../components/AlbumsPage/AlbumsPage.jsx';
+import AlbumPage from '../components/AlbumsPage/AlbumPage';
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +61,10 @@ export const router = createBrowserRouter([
         element: <YouPage />,
       },
       {
+        path: "/albums",
+        element: <AlbumsPage />,
+      },
+      {
         path: "/explore",
         element: <ExplorePage />,
       },
@@ -99,6 +103,10 @@ export const router = createBrowserRouter([
       {
         path: "/albums",
         element: <AlbumsPage />
+      },
+      {
+        path: "/albums",
+        element: <AlbumPage />
       }
     ],
   },

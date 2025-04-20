@@ -73,7 +73,7 @@ export default function LPNUser() {
                 <div className="showcase-content">
                     <h2>Discover extraordinary photography</h2>
                     <p>Explore millions of photos from photographers around the world</p>
-                    <Link to="/explore" className="form-button">Explore now</Link>
+                    <Link to="/explore" className="form-button gradient-button">Explore now</Link>
                 </div>
                 <div className="showcase-gallery">
                     <div className="showcase-column">

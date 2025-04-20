@@ -21,53 +21,82 @@
   overflow: hidden;
 }
 
-/* Primary button */
+/* Primary button with gradient */
 .form-button {
-  background-color: var(--primary);
+  background: linear-gradient(45deg, #0063dc, #ff0084);
+  background-size: 200% 200%;
   color: var(--text-light);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.3s ease;
 }
 
 .form-button:hover {
-  background-color: var(--primary-light);
+  background-position: right center;
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 15px rgba(0, 99, 220, 0.4);
 }
 
 .form-button:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
-  background-color: var(--primary-dark);
+  box-shadow: 0 2px 5px rgba(0, 99, 220, 0.4);
+}
+
+.form-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #ff0084, #0063dc);
+  background-size: 200% 200%;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.form-button:hover::before {
+  opacity: 1;
 }
 
 /* Secondary button */
 .form-button.secondary {
-  background-color: var(--secondary);
+  background: linear-gradient(45deg, var(--secondary), var(--primary));
   color: var(--text-light);
 }
 
 .form-button.secondary:hover {
-  background-color: var(--secondary-light);
+  background-position: right center;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
 .form-button.secondary:active {
-  background-color: var(--secondary-dark);
   transform: translateY(0);
   box-shadow: var(--shadow-sm);
 }
 
+.form-button.secondary::before {
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+}
+
 /* Text button */
 .form-button.text {
-  background-color: transparent;
+  background: transparent;
   color: var(--primary);
   padding: 0.5rem 0.75rem;
   box-shadow: none;
   border-bottom: 2px solid transparent;
 }
 
+.form-button.text::before {
+  display: none;
+}
+
 .form-button.text:hover {
-  background-color: var(--hover-overlay);
+  background: var(--hover-overlay);
   color: var(--primary-dark);
   border-bottom: 2px solid var(--primary);
   transform: none;
@@ -75,20 +104,24 @@
 }
 
 .form-button.text:active {
-  background-color: var(--hover-overlay);
+  background: var(--hover-overlay);
   color: var(--primary-dark);
 }
 
 /* Outline button */
 .form-button.outline {
-  background-color: transparent;
+  background: transparent;
   color: var(--primary);
   border: 1px solid var(--primary);
   box-shadow: none;
 }
 
+.form-button.outline::before {
+  display: none;
+}
+
 .form-button.outline:hover {
-  background-color: rgba(0, 99, 220, 0.05);
+  background: rgba(0, 99, 220, 0.05);
   color: var(--primary-dark);
   border-color: var(--primary-dark);
   transform: translateY(-2px);
@@ -153,3 +186,8 @@
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
+
+/* Legacy gradient button class - now redundant as all buttons use gradient by default */
+/*.form-button.gradient-button {*/
+  /* Class kept for backward compatibility */
+
