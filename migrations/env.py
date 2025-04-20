@@ -95,6 +95,11 @@ def run_migrations_online():
             **current_app.extensions['migrate'].configure_args
         )
 
+        # Create the schema if it doesn't exist
+        from app.models.db import SCHEMA, environment
+        if environment == "production":
+            connection.execute(f"CREATE SCHEMA IF NOT EXISTS {SCHEMA}")
+
         with context.begin_transaction():
             context.run_migrations()
 
