@@ -16,12 +16,15 @@ const removeUser = () => ({
 const getCSRFToken = async () => {
   try {
     const response = await fetch('/api/csrf/restore');
-    if (!response.ok) throw new Error('Failed to fetch CSRF token');
+    if (!response.ok) {
+      console.warn('CSRF token fetch not OK, attempting to proceed without token');
+      return null; // Return null instead of throwing, allowing login to proceed
+    }
     const data = await response.json();
     return data.csrf_token;
   } catch (error) {
-    console.error('Error fetching CSRF token:', error);
-    throw error;
+    console.warn('Error fetching CSRF token, attempting to proceed without token:', error);
+    return null; // Return null instead of throwing, allowing login to proceed
   }
 };
 
@@ -38,9 +41,17 @@ export const thunkAuthenticate = () => async (dispatch) => {
         return;
       }
       dispatch(setUser(data));
+    } else {
+      // Don't throw errors for authentication checks - just log them
+      console.warn('Authentication check failed:', response.status);
+      // For 500 errors, we'll assume the server is having issues
+      if (response.status >= 500) {
+        console.warn('Server error during authentication check');
+      }
     }
   } catch (error) {
-    console.error('Authentication error:', error);
+    console.warn('Authentication error (non-fatal):', error);
+    // We don't want to break the app if auth check fails
   }
 };
 
@@ -48,12 +59,19 @@ export const thunkLogin = (credentials) => async dispatch => {
   try {
     const csrfToken = await getCSRFToken();
     
+    // Prepare headers
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    
+    // Only add CSRF token if we got one
+    if (csrfToken) {
+      headers["X-CSRFToken"] = csrfToken;
+    }
+    
     const response = await fetch("/api/auth/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrfToken
-      },
+      headers,
       credentials: 'include',
       body: JSON.stringify(credentials)
     });
@@ -66,11 +84,17 @@ export const thunkLogin = (credentials) => async dispatch => {
       const errorMessages = await response.json();
       return errorMessages;
     } else {
-      return { server: "Something went wrong. Please try again" };
+      // Handle 500 errors specifically
+      console.error('Server error during login:', response.status);
+      return { 
+        server: "The server is currently experiencing issues. This is likely a temporary problem. Please try again later or contact support if the issue persists."
+      };
     }
   } catch (error) {
     console.error('Login error:', error);
-    return { server: "Network error. Please check your connection and try again." };
+    return { 
+      server: "Network error. Please check your connection and try again. If you're connected to the internet, the server may be temporarily unavailable."
+    };
   }
 };
 
@@ -78,12 +102,19 @@ export const loginDemoUser = () => async dispatch => {
   try {
     const csrfToken = await getCSRFToken();
     
+    // Prepare headers
+    const headers = {
+      "Content-Type": "application/json"
+    };
+    
+    // Only add CSRF token if we got one
+    if (csrfToken) {
+      headers["X-CSRFToken"] = csrfToken;
+    }
+    
     const response = await fetch("/api/auth/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrfToken
-      },
+      headers,
       credentials: 'include',
       body: JSON.stringify({
         "email": "demo@aa.io",

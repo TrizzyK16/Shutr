@@ -84,24 +84,62 @@
   width: 100%;
   padding: 12px;
   font-weight: 600;
-  background-color: #0063dc;
+  background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   font-size: 16px;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
 }
 
 .login-submit-button:hover {
-  background-color: #0073ec;
+  background-color: var(--primary-dark);
+}
+
+.login-submit-button:active {
+  transform: translateY(1px);
+}
+
+.login-submit-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 99, 220, 0.3);
 }
 
 .login-form-footer {
   margin-top: 20px;
   text-align: center;
   font-size: 14px;
-  color: #898989;
+  color: var(--text-secondary);
+}
+
+/* Add server error message styling */
+.server-error {
+  background-color: rgba(255, 0, 132, 0.1);
+  color: var(--error);
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid rgba(255, 0, 132, 0.2);
+}
+
+.server-error p {
+  margin: 0 0 8px;
+}
+
+.server-error p:last-child {
+  margin-bottom: 0;
+}
+
+.error-suggestion {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-style: italic;
 }
 
 .text-button {

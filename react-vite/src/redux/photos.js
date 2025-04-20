@@ -24,17 +24,26 @@ function getCSRFToken() {
 // Thunk: fetch all photos
 export const fetchPhotos = () => async (dispatch) => {
   try {
-    const res = await fetch('/api/photos');
-    if (res.ok) {
-      const data = await res.json();
+    const response = await fetch('/api/photos');
+    
+    if (response.ok) {
+      const data = await response.json();
       dispatch(getPhotos(data.photos));
       return data.photos;
     } else {
-      console.error('Error fetching photos:', res.status, res.statusText);
+      console.error('Error fetching photos:', response.status, response.statusText);
+      // For 500 errors, we'll handle them gracefully
+      if (response.status >= 500) {
+        console.warn('Server error when fetching photos');
+        // Return an empty array but don't break the app
+        dispatch(getPhotos([]));
+      }
       return [];
     }
   } catch (error) {
-    console.error('Exception in fetchPhotos thunk:', error);
+    console.error('Network error fetching photos:', error);
+    // Don't break the app, just return empty photos
+    dispatch(getPhotos([]));
     return [];
   }
 };

@@ -1,4 +1,4 @@
-FLASK_APP=app.py
+FLASK_APP=app
 FLASK_ENV=development
 SCHEMA=flask_schema
 DATABASE_URL=sqlite:///dev.db

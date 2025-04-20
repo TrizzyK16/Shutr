@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { fetchFavorites } from '../../redux/favorites';
 import { fetchPhotos } from '../../redux/photos';
 import PhotoList from '../PhotoList/PhotoList';
 import PhotoForm from '../PhotoForm/PhotoForm';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import FavoriteButton from '../FavoriteButton/FavoriteButton';
+import AddToAlbumButton from '../PhotoList/AddToAlbumButton';
+import DeletePhotoButton from '../PhotoList/DeletePhotoButton';
 import { useModal } from '../../context/Modal';
-// import DeletePhotoButton from '../PhotoList/DeletePhotoButton';
+import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import './PhotosPage.css';
 
 function PhotoModal() {
@@ -41,6 +43,7 @@ function PhotosPage() {
   const photos = useSelector(state => Object.values(state.photos));
   const [activeTab, setActiveTab] = useState('explore');
   const [error, setError] = useState(null);
+  const [serverStatus, setServerStatus] = useState('ok'); // 'ok', 'warning', 'error'
   
   // Get all photo IDs that are favorited
   const favoritePhotoIds = Object.keys(allFavorites || {});
@@ -63,7 +66,13 @@ function PhotosPage() {
   useEffect(() => {
     if (userId) {
       dispatch(fetchFavorites())
-        .catch(err => setError(err.message));
+        .catch(err => {
+          console.error('Error fetching favorites:', err);
+          setError(err.message);
+          if (err.message && err.message.includes('500')) {
+            setServerStatus('error');
+          }
+        });
     }
   }, [dispatch, userId]);
 
@@ -75,10 +84,26 @@ function PhotosPage() {
   }, [location.search]);
 
   // Display error if there is one
-  if (error) {
+  if (error && serverStatus === 'error') {
     return (
-      <div className="error-message">
-        <p>Error: {error}</p>
+      <div className="photos-page">
+        <div className="photos-hero">
+          <div className="photos-hero__content">
+            <h1 className="photos-hero__title">Shutr Photos</h1>
+            <p className="photos-hero__subtitle">Discover and share incredible photography from around the world</p>
+          </div>
+        </div>
+        
+        <div className="photos-content">
+          <div className="server-error-container">
+            <h2>Server Temporarily Unavailable</h2>
+            <p>We're experiencing some technical difficulties with our servers. This is likely a temporary issue.</p>
+            <p>Please try again later or refresh the page to see if the issue has been resolved.</p>
+            <button onClick={() => window.location.reload()} className="refresh-button">
+              Refresh Page
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -150,6 +175,11 @@ function PhotosPage() {
             ) : (
               <div className="login-prompt">
                 <p>Please log in to view your photos</p>
+                <OpenModalButton
+                  buttonText="Login Here"
+                  modalComponent={<LoginFormModal />}
+                  className="login-here-button"
+                />
               </div>
             )
           ) : (
@@ -164,7 +194,18 @@ function PhotosPage() {
                           <FavoriteButton photoId={photo.id} />
                         </div>
                         <div className="photo-info">
-                          <p className="photo-caption">{photo.caption}</p>
+                          <p className="photo-caption">{photo.caption || 'No caption'}</p>
+                          {photo.user_id === userId && (
+                            <div className="photo-actions">
+                              <Link to={`/photos/${photo.id}/edit`} className="edit-link">Update</Link>
+                              <DeletePhotoButton photoId={photo.id} />
+                              <OpenModalButton
+                                buttonText="Add to Album"
+                                modalComponent={<AddToAlbumButton photoId={photo.id} />}
+                                className="add-to-album-btn"
+                              />
+                            </div>
+                          )}
                           <div className="photo-meta">
                             <span className="photo-date">{new Date(photo.created_at).toLocaleDateString()}</span>
                           </div>
@@ -181,6 +222,11 @@ function PhotosPage() {
             ) : (
               <div className="login-prompt">
                 <p>Please log in to view your favorite photos</p>
+                <OpenModalButton
+                  buttonText="Login Here"
+                  modalComponent={<LoginFormModal />}
+                  className="login-here-button"
+                />
               </div>
             )
           )}

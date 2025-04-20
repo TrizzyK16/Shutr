@@ -17,19 +17,38 @@ function LoginFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrors({});
+    
+    try {
+      // Show loading state or disable button here if needed
+      
+      const serverResponse = await dispatch(
+        thunkLogin({
+          email,
+          password,
+        })
+      );
 
-    const serverResponse = await dispatch(
-      thunkLogin({
-        email,
-        password,
-      })
-    );
-
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      closeModal();
-      navigate('/');
+      if (serverResponse) {
+        // Handle specific error types
+        if (serverResponse.server && serverResponse.server.includes('Network error')) {
+          setErrors({ 
+            server: 'Unable to connect to the server. Please check your internet connection and try again.'
+          });
+        } else {
+          setErrors(serverResponse);
+        }
+      } else {
+        // Successful login
+        closeModal();
+        navigate('/');
+        window.location.reload(); // Force a reload to ensure state is fresh
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrors({ 
+        server: 'An unexpected error occurred during login. Please try again.'
+      });
     }
   };
 
@@ -41,6 +60,16 @@ function LoginFormModal() {
       </div>
       
       <form onSubmit={handleSubmit}>
+        {errors.server && (
+          <div className="server-error">
+            <p>{errors.server}</p>
+            {errors.server.includes('server is currently experiencing issues') && (
+              <p className="error-suggestion">
+                You can try refreshing the page or coming back later when the server issues are resolved.
+              </p>
+            )}
+          </div>
+        )}
         <div className="login-form-group">
           <label htmlFor="email">Email</label>
           <input
@@ -80,14 +109,22 @@ function LoginFormModal() {
             setModalContent(<SignupFormModal />);
           }}>Sign up</button></p>
           <p>Don&apos;t want an account? Sign in with our demo user!<button type="button" className="text-button" onClick={async () => {
-            const errors = await dispatch(loginDemoUser());
+            try {
+              setErrors({});
+              const errors = await dispatch(loginDemoUser());
               if (errors) {
                 setErrors(errors);
               } else {
                 closeModal();
                 navigate('/');
+                window.location.reload(); // Force a reload to ensure state is fresh
               }
-        
+            } catch (error) {
+              console.error('Demo login error:', error);
+              setErrors({ 
+                server: 'An error occurred with demo login. Please try again.'
+              });
+            }
           }}>Demo Sign In</button></p>
         </div>
       </form>

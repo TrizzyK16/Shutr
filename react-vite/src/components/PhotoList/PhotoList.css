@@ -3,15 +3,16 @@
 /* Use a more specific selector to avoid conflicts */
 .photos-container .photo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   width: 100%;
   padding: 15px;
+  margin: 0 auto;
 }
 
 .photos-container .photo-card {
   border-radius: 6px;
-  /* overflow: hidden; */
+  overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s, box-shadow 0.3s;
   background-color: white;
@@ -26,8 +27,9 @@
 
 .photos-container .photo-image {
   height: 200px;
-  /* overflow: hidden; */
-  position: absolute;
+  overflow: hidden;
+  position: relative;
+  border-radius: 6px 6px 0 0;
 }
 
 .photos-container .photo-image img {
@@ -39,6 +41,16 @@
 
 .photos-container .photo-card:hover .photo-image img {
   transform: scale(1.05);
+}
+
+/* Ensure favorite button is properly positioned */
+.photos-container .photo-card .favorite-button {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.photos-container .photo-card:hover .favorite-button {
+  opacity: 1;
 }
 
 .photos-container .photo-info {
@@ -57,10 +69,13 @@
 
 .photo-meta {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   font-size: 0.85rem;
   color: #777;
+  margin-top: 5px;
+  border-top: 1px solid #eee;
+  padding-top: 8px;
 }
 
 .photo-date {
@@ -69,10 +84,13 @@
 
 .photo-actions {
   display: flex;
-  flex-direction: row; /* Stack vertically */
+  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 12px;
+  align-items: stretch;
+  margin: 12px 0 8px;
+  gap: 5px;
+  height: 30px;
+  width: 100%;
 }
 
 /* .edit-link {
@@ -85,47 +103,57 @@
 } */
 
 .edit-link,
-.delete-button {
-  padding: 6px 12px;
-  font-size: 0.9rem;
+.delete-button,
+.add-to-album-btn {
+  padding: 0 8px;
+  font-size: 0.8rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-weight: normal;
+  box-sizing: border-box;
+  color: white;
 }
 
 .edit-link {
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
+  background-color: var(--secondary);
+  color: white !important;
+  text-decoration: none !important;
+  display: inline-flex;
 }
 
 .delete-button {
-  background-color: #e25858;
+  background-color: var(--error);
   color: white;
 }
 
 .edit-link:hover {
-  background-color: #0069d9;
+  background-color: var(--secondary-dark);
+  color: white !important;
+  text-decoration: none !important;
 }
 
 .delete-button:hover {
-  background-color: #c82333;
+  background-color: var(--secondary-dark);
 }
 
 .add-to-album-btn {
-  background-color: #28a745;
+  background-color: var(--primary);
   color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 6px 10px;
-  font-size: 0.8rem;
-  cursor: pointer;
   transition: background-color 0.2s;
 }
 
 .add-to-album-btn:hover {
-  background-color: #218838;
+  background-color: var(--primary-dark);
 }
 
 .delete-photo-modal,
@@ -208,5 +236,30 @@
   .photos-container .photo-caption {
     font-size: 0.9rem;
     margin-bottom: 6px;
+  }
+  
+  .edit-link,
+  .delete-button,
+  .add-to-album-btn {
+    font-size: 0.65rem;
+    padding: 0;
+    letter-spacing: -0.3px;
+  }
+  
+  .photo-actions {
+    height: 26px;
+    gap: 2px;
+  }
+  
+  .edit-link {
+    max-width: 30%;
+  }
+  
+  .delete-button {
+    max-width: 30%;
+  }
+  
+  .add-to-album-btn {
+    max-width: 40%;
   }
 }

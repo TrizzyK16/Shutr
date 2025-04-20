@@ -47,12 +47,11 @@ function PhotoList({ userOnly = false }) {
       {displayPhotos.map((photo) => (
         <div key={photo.id} className="photo-card">
           <div className="photo-image">
-            <FavoriteButton photoId={photo.id} />
             <img src={photo.image_url} alt="user-upload" />
-            
+            <FavoriteButton photoId={photo.id} />
           </div>
           <div className="photo-info">
-            <p className="photo-caption">{photo.caption}</p>
+            <p className="photo-caption">{photo.caption || 'No caption'}</p>
             {User && (
               <div className="photo-actions">
                 {userId === photo.user_id && (
