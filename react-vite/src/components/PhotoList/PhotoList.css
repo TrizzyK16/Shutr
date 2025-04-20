@@ -106,12 +106,11 @@
 .delete-button,
 .add-to-album-btn {
   padding: 0 8px;
-  font-size: 0.8rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
-  flex: 1;
+  flex: flex-basis;
   text-align: center;
   white-space: nowrap;
   min-width: 0;
@@ -119,16 +118,15 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  font-weight: normal;
   box-sizing: border-box;
   color: white;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 .edit-link {
-  background-color: var(--secondary);
-  color: white !important;
-  text-decoration: none !important;
-  display: inline-flex;
+  background-color: var(--primary-dark);
 }
 
 .delete-button {
@@ -137,13 +135,14 @@
 }
 
 .edit-link:hover {
-  background-color: var(--secondary-dark);
+  background-color: var(--primary-dark);
   color: white !important;
   text-decoration: none !important;
 }
 
 .delete-button:hover {
-  background-color: var(--secondary-dark);
+  background-color: var(--error-dark);
+  color: white;
 }
 
 .add-to-album-btn {
@@ -154,6 +153,7 @@
 
 .add-to-album-btn:hover {
   background-color: var(--primary-dark);
+  color: white;
 }
 
 .delete-photo-modal,

@@ -20,7 +20,7 @@ export default function CreateAlbumModal() {
         }
 
         try {
-            const result = await dispatch(createAlbum({ name, description }));
+            const result = await dispatch(createAlbum({ title: name, description }));
             if (result.errors) {
                 setErrors({ form: result.errors.join(', ') });
             } else {

@@ -16,20 +16,22 @@ def get_albums_for_user(user_id):
 @album_routes.route('', methods=['POST'])
 @login_required
 def create_album():
-    data = request.get_json()
+    form = AlbumForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     
-    if not data or 'title' not in data:
-        return {'errors': ['Title is required']}, 400
+    if form.validate_on_submit():
+        album = Album(
+            user_id=current_user.id,
+            title=form.data['title'],
+            description=form.data['description']
+        )
         
-    album = Album(
-        user_id=current_user.id,
-        title=data['title'],
-        description=data.get('description', '')
-    )
+        db.session.add(album)
+        db.session.commit()
+        return album.to_dict(), 201
     
-    db.session.add(album)
-    db.session.commit()
-    return album.to_dict(), 201
+    print(f"Form validation failed: {form.errors}")
+    return {'errors': form.errors}, 400
 
 
 # UPDATE an album
@@ -71,21 +73,42 @@ def delete_album(album_id):
 @album_routes.route('/<int:album_id>/photos', methods=['POST'])
 @login_required
 def add_photos_to_album(album_id):
+    print(f"Adding photos to album {album_id}")
     album = Album.query.get_or_404(album_id)
 
     if album.user_id != current_user.id:
+        print(f"Unauthorized: user {current_user.id} trying to modify album owned by {album.user_id}")
         return {'errors': ['Unauthorized']}, 403
 
     # Expecting a list of photo ids in request.json['photo_ids']
     data = request.get_json()
+    print(f"Received data: {data}")
+    
+    if not data:
+        print("No data received in request")
+        return {'errors': ['No data provided']}, 400
+        
     photo_ids = data.get('photo_ids', [])
+    print(f"Photo IDs to add: {photo_ids}")
+    
+    if not photo_ids or not isinstance(photo_ids, list):
+        print(f"Invalid photo_ids: {photo_ids}")
+        return {'errors': ['Invalid or missing photo_ids']}, 400
 
+    added_photos = []
     for pid in photo_ids:
         photo = Photo.query.get(pid)
-        if photo and photo not in album.photos:
-            album.photos.append(photo)
+        if photo:
+            if photo not in album.photos:
+                album.photos.append(photo)
+                added_photos.append(pid)
+            else:
+                print(f"Photo {pid} already in album {album_id}")
+        else:
+            print(f"Photo {pid} not found")
 
     db.session.commit()
+    print(f"Successfully added photos {added_photos} to album {album_id}")
     return album.to_dict(), 200
 
 

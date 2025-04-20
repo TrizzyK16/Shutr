@@ -51,7 +51,7 @@ app.register_blueprint(album_routes, url_prefix='/api/albums')
 app.cli.add_command(seed_commands)
 
 # Configure CORS
-CORS(app, resources={r"/api/*": {"origins": "*", "supports_credentials": True}})
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173", "supports_credentials": True}})
 
 # HTTPS redirect for production
 @app.before_request

@@ -61,15 +61,21 @@ export const getUserAlbums = (userId) => async (dispatch) => {
 
 export const createAlbum = (albumData) => async (dispatch) => {
   try {
+    console.log('Creating album with data:', albumData);
+    const csrfToken = await getCSRFToken();
+    console.log('CSRF Token:', csrfToken);
+    
     const response = await fetch('/api/albums', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': getCSRFToken()
+        'X-CSRFToken': csrfToken
       },
       credentials: 'include',
       body: JSON.stringify(albumData)
     });
+    
+    console.log('Response status:', response.status);
 
     if (response.ok) {
       const newAlbum = await response.json();
@@ -136,15 +142,21 @@ export const deleteAlbum = (albumId) => async (dispatch) => {
 
 export const addPhotosToAlbum = (albumId, photoIds) => async (dispatch) => {
   try {
+    console.log('Adding photos to album:', albumId, photoIds);
+    const csrfToken = await getCSRFToken();
+    console.log('CSRF Token:', csrfToken);
+    
     const response = await fetch(`/api/albums/${albumId}/photos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': getCSRFToken()
+        'X-CSRFToken': csrfToken
       },
       credentials: 'include',
       body: JSON.stringify({ photo_ids: photoIds })
     });
+    
+    console.log('Response status:', response.status);
 
     if (response.ok) {
       const updatedAlbum = await response.json();

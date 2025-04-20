@@ -20,7 +20,7 @@
   padding: 0.5rem;
   border: 1px solid #ced4da;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 10px;
 }
 
 .add-to-album-modal .form-actions {
@@ -50,6 +50,6 @@
 
 .error {
   color: #dc3545;
-  font-size: 0.85rem;
+  font-size: 10px;
   margin: 0.5rem 0;
 }
