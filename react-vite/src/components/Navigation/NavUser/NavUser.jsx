@@ -1,17 +1,24 @@
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import ProfileButton from "../ProfileButton"
+import { NavLink } from "react-router-dom";
+import ProfileButton from "../ProfileButton";
 import "./NavUser.css";
 
-export default function NavUser() {
+// Uncomment these imports when implementing search
+// import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 
-    const [searchQuery, setSearchQuery] = useState("");
+export default function NavUser() {
+    // Search functionality is commented out for now
+    // Will be implemented in a future update
+    /*
     const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState("");
+    
     const handleSearch = () => {
         if (searchQuery.trim() !== ""){
             navigate(`/search?q=${encodeURIComponent(searchQuery)}`)
         }
     }
+    */
 
     return (
         <nav className="user-nav-container">

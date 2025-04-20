@@ -7,7 +7,7 @@ import { useModal } from '../../context/Modal';
 import './AlbumPage.css';
 
 // Modal component for creating a new album
-function CreateAlbumModal({ onClose, onSuccess }) {
+function CreateAlbumModal({ onSuccess }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [errors, setErrors] = useState({});
@@ -82,7 +82,7 @@ function CreateAlbumModal({ onClose, onSuccess }) {
 }
 
 // Modal component for editing an album
-function EditAlbumModal({ album, onClose, onSuccess }) {
+function EditAlbumModal({ album, onSuccess }) {
   const [title, setTitle] = useState(album.title);
   const [description, setDescription] = useState(album.description || '');
   const [errors, setErrors] = useState({});
@@ -157,7 +157,7 @@ function EditAlbumModal({ album, onClose, onSuccess }) {
 }
 
 // Modal component for adding photos to an album
-function AddPhotosModal({ album, onClose, onSuccess }) {
+function AddPhotosModal({ album, onSuccess }) {
   const [selectedPhotos, setSelectedPhotos] = useState([]);
   const [errors, setErrors] = useState(null);
   const dispatch = useDispatch();
@@ -396,7 +396,7 @@ function AlbumPage() {
                     <div className="album-actions">
                       <OpenModalButton
                         buttonText="Edit Album"
-                        modalComponent={<EditAlbumModal album={activeAlbum} onClose={() => {}} onSuccess={refreshActiveAlbum} />}
+                        modalComponent={<EditAlbumModal album={activeAlbum} onSuccess={refreshActiveAlbum} />}
                         className=""
                         onModalClose={refreshActiveAlbum}
                       />
@@ -413,7 +413,7 @@ function AlbumPage() {
                     <h3>Photos in this Album</h3>
                     <OpenModalButton
                       buttonText="Add Photos"
-                      modalComponent={<AddPhotosModal album={activeAlbum} onClose={() => {}} onSuccess={refreshActiveAlbum} />}
+                      modalComponent={<AddPhotosModal album={activeAlbum} onSuccess={refreshActiveAlbum} />}
                       className=""
                       onModalClose={refreshActiveAlbum}
                     />

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchFavorites } from "../../redux/favorites";
@@ -40,22 +40,12 @@ const ALBUM_IMAGES = [
 ];
 
 export default function YouPage() {
-    // Function to get a consistent image for a group based on its ID
-    const getGroupImage = (id) => {
-        // Convert id to number and use modulo to get an index
-        const index = (typeof id === 'number' ? id : parseInt(id, 10)) % GROUP_IMAGES.length;
-        // Use a default index if parsing fails
-        return GROUP_IMAGES[index >= 0 ? index : 0];
-    };
-    
-    // Function to get a consistent image for an event based on its ID
-    const getEventImage = (id) => {
-        // Convert id to number and use modulo to get an index
-        const index = (typeof id === 'number' ? id : parseInt(id, 10)) % EVENT_IMAGES.length;
-        // Use a default index if parsing fails
-        return EVENT_IMAGES[index >= 0 ? index : 0];
-    };
-    
+    const dispatch = useDispatch();
+    const [activeTab, setActiveTab] = useState('photos');
+
+    // Helper functions for getting consistent images will be implemented
+    // when adding group and event functionality
+
     // Function to get a consistent image for an album based on its ID
     const getAlbumImage = (id) => {
         // Convert id to number and use modulo to get an index
@@ -63,16 +53,44 @@ export default function YouPage() {
         // Use a default index if parsing fails
         return ALBUM_IMAGES[index >= 0 ? index : 0];
     };
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.session.user);
-    const allFavorites = useSelector(state => state.favorites.allFavorites || {});
-    const allPhotos = useSelector(state => Object.values(state.photos));
-    const allGroups = useSelector(state => state.groups.allGroups || []);
-    const allEvents = useSelector(state => state.events.allEvents || []);
+
+    useEffect(() => {
+        dispatch(fetchPhotos());
+        dispatch(fetchGroupsThunk());
+        dispatch(fetchEventsThunk());
+        if (user) {
+            dispatch(fetchFavorites(user.id));
+            dispatch(getUserAlbums(user.id));
+        }
+    }, [dispatch, user]);
+
+    // Get the current user from Redux store
+    const user = useSelector((state) => state.session.user);
+
+    // Get photos, groups, and events from Redux store
+    const allPhotos = useSelector((state) => state.photos.allPhotos || []);
+    const allGroups = useSelector((state) => state.groups.allGroups || []);
+    const allEvents = useSelector((state) => state.events.allEvents || []);
+    const allFavorites = useSelector((state) => state.favorites.favorites || {});
     const userAlbums = useSelector(state => state.albums.userAlbums || []);
-    
+
     // Filter for user's photos
     const userPhotos = allPhotos.filter((photo) => user && photo.user_id === user.id);
+
+    // Filter for user's favorites
+    const userFavorites = Object.values(allFavorites)
+        .filter(fav => user && fav.user_id === user.id)
+        .map(fav => {
+            // Find the corresponding photo for this favorite
+            const photo = allPhotos.find(photo => photo.id === fav.photo_id);
+            return {
+                ...fav,
+                image_url: photo ? photo.image_url : null,
+                caption: photo ? photo.caption : '',
+                created_at: photo ? photo.created_at : fav.created_at
+            };
+        })
+        .filter(fav => fav.image_url);
 
     // Filter for user's groups
     const userJoinedGroups = allGroups.filter((group) => {
@@ -340,7 +358,7 @@ export default function YouPage() {
                                 {userRsvpedEvents.slice(0, 4).map(event => (
                                     <div key={event.id} className="event-card">
                                         <div className="event-image">
-                                            <img src={event.image_url || EVENT_IMAGES[event.id % EVENT_IMAGES.length]} alt="event" />
+                                            <img src={event.image_url || `https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80`} alt="event" />
                                         </div>
                                         <div className="event-info">
                                             <h3 className="event-name">{event.name}</h3>

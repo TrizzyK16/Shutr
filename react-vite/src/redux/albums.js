@@ -59,19 +59,8 @@ export const getUserAlbums = (userId) => async (dispatch) => {
   }
 };
 
-// Get CSRF token from cookies
-function getCSRFToken() {
-  const cookies = document.cookie.split(';');
-  for (let cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
-    if (name === 'csrf_token') return value;
-  }
-  return null;
-}
-
 export const createAlbum = (albumData) => async (dispatch) => {
   try {
-    const csrfToken = await getCSRFToken();
     const response = await fetch('/api/albums', {
       method: 'POST',
       headers: {
@@ -98,7 +87,6 @@ export const createAlbum = (albumData) => async (dispatch) => {
 
 export const editAlbum = (albumId, albumData) => async (dispatch) => {
   try {
-    const csrfToken = await getCSRFToken();
     const response = await fetch(`/api/albums/${albumId}`, {
       method: 'PUT',
       headers: {
@@ -125,7 +113,6 @@ export const editAlbum = (albumId, albumData) => async (dispatch) => {
 
 export const deleteAlbum = (albumId) => async (dispatch) => {
   try {
-    const csrfToken = await getCSRFToken();
     const response = await fetch(`/api/albums/${albumId}`, {
       method: 'DELETE',
       headers: {
@@ -149,7 +136,6 @@ export const deleteAlbum = (albumId) => async (dispatch) => {
 
 export const addPhotosToAlbum = (albumId, photoIds) => async (dispatch) => {
   try {
-    const csrfToken = await getCSRFToken();
     const response = await fetch(`/api/albums/${albumId}/photos`, {
       method: 'POST',
       headers: {
@@ -176,7 +162,6 @@ export const addPhotosToAlbum = (albumId, photoIds) => async (dispatch) => {
 
 export const removePhotoFromAlbumThunk = (albumId, photoId) => async (dispatch) => {
   try {
-    const csrfToken = await getCSRFToken();
     const response = await fetch(`/api/albums/${albumId}/photos/${photoId}`, {
       method: 'DELETE',
       headers: {
