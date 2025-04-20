@@ -1,0 +1,128 @@
+/* Global button overrides to apply consistent gradient styling */
+
+/* Target all buttons except those with specific exclusion classes */
+button:not(.exclude-gradient),
+.button:not(.exclude-gradient),
+a.button:not(.exclude-gradient),
+input[type="button"]:not(.exclude-gradient),
+input[type="submit"]:not(.exclude-gradient) {
+  background: linear-gradient(45deg, #0063dc, #ff0084);
+  background-size: 200% 200%;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect */
+button:not(.exclude-gradient):hover,
+.button:not(.exclude-gradient):hover,
+a.button:not(.exclude-gradient):hover,
+input[type="button"]:not(.exclude-gradient):hover,
+input[type="submit"]:not(.exclude-gradient):hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 99, 220, 0.4);
+}
+
+/* Active effect */
+button:not(.exclude-gradient):active,
+.button:not(.exclude-gradient):active,
+a.button:not(.exclude-gradient):active,
+input[type="button"]:not(.exclude-gradient):active,
+input[type="submit"]:not(.exclude-gradient):active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 99, 220, 0.4);
+}
+
+/* Before pseudo-element for gradient animation */
+button:not(.exclude-gradient)::before,
+.button:not(.exclude-gradient)::before,
+a.button:not(.exclude-gradient)::before,
+input[type="button"]:not(.exclude-gradient)::before,
+input[type="submit"]:not(.exclude-gradient)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #ff0084, #0063dc);
+  background-size: 200% 200%;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+button:not(.exclude-gradient):hover::before,
+.button:not(.exclude-gradient):hover::before,
+a.button:not(.exclude-gradient):hover::before,
+input[type="button"]:not(.exclude-gradient):hover::before,
+input[type="submit"]:not(.exclude-gradient):hover::before {
+  opacity: 1;
+}
+
+/* Outline button style */
+button.outline:not(.exclude-gradient),
+.button.outline:not(.exclude-gradient),
+a.button.outline:not(.exclude-gradient) {
+  background: transparent;
+  color: #0063dc;
+  border: 1px solid #0063dc;
+}
+
+button.outline:not(.exclude-gradient)::before,
+.button.outline:not(.exclude-gradient)::before,
+a.button.outline:not(.exclude-gradient)::before {
+  display: none;
+}
+
+button.outline:not(.exclude-gradient):hover,
+.button.outline:not(.exclude-gradient):hover,
+a.button.outline:not(.exclude-gradient):hover {
+  background: rgba(0, 99, 220, 0.05);
+  color: #0055bd;
+  border-color: #0055bd;
+}
+
+/* Icon buttons - make them square and centered */
+button.icon-button:not(.exclude-gradient),
+.button.icon-button:not(.exclude-gradient) {
+  padding: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+/* Small buttons */
+button.small:not(.exclude-gradient),
+.button.small:not(.exclude-gradient) {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
+}
+
+/* Large buttons */
+button.large:not(.exclude-gradient),
+.button.large:not(.exclude-gradient) {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* Disabled state */
+button:disabled:not(.exclude-gradient),
+.button:disabled:not(.exclude-gradient),
+button.disabled:not(.exclude-gradient),
+.button.disabled:not(.exclude-gradient) {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}

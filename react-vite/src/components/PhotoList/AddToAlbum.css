@@ -1,0 +1,55 @@
+/* Add to Album Modal Styles */
+.add-to-album-modal h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.add-to-album-modal .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.add-to-album-modal label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.add-to-album-modal select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.add-to-album-modal .form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.add-to-album-modal .submit-button {
+  background-color: #28a745;
+}
+
+.add-to-album-modal .submit-button:hover {
+  background-color: #218838;
+}
+
+.add-to-album-modal .submit-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.no-albums-message {
+  text-align: center;
+  padding: 1rem;
+  color: #6c757d;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}

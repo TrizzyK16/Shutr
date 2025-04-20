@@ -64,21 +64,30 @@
 .action-button {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 180px;
+  justify-content: space-between;
+  padding: 0 20px;
   height: 50px;
+  width: 180px;
   border-radius: 4px;
   text-decoration: none;
   color: white;
-  transition: transform 0.3s, box-shadow 0.3s;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-weight: 600;
-  font-size: 1rem;
-  background-image: linear-gradient(135deg, #0063dc, #8a2be2, #ff1493);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: linear-gradient(135deg, #0063dc, #ff0084);
   background-size: 200% 200%;
   animation: gradientShift 6s ease infinite;
   border: none;
   margin: 0.5rem;
+}
+
+.action-button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-button-icon .material-symbols-outlined {
+  font-size: 20px;
 }
 
 @keyframes gradientShift {
@@ -88,8 +97,8 @@
 }
 
 .action-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .activity-placeholder {
@@ -192,16 +201,38 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
+.photo-actions-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
 .view-all-link {
   display: inline-block;
   margin-top: 1rem;
-  color: var(--primary);
+  color: #0066cc;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .view-all-link:hover {
   text-decoration: underline;
+}
+
+.upload-photo-button {
+  background-color: #0066cc;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.upload-photo-button:hover {
+  background-color: #0052a3;
 }
 
 /* Favorites section */
@@ -255,69 +286,69 @@
 .you-page .photos-grid,
 .you-page .favorites-grid,
 .you-page .groups-grid,
-.you-page .events-grid {
+.you-page .events-grid,
+.albums-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: 20px;
+  padding: 20px 0;
 }
 
 .you-page .photo-card,
 .you-page .favorite-card,
 .you-page .group-card,
-.you-page .event-card {
-  background-color: white;
+.you-page .event-card,
+.album-card {
+  background: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: inherit;
 }
 
 .you-page .photo-card:hover,
 .you-page .favorite-card:hover,
 .you-page .group-card:hover,
-.you-page .event-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+.you-page .event-card:hover,
+.album-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .you-page .photo-image,
 .you-page .favorite-image,
 .you-page .group-image,
-.you-page .event-image {
-  height: 180px;
-  position: relative;
+.you-page .event-image,
+.album-image {
+  height: 150px;
   overflow: hidden;
 }
 
 .you-page .photo-image img,
 .you-page .favorite-image img,
-.you-page .group-image img,
-.you-page .event-image img {
+.you-page .event-image img,
+.album-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
 }
 
 .you-page .photo-card:hover .photo-image img,
 .you-page .favorite-card:hover .favorite-image img,
 .you-page .group-card:hover .group-image img,
-.you-page .event-card:hover .event-image img {
+.you-page .event-card:hover .event-image img,
+.album-card:hover .album-image img {
   transform: scale(1.05);
 }
 
 .you-page .photo-info,
 .you-page .favorite-info,
 .you-page .group-info,
-.you-page .event-info {
-  padding: 1rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.you-page .event-info,
+.album-info {
+  padding: 15px;
 }
 
 .you-page .photo-caption,
@@ -335,16 +366,19 @@
 }
 
 .group-name,
-.event-name {
+.event-name,
+.album-name {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 0 0 0.5rem;
   color: #333;
 }
 
-.group-description {
+.group-description,
+.event-info p,
+.album-info p {
   font-size: 0.9rem;
-  color: #555;
+  color: #666;
   margin: 0 0 0.5rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;

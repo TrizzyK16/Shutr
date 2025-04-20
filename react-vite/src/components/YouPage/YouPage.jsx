@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchFavorites } from "../../redux/favorites";
 import { fetchPhotos } from "../../redux/photos";
 import { fetchGroupsThunk } from "../../redux/groups";
 import { fetchEventsThunk } from "../../redux/events";
+import { getUserAlbums } from "../../redux/albums";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 import "./YouPage.css";
 
@@ -28,62 +29,50 @@ const EVENT_IMAGES = [
     'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80'
 ];
 
+// Array of different album images
+const ALBUM_IMAGES = [
+    'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1531058020387-3be344556be6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1505236858219-8359eb29e329?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80',
+    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80'
+];
+
 export default function YouPage() {
-    // Function to get a consistent image for a group based on its ID
-    const getGroupImage = (id) => {
-        // Convert id to number and use modulo to get an index
-        const index = (typeof id === 'number' ? id : parseInt(id, 10)) % GROUP_IMAGES.length;
-        // Use a default index if parsing fails
-        return GROUP_IMAGES[index >= 0 ? index : 0];
-    };
-    
-    // Function to get a consistent image for an event based on its ID
-    const getEventImage = (id) => {
-        // Convert id to number and use modulo to get an index
-        const index = (typeof id === 'number' ? id : parseInt(id, 10)) % EVENT_IMAGES.length;
-        // Use a default index if parsing fails
-        return EVENT_IMAGES[index >= 0 ? index : 0];
-    };
     const dispatch = useDispatch();
-    const user = useSelector(state => state.session.user);
-    const allFavorites = useSelector(state => state.favorites.allFavorites || {});
-    const allPhotos = useSelector(state => Object.values(state.photos));
-    const allGroups = useSelector(state => state.groups.allGroups || []);
-    const allEvents = useSelector(state => state.events.allEvents || []);
-    
-    // Filter for user's photos
-    const userPhotos = allPhotos.filter(photo => user && photo.user_id === user.id);
-    
-    // Filter for user's favorites
-    // Get favorites and join with photo data to display correctly
-    const userFavorites = Object.values(allFavorites)
-        .filter(fav => user && fav.user_id === user.id)
-        .map(fav => {
-            // Find the corresponding photo for this favorite
-            const photo = allPhotos.find(photo => photo.id === fav.photo_id);
-            return {
-                ...fav,
-                image_url: photo ? photo.image_url : null,
-                caption: photo ? photo.caption : '',
-                created_at: photo ? photo.created_at : fav.created_at
-            };
-        })
-        .filter(fav => fav.image_url); // Only include favorites with valid images
-    
-    // Filter for user's joined groups (groups where is_member is true)
-    const userJoinedGroups = allGroups.filter(group => group.is_member === true);
-    
-    // Filter for user's RSVPed events (events where is_attending is true)
-    const userRsvpedEvents = allEvents.filter(event => event.is_attending === true);
-    
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('photos');
-    
+
+    // Get the current user from Redux store
+    const user = useSelector((state) => state.session.user);
+
+    // Get photos, groups, and events from Redux store
+    const allPhotos = useSelector((state) => Object.values(state.photos));
+    const allGroups = useSelector((state) => state.groups.allGroups || []);
+    const allEvents = useSelector((state) => state.events.allEvents || []);
+    const userAlbums = useSelector((state) => state.albums.userAlbums || []);
+
+    // Filter for user's photos
+    const userPhotos = allPhotos.filter((photo) => user && photo.user_id === user.id);
+
+    // Filter for user's groups
+    const userJoinedGroups = allGroups.filter((group) => {
+        return group.members?.some((member) => member.id === user?.id);
+    });
+
+    // Filter for user's events
+    const userRsvpedEvents = allEvents.filter((event) => {
+        return event.attendees?.some((attendee) => attendee.id === user?.id);
+    });
+
     useEffect(() => {
         if (user) {
             dispatch(fetchFavorites());
             dispatch(fetchPhotos());
             dispatch(fetchGroupsThunk());
             dispatch(fetchEventsThunk());
+            dispatch(getUserAlbums(user.id));
         }
     }, [dispatch, user]);
 
@@ -101,18 +90,26 @@ export default function YouPage() {
                 <div className="you-section">
                     <h2 className="section-title">Quick Actions</h2>
                     <div className="action-buttons">
-                        <Link to="/upload" className="action-button upload">
-                            <span>Upload Photos</span>
-                        </Link>
-                        <Link to="/photos" className="action-button explore">
-                            <span>Explore Photos</span>
-                        </Link>
-                        <Link to="/groups" className="action-button groups">
-                            <span>Join Groups</span>
-                        </Link>
-                        <Link to="/events" className="action-button events">
-                            <span>Attend Events</span>
-                        </Link>
+                        <div className="top-row">
+                            <Link to="/photos" className="action-button photos">
+                                <span>View Your Photos</span>
+                                <span className="action-button-icon"><span className="material-symbols-outlined">photo_library</span></span>
+                            </Link>
+                            <Link to="/albums" className="action-button albums">
+                                <span>View Your Albums</span>
+                                <span className="action-button-icon"><span className="material-symbols-outlined">photo_album</span></span>
+                            </Link>
+                        </div>
+                        <div className="bottom-row">
+                            <Link to="/groups" className="action-button groups">
+                                <span>Join Groups</span>
+                                <span className="action-button-icon"><span className="material-symbols-outlined">group</span></span>
+                            </Link>
+                            <Link to="/events" className="action-button events">
+                                <span>Attend Events</span>
+                                <span className="action-button-icon"><span className="material-symbols-outlined">event</span></span>
+                            </Link>
+                        </div>
                     </div>
                 </div>
 
@@ -139,8 +136,13 @@ export default function YouPage() {
                     <button 
                         className={`tab-button ${activeTab === 'events' ? 'active' : ''}`}
                         onClick={() => setActiveTab('events')}
+                    >Your Events
+                    </button>
+                    <button 
+                        className={`tab-button ${activeTab === 'albums' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('albums')}
                     >
-                        Your Events
+                        Your Albums
                     </button>
                 </div>
 
@@ -169,6 +171,28 @@ export default function YouPage() {
                                 <div className="empty-photos-icon">📷</div>
                                 <h3>No Photos Yet</h3>
                                 <p>You haven&apos;t uploaded any photos yet.</p>
+                                <div className="quick-actions">
+                                    <Link to="/photos" className="quick-action-card">
+                                        <div className="quick-action-icon">📸</div>
+                                        <h3>View Your Photos</h3>
+                                        <p>Browse and manage your collection</p>
+                                    </Link>
+                                    <Link to="/favorites" className="quick-action-card">
+                                        <div className="quick-action-icon">❤️</div>
+                                        <h3>View Your Favorites</h3>
+                                        <p>See all your favorite photos</p>
+                                    </Link>
+                                    <Link to="/groups" className="quick-action-card">
+                                        <div className="quick-action-icon">👥</div>
+                                        <h3>Join a Group</h3>
+                                        <p>Connect with other photographers</p>
+                                    </Link>
+                                    <Link to="/events" className="quick-action-card">
+                                        <div className="quick-action-icon">📅</div>
+                                        <h3>Attend an Event</h3>
+                                        <p>Discover photography events</p>
+                                    </Link>
+                                </div>
                                 <p className="empty-state-description">Share your best shots with the Shutr community and get feedback from other photographers.</p>
                                 <Link to="/photos/new" className="empty-state-button">Upload a Photo</Link>
                             </div>
@@ -222,7 +246,7 @@ export default function YouPage() {
                                 {userJoinedGroups.slice(0, 4).map(group => (
                                     <div key={group.id} className="group-card">
                                         <div className="group-image">
-                                            <img src={group.image_url || getGroupImage(group.id)} alt="group" />
+                                            <img src={group.image_url || GROUP_IMAGES[group.id % GROUP_IMAGES.length]} alt="group" />
                                         </div>
                                         <div className="group-info">
                                             <h3 className="group-name">{group.name}</h3>
@@ -255,7 +279,7 @@ export default function YouPage() {
                                 {userRsvpedEvents.slice(0, 4).map(event => (
                                     <div key={event.id} className="event-card">
                                         <div className="event-image">
-                                            <img src={event.image_url || getEventImage(event.id)} alt="event" />
+                                            <img src={event.image_url || EVENT_IMAGES[event.id % EVENT_IMAGES.length]} alt="event" />
                                         </div>
                                         <div className="event-info">
                                             <h3 className="event-name">{event.name}</h3>

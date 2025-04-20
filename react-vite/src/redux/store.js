@@ -11,6 +11,7 @@ import groupsReducer from "./groups";
 import eventsReducer from "./events";
 import proReducer from "./pro";
 import favoritesReducer from "./favorites";
+import albumsReducer from "./albums";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   events: eventsReducer,
   pro: proReducer,
   favorites: favoritesReducer,
+  albums: albumsReducer,
 });
 
 let enhancer;

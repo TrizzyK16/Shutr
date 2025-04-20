@@ -16,18 +16,20 @@ def get_albums_for_user(user_id):
 @album_routes.route('', methods=['POST'])
 @login_required
 def create_album():
-    form = AlbumForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        album = Album(
-            user_id=current_user.id,
-            title=form.data['title'],
-            description=form.data['description']
-        )
-        db.session.add(album)
-        db.session.commit()
-        return album.to_dict(), 201
-    return {'errors': form.errors}, 400
+    data = request.get_json()
+    
+    if not data or 'title' not in data:
+        return {'errors': ['Title is required']}, 400
+        
+    album = Album(
+        user_id=current_user.id,
+        title=data['title'],
+        description=data.get('description', '')
+    )
+    
+    db.session.add(album)
+    db.session.commit()
+    return album.to_dict(), 201
 
 
 # UPDATE an album

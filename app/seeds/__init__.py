@@ -4,6 +4,7 @@ from .photos import seed_photos, undo_photos
 from .groups import seed_groups, undo_groups
 from .events import seed_events, undo_events
 from .favorites import seed_favorites, undo_favorites
+from .albums import seed_albums, undo_albums
 
 from app.models.db import db, environment, SCHEMA
 
@@ -30,12 +31,14 @@ def seed():
     seed_groups()
     seed_events()
     seed_favorites()
+    seed_albums()
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
     undo_favorites()
+    undo_albums()
     undo_events()
     undo_groups()
     undo_photos()

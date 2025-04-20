@@ -1,3 +1,5 @@
+import { getCSRFToken } from '../utils/csrf';
+
 // Action Types
 const LOAD_USER_ALBUMS = 'albums/LOAD_USER_ALBUMS';
 const ADD_ALBUM = 'albums/ADD_ALBUM';
@@ -59,12 +61,18 @@ export const getUserAlbums = (userId) => async (dispatch) => {
 
 export const createAlbum = (albumData) => async (dispatch) => {
   try {
+    const csrfToken = await getCSRFToken();
     const response = await fetch('/api/albums', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
       },
-      body: JSON.stringify(albumData)
+      credentials: 'include',
+      body: JSON.stringify({
+        title: albumData.name,
+        description: albumData.description
+      })
     });
 
     if (response.ok) {
@@ -83,11 +91,14 @@ export const createAlbum = (albumData) => async (dispatch) => {
 
 export const editAlbum = (albumId, albumData) => async (dispatch) => {
   try {
+    const csrfToken = await getCSRFToken();
     const response = await fetch(`/api/albums/${albumId}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
       },
+      credentials: 'include',
       body: JSON.stringify(albumData)
     });
 
@@ -107,8 +118,13 @@ export const editAlbum = (albumId, albumData) => async (dispatch) => {
 
 export const deleteAlbum = (albumId) => async (dispatch) => {
   try {
+    const csrfToken = await getCSRFToken();
     const response = await fetch(`/api/albums/${albumId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      credentials: 'include'
     });
 
     if (response.ok) {
@@ -126,11 +142,14 @@ export const deleteAlbum = (albumId) => async (dispatch) => {
 
 export const addPhotosToAlbum = (albumId, photoIds) => async (dispatch) => {
   try {
+    const csrfToken = await getCSRFToken();
     const response = await fetch(`/api/albums/${albumId}/photos`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken
       },
+      credentials: 'include',
       body: JSON.stringify({ photo_ids: photoIds })
     });
 
@@ -150,8 +169,13 @@ export const addPhotosToAlbum = (albumId, photoIds) => async (dispatch) => {
 
 export const removePhotoFromAlbumThunk = (albumId, photoId) => async (dispatch) => {
   try {
+    const csrfToken = await getCSRFToken();
     const response = await fetch(`/api/albums/${albumId}/photos/${photoId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      credentials: 'include'
     });
 
     if (response.ok) {

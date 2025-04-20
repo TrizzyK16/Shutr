@@ -12,6 +12,7 @@ from .api.group_routes import group_routes
 from .api.event_routes import event_routes
 from .api.pro_routes import pro_routes
 from .api.favorite_routes import favorite_routes
+from .api.album_routes import album_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -44,6 +45,7 @@ app.register_blueprint(group_routes, url_prefix='/api/groups')
 app.register_blueprint(event_routes, url_prefix='/api/events')
 app.register_blueprint(pro_routes, url_prefix='/api/pro')
 app.register_blueprint(favorite_routes, url_prefix='/api/favorites')
+app.register_blueprint(album_routes, url_prefix='/api/albums')
 
 # Tell flask about our seed commands
 app.cli.add_command(seed_commands)

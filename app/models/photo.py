@@ -19,8 +19,9 @@ class Photo(db.Model):
     # Relationship to the User model
     user = db.relationship("User", back_populates="photos")
     
-    # Relationship to favorites
-    favorited_by = db.relationship("Favorite", back_populates="photo", cascade="all, delete-orphan")
+    # Relationships
+    favorited_by = db.relationship('Favorite', back_populates='photo', cascade='all, delete-orphan')
+    albums = db.relationship('Album', secondary='album_photos', back_populates='photos')
 
 
     def to_dict(self):

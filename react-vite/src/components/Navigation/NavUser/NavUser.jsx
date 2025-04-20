@@ -1,18 +1,8 @@
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import NotificationModal from "../../NotificationModal/NotificationModal";
-import ProfileButton from "../ProfileButton"
+import { NavLink } from "react-router-dom";
+import ProfileButton from "../ProfileButton";
 import "./NavUser.css";
 
 export default function NavUser() {
-    const [showModal, setShowModal] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("");
-    const navigate = useNavigate();
-    const handleSearch = () => {
-        if (searchQuery.trim() !== ""){
-            navigate(`/search?q=${encodeURIComponent(searchQuery)}`)
-        }
-    }
 
     return (
         <nav className="user-nav-container">
@@ -37,6 +27,9 @@ export default function NavUser() {
                         <NavLink to="/events">Events</NavLink>
                     </li>
                     <li>
+                        <NavLink to="/albums">Albums</NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/prints">Prints</NavLink>
                     </li>
                     <li>
@@ -44,35 +37,16 @@ export default function NavUser() {
                     </li>
                 </ul>
             </div>
-
             <div className="user-nav-right">
                 <ul>
                     <li>
-                        <input
-                            type="text"
-                            placeholder="Photos, people, or groups..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    handleSearch();
-                                }
-                            }}
-                        />
-                    </li>
-                    <li>
                         <NavLink to="/upload">Upload</NavLink>
-                    </li>
-                    <li>
-                        <button onClick={() => setShowModal(!showModal)}>Notifications</button>
                     </li>
                     <li>
                         <ProfileButton />
                     </li>
                 </ul>
             </div>
-
-            {showModal && <NotificationModal />}
         </nav>
     );
 }
