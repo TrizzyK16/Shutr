@@ -51,8 +51,15 @@ app.register_blueprint(album_routes, url_prefix='/api/albums')
 app.cli.add_command(seed_commands)
 
 # Configure CORS
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173", "supports_credentials": True}})
+import os
 
+if os.environ.get('FLASK_ENV') == 'production':
+    # Replace with your actual deployed frontend domains as needed
+    origins = ["https://shutr-3wnm.onrender.com", "https://shutr-3wnm.onrender.com"]
+else:
+    origins = ["http://localhost:5173"]
+
+CORS(app, resources={r"/api/*": {"origins": origins, "supports_credentials": True}})
 # HTTPS redirect for production
 @app.before_request
 def https_redirect():

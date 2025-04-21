@@ -97,7 +97,7 @@ function PhotosPage() {
         <div className="photos-content">
           <div className="server-error-container">
             <h2>Server Temporarily Unavailable</h2>
-            <p>We're experiencing some technical difficulties with our servers. This is likely a temporary issue.</p>
+            <p>We&apos;re experiencing some technical difficulties with our servers. This is likely a temporary issue.</p>
             <p>Please try again later or refresh the page to see if the issue has been resolved.</p>
             <button onClick={() => window.location.reload()} className="refresh-button">
               Refresh Page
