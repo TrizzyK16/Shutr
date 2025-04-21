@@ -3,7 +3,6 @@ from .users import seed_users, undo_users
 from .photos import seed_photos, undo_photos
 from .groups import seed_groups, undo_groups
 from .events import seed_events, undo_events
-from .pros import seed_pros, undo_pros
 from .favorites import seed_favorites, undo_favorites
 from .albums import seed_albums, undo_albums
 
@@ -37,7 +36,6 @@ def seed():
         undo_photos()
         undo_users()
     seed_users()
-    seed_photos()
     seed_groups()
     seed_events()
     seed_favorites()
