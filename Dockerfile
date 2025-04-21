@@ -14,11 +14,14 @@ WORKDIR /var/www
 
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt
-RUN pip install psycopg2-binary
+# Create a script to run migrations and seeding
+RUN echo "#!/bin/sh" > /var/www/entrypoint.sh
+RUN echo "flask db upgrade" >> /var/www/entrypoint.sh
+RUN echo "flask seed all" >> /var/www/entrypoint.sh
+RUN echo "exec gunicorn app:app" >> /var/www/entrypoint.sh
+RUN chmod +x /var/www/entrypoint.sh
+
+# Use the entrypoint script to run the application
+CMD ["/var/www/entrypoint.sh"]
 
 COPY . .
-
-RUN flask db upgrade
-RUN flask seed all
-CMD gunicorn app:app

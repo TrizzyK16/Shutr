@@ -88,17 +88,23 @@ def run_migrations_online():
     connectable = get_engine()
 
     with connectable.connect() as connection:
+        # Create schema if in production
+        from flask import current_app
+        environment = current_app.config.get("FLASK_ENV")
+        schema = current_app.config.get("SCHEMA")
+        
+        if environment == "production" and schema:
+            # Create schema if it doesn't exist
+            connection.execute(f"CREATE SCHEMA IF NOT EXISTS {schema}")
+            # Set search path to include schema
+            connection.execute(f"SET search_path TO {schema}, public")
+            
         context.configure(
             connection=connection,
             target_metadata=get_metadata(),
             process_revision_directives=process_revision_directives,
             **current_app.extensions['migrate'].configure_args
         )
-
-        # Create the schema if it doesn't exist
-        from app.models.db import SCHEMA, environment
-        if environment == "production":
-            connection.execute(f"CREATE SCHEMA IF NOT EXISTS {SCHEMA}")
 
         with context.begin_transaction():
             context.run_migrations()
