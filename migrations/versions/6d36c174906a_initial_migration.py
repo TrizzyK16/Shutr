@@ -117,15 +117,12 @@ def upgrade():
     schema = os.getenv("SCHEMA")
     
     if environment == "production" and schema:
-        op.execute(f"ALTER TABLE users SET SCHEMA {schema};")
-        op.execute(f"ALTER TABLE photos SET SCHEMA {schema};")
-        op.execute(f"ALTER TABLE albums SET SCHEMA {schema};")
-        op.execute(f"ALTER TABLE album_photos SET SCHEMA {schema};")
-        op.execute(f"ALTER TABLE favorites SET SCHEMA {schema};")
-        op.execute(f"ALTER TABLE groups SET SCHEMA {schema};")
-        op.execute(f"ALTER TABLE group_memberships SET SCHEMA {schema};")
-        op.execute(f"ALTER TABLE events SET SCHEMA {schema};")
-        op.execute(f"ALTER TABLE event_rsvps SET SCHEMA {schema};")
+        # Move all tables to schema, using public schema as source
+        tables = [
+            "users", "photos", "albums", "album_photos", "favorites", "groups", "group_memberships", "events", "event_rsvps"
+        ]
+        for table in tables:
+            op.execute(f"ALTER TABLE IF EXISTS public.{table} SET SCHEMA {schema};")
 
 
 def downgrade():
