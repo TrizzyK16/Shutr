@@ -4,6 +4,7 @@ RUN apk add build-base
 
 RUN apk add postgresql-dev gcc python3-dev musl-dev
 
+# Environment variables must be set at build time
 ARG FLASK_APP
 ARG FLASK_ENV
 ARG DATABASE_URL
@@ -14,6 +15,11 @@ WORKDIR /var/www
 
 COPY requirements.txt .
 
+RUN pip install -r requirements.txt
+RUN pip install psycopg2-binary
+
+COPY . .
+
 # Create a script to run migrations and seeding
 RUN echo "#!/bin/sh" > /var/www/entrypoint.sh
 RUN echo "flask db upgrade" >> /var/www/entrypoint.sh
@@ -23,5 +29,3 @@ RUN chmod +x /var/www/entrypoint.sh
 
 # Use the entrypoint script to run the application
 CMD ["/var/www/entrypoint.sh"]
-
-COPY . .
