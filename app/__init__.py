@@ -35,6 +35,22 @@ app.config['WTF_CSRF_ENABLED'] = True
 csrf.init_app(app)
 login.init_app(app)
 db.init_app(app)
+
+# Set PostgreSQL search_path to shutr_schema,public if in production
+from sqlalchemy import event
+from sqlalchemy.engine import Engine
+
+def set_search_path(db, schema):
+    @event.listens_for(Engine, "connect")
+    def set_path(dbapi_connection, connection_record):
+        cursor = dbapi_connection.cursor()
+        cursor.execute(f'SET search_path TO {schema},public')
+        cursor.close()
+
+if os.environ.get('FLASK_ENV') == 'production':
+    schema = os.environ.get('SCHEMA', 'public')
+    set_search_path(db, schema)
+
 Migrate(app, db)
 
 # Register blueprints
