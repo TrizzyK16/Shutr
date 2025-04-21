@@ -9,6 +9,7 @@ from .albums import seed_albums, undo_albums
 from app.models.db import db, environment, SCHEMA
 import sqlalchemy as sa
 import click
+import logging
 
 # Ensure schema and search_path exist before any seed/undo logic
 from sqlalchemy import text
