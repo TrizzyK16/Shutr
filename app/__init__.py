@@ -40,7 +40,7 @@ db.init_app(app)
 from sqlalchemy import event
 from sqlalchemy.engine import Engine
 
-def set_search_path(db, schema):
+def set_search_path(schema):
     @event.listens_for(Engine, "connect")
     def set_path(dbapi_connection, connection_record):
         cursor = dbapi_connection.cursor()
@@ -49,7 +49,7 @@ def set_search_path(db, schema):
 
 if os.environ.get('FLASK_ENV') == 'production':
     schema = os.environ.get('SCHEMA', 'public')
-    set_search_path(db, schema)
+    set_search_path(schema)
 
 Migrate(app, db)
 
