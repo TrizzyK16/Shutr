@@ -1,13 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime, timezone
-
-# Association table to link Photos and Albums (many-to-many)
-album_photos = db.Table(
-    'album_photos',
-    db.Column('album_id', db.Integer, db.ForeignKey(add_prefix_for_prod('albums.id')), primary_key=True),
-    db.Column('photo_id', db.Integer, db.ForeignKey(add_prefix_for_prod('photos.id')), primary_key=True),
-    schema=SCHEMA if environment == "production" else None
-)
+from .association_tables import album_photos, get_album_photos_table_name
 
 
 class Album(db.Model):
@@ -27,7 +20,13 @@ class Album(db.Model):
     user = db.relationship('User', back_populates='albums')
 
     # Many-to-many relationship with Photos
-    photos = db.relationship('Photo', secondary=album_photos, back_populates='albums')
+    photos = db.relationship(
+        'Photo', 
+        secondary=album_photos,
+        primaryjoin=f"Album.id == {get_album_photos_table_name()}.c.album_id",
+        secondaryjoin=f"{get_album_photos_table_name()}.c.photo_id == Photo.id",
+        back_populates='albums'
+    )
 
     def to_dict(self):
         return {

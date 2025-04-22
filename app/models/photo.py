@@ -2,6 +2,7 @@
 
 from .db import db, environment, SCHEMA
 from datetime import datetime
+from .association_tables import album_photos, get_album_photos_table_name
 
 class Photo(db.Model):
     __tablename__ = 'photos'
@@ -21,7 +22,13 @@ class Photo(db.Model):
     
     # Relationships
     favorited_by = db.relationship('Favorite', back_populates='photo', cascade='all, delete-orphan')
-    albums = db.relationship('Album', secondary='album_photos', back_populates='photos')
+    albums = db.relationship(
+        'Album', 
+        secondary=album_photos,
+        primaryjoin=f"Photo.id == {get_album_photos_table_name()}.c.photo_id",
+        secondaryjoin=f"{get_album_photos_table_name()}.c.album_id == Album.id",
+        back_populates='photos'
+    )
 
 
     def to_dict(self):
