@@ -1,11 +1,12 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Association table to link Photos and Albums (many-to-many)
 album_photos = db.Table(
     'album_photos',
     db.Column('album_id', db.Integer, db.ForeignKey(add_prefix_for_prod('albums.id')), primary_key=True),
-    db.Column('photo_id', db.Integer, db.ForeignKey(add_prefix_for_prod('photos.id')), primary_key=True)
+    db.Column('photo_id', db.Integer, db.ForeignKey(add_prefix_for_prod('photos.id')), primary_key=True),
+    schema=SCHEMA if environment == "production" else None
 )
 
 
@@ -19,8 +20,8 @@ class Album(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc), nullable=False)
 
     # Relationship back to User
     user = db.relationship('User', back_populates='albums')
