@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime, timezone
-from .association_tables import album_photos, get_album_photos_table_name
+from .association_tables import get_album_photos_table_name
+from app.models import album_photos
 
 
 class Album(db.Model):

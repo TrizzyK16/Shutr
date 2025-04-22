@@ -2,7 +2,8 @@
 
 from .db import db, environment, SCHEMA
 from datetime import datetime
-from .association_tables import album_photos, get_album_photos_table_name
+from .association_tables import get_album_photos_table_name
+from app.models import album_photos
 
 class Photo(db.Model):
     __tablename__ = 'photos'
