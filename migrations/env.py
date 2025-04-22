@@ -59,8 +59,12 @@ def run_migrations_offline():
 
     """
     url = config.get_main_option("sqlalchemy.url")
+    import os
+    schema = os.getenv("SCHEMA")
+    version_table_schema = schema if schema else None
     context.configure(
-        url=url, target_metadata=get_metadata(), literal_binds=True
+        url=url, target_metadata=get_metadata(), literal_binds=True,
+        version_table_schema=version_table_schema
     )
 
     with context.begin_transaction():
@@ -99,10 +103,12 @@ def run_migrations_online():
             # Set search path to include schema
             connection.execute(f"SET search_path TO {schema}, public")
             
+        version_table_schema = schema if schema else None
         context.configure(
             connection=connection,
             target_metadata=get_metadata(),
             process_revision_directives=process_revision_directives,
+            version_table_schema=version_table_schema,
             **current_app.extensions['migrate'].configure_args
         )
 

@@ -1,5 +1,5 @@
 FLASK_APP=app
-SECRET_KEY=dev_key_for_testing
+SECRET_KEY=Hs7dJw9LkF3qPm5zRt8xVc2bNg6yE4aX
 FLASK_ENV=production
 DATABASE_URL=postgresql://shutr_postgres_user:LfgJMV7TW09pgxgmrAI9DOYgfdFoacx8@dpg-d03a078dl3ps739mc28g-a.oregon-postgres.render.com/shut_postgres?sslmode=require
 SCHEMA=shutr_schema
