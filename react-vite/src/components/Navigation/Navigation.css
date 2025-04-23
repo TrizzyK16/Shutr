@@ -7,17 +7,21 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 28px;
   color: #0063dc;
-  padding: 8px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  margin-left: 10px;
 }
 
 .profile-icon-button:hover {
   color: #0052b3;
+  background-color: rgba(0, 99, 220, 0.1);
+  transform: scale(1.05);
 }
 
 /* Profile Dropdown */
@@ -40,6 +44,33 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
+}
+
+/* Greeting Header */
+.greeting-header {
+  grid-column: 1 / -1; /* Span across all columns */
+  margin-bottom: 12px;
+  text-align: center;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.greeting-header p {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0 0 4px 0;
+}
+
+.greeting-header .user-email {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  padding: 0 0 8px 0;
+  word-break: break-all;
+  cursor: default;
 }
 
 /* Dropdown Items */

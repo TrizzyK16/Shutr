@@ -3,6 +3,7 @@ import LoginFormModal from '../components/LoginFormModal/LoginFormModal';
 import SignupFormModal from '../components/SignupFormModal/SignupFormModal';
 import Layout from './Layout';
 import LandingPage from '../components/LandingPage/LandingPage';
+import LPUser from '../components/LandingPage/LPUser/LPUser';
 import FeaturesPage from '../components/FeaturesPage/FeaturesPage';
 import ShutrProPage from '../components/ShutrProPage/ShutrProPage';
 import TheAppsPage from '../components/TheAppsPage/TheAppsPage';
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <LandingPage />,  // You can choose what component you want here
+      },
+      {
+        path: "/welcome",
+        element: <LPUser />,  // Direct access to the new user landing page
       },
       {
         path: "login",

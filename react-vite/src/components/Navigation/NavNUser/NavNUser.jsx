@@ -7,7 +7,10 @@ export default function NavNUser(){
         <nav className="nav-container">
             <ul>
                 <li>
-                    <NavLink to="/">Shutr</NavLink>
+                    <NavLink to="/" className="logo-container">
+                        <img src="/shutr-logo-nbg.png" alt="Shutr Logo" className="nav-logo" />
+                        <span>Shutr</span>
+                    </NavLink>
                 </li>
 
                 <li>

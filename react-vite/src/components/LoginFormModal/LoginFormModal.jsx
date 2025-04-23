@@ -14,6 +14,11 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal, setModalContent } = useModal();
+  
+  // Validation state
+  const isEmailValid = email.length >= 4;
+  const isPasswordValid = password.length >= 6;
+  const isFormValid = isEmailValid && isPasswordValid;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,7 +104,19 @@ function LoginFormModal() {
         </div>
         
         <div className="login-form-actions">
-          <button className="login-submit-button" type="submit">Sign In</button>
+          <button 
+            className={`login-submit-button ${!isFormValid ? 'disabled' : ''}`} 
+            type="submit" 
+            disabled={!isFormValid}
+          >
+            Sign In
+          </button>
+          {!isFormValid && (
+            <div className="validation-message">
+              {!isEmailValid && <p>Email must be at least 4 characters</p>}
+              {!isPasswordValid && <p>Password must be at least 6 characters</p>}
+            </div>
+          )}
         </div>
         
         <div className="login-form-footer">

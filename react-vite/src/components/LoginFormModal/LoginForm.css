@@ -89,7 +89,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   font-size: 16px;
   position: relative;
   overflow: hidden;
@@ -107,6 +107,35 @@
 .login-submit-button:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(0, 99, 220, 0.3);
+}
+
+.login-submit-button.disabled,
+.login-submit-button:disabled {
+  background-color: #cccccc;
+  color: #888888;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
+}
+
+.login-submit-button.disabled:hover,
+.login-submit-button:disabled:hover {
+  background-color: #cccccc;
+  box-shadow: none;
+}
+
+.validation-message {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: rgba(255, 0, 132, 0.08);
+  border-radius: 4px;
+  font-size: 13px;
+  color: #ff0084;
+}
+
+.validation-message p {
+  margin: 4px 0;
 }
 
 .login-form-footer {

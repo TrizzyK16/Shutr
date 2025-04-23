@@ -25,7 +25,10 @@ export default function NavUser() {
             <div className="user-nav-left">
                 <ul>
                     <li>
-                        <NavLink to="/">Shutr</NavLink>
+                        <NavLink to="/welcome" className="logo-container">
+                            <img src="/shutr-logo-nbg.png" alt="Shutr Logo" className="nav-logo" />
+                            <span>Shutr</span>
+                        </NavLink>
                     </li>
                     <li>
                         <NavLink to="/you">You</NavLink>
@@ -55,10 +58,11 @@ export default function NavUser() {
             </div>
             <div className="user-nav-right">
                 <ul>
-                    <li>
-                        <NavLink to="/upload">Upload</NavLink>
+                    <li className="upload-button">
+                        <NavLink to="/upload">
+                            <i className="fa fa-cloud-upload"></i> Upload
+                        </NavLink>
                     </li>
-
                     <li>
                         <ProfileButton />
                     </li>

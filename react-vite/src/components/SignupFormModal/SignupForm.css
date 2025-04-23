@@ -97,12 +97,41 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   font-size: 16px;
 }
 
 .signup-submit-button:hover {
   background-color: #0073ec;
+}
+
+.signup-submit-button.disabled,
+.signup-submit-button:disabled {
+  background-color: #cccccc;
+  color: #888888;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
+}
+
+.signup-submit-button.disabled:hover,
+.signup-submit-button:disabled:hover {
+  background-color: #cccccc;
+  box-shadow: none;
+}
+
+.validation-message {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: rgba(255, 0, 132, 0.08);
+  border-radius: 4px;
+  font-size: 13px;
+  color: #ff0084;
+}
+
+.validation-message p {
+  margin: 4px 0;
 }
 
 .signup-form-footer {

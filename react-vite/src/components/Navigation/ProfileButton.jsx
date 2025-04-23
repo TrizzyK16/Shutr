@@ -13,6 +13,8 @@ function ProfileButton() {
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
+  const greetingRef = useRef();
+  
   const toggleMenu = (e) => {
     e.stopPropagation();
     setShowMenu(!showMenu);
@@ -22,7 +24,9 @@ function ProfileButton() {
     if (!showMenu) return;
 
     const closeMenu = (e) => {
-      if (ulRef.current && !ulRef.current.contains(e.target)) {
+      // Check if the click is outside the dropdown and not on the greeting section
+      if (ulRef.current && !ulRef.current.contains(e.target) && 
+          (!greetingRef.current || !greetingRef.current.contains(e.target))) {
         setShowMenu(false);
       }
     };
@@ -36,11 +40,12 @@ function ProfileButton() {
   const logout = async (e) => {
     e.preventDefault();
     try {
-      const response = dispatch(thunkLogout());
+      const response = await dispatch(thunkLogout());
 
-      if (!response?.errro) {
+      if (!response?.error) {
         closeMenu();
         navigate("/");
+        window.location.reload(); // Force a reload to ensure state is fresh
       } else {
         console.error("Logout error:", response.error);
       }
@@ -61,6 +66,10 @@ function ProfileButton() {
         <div className="profile-dropdown" ref={ulRef}>
           {user ? (
             <div className="dropdown-grid">
+              <div className="greeting-header" ref={greetingRef} onClick={(e) => e.stopPropagation()}>
+                <p>Hello, {user.username || 'User'}!</p>
+                <p className="user-email">{user.email}</p>
+              </div>
               <a href="/you" className="dropdown-item">
                 <FaUser className="dropdown-icon" />
                 <span>Your Page</span>
