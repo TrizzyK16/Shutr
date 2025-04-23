@@ -121,6 +121,54 @@
   max-width: 1200px;
 }
 
+/* Styles for the favorite photos grid */
+.favorite-photos .photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  width: 100%;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.favorite-photos .photo-card {
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.favorite-photos .photo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.favorite-photos .photo-image {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.favorite-photos .photo-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+  display: block;
+}
+
+.favorite-photos .photo-card:hover .photo-image img {
+  transform: scale(1.05);
+}
+
 .photo-modal {
   padding: 1.5rem;
   max-width: 500px;
